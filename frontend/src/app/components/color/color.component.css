@@ -1,0 +1,71 @@
+.menu-item-container {
+    padding: 30px;
+}
+
+.menu-item {
+    text-align: center;
+    vertical-align: middle;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    padding: 120px;
+    height: 100%;
+    color: white;
+    font-size: 30px;
+    background-color: #189ad3;
+    border-radius: 20px;
+    box-shadow: 10px 10px 30px 2px gray;
+}
+
+.menu-item:hover {
+    background-color: #1582b1;
+    box-shadow: 10px 10px 30px 10px gray;
+}
+
+.menu-item:active {
+    background-color: #167097;
+    box-shadow: 10px 10px 30px 16px gray;
+}
+
+.centered {
+    text-align: center;
+}
+
+.color-container {
+    color: white;
+    padding:20px;
+}
+
+.updatedColor,.addedColor{
+    margin:40px;
+}
+.color{
+    background-color: #189ad3;
+    padding-right:50px;
+    padding-left:50px;
+    padding-top:20px;
+    padding-bottom:20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.icon{
+    position: absolute;
+    color:black;
+    right:0;
+}
+.color-row{
+    text-align: center;
+}
+
+.save-button-container{
+    padding-right:30px;
+}
+
+.title-container{
+    margin-bottom:50px;
+}
+
+.selected{
+    background-color: rgb(245, 165, 17);
+}

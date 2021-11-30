@@ -1,0 +1,35 @@
+<div class="container edit-form" style="padding-top:200px;padding-bottom: 50px;">
+    <div class="row title-row">
+        <h1 class="title">Vendre un produit</h1>
+    </div>
+    
+    <form>
+    <div class="row centered">
+        <div class="col-md-3"></div>
+        <div class="col-md-6 menu-item-container">
+            <div class="section">
+                <div class="form-group">
+                    <label for="exampleFormControlInput1">Quantité à vendre</label>
+                    <input type="number" class="form-control" id="exampleFormControlInput1" [(ngModel)]="product.quantity" name="name">
+                  </div>
+
+                  <div class="form-group">
+                    <label for="sellingPrice">Prix de vente</label>
+                    <input type="name" class="form-control" id="sellingPrice" [(ngModel)]="product.sellingPrice" name="sellingPrice">
+                  </div>
+                    
+
+                  
+          </div>
+      </div>
+        
+    </div>
+    <div class="row button-row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4 col-md-offset-4 button-bloc"><button
+                class="btn custom-btn-secondary" (click)="reset()">Annuler</button> <button
+                class="btn custom-btn-primary" (click)="save()">Confirmer</button></div>
+    </div>
+  </form>
+
+</div>

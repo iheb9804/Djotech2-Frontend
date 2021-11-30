@@ -1,0 +1,72 @@
+<div class="container edit-form" style="padding-top:200px">
+    <div class="row title-row">
+        <h1 class="title">Ajouter une catégorie</h1>
+    </div>
+    <form name="form" [formGroup]="form">
+        <div class="row">
+            <div class="col-md-12 menu-item-container">
+                <div class="section">
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1">Nom du catégorie</label>
+                        <input type="name" class="form-control" id="exampleFormControlInput1" formControlName="name"
+                            name="name"
+                            [ngClass]="{'is-invalid': (form.get('name').touched && form.get('name').invalid) || valid}" />
+                        <div class="invalid-feedback">
+                            <div>Champ obligatoire</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1">Marques</label>
+                        <input type="name" class="form-control" id="exampleFormControlInput1" formControlName="brand"
+                            name="brand">
+                        <button class="btn custom-btn-primary addBrand" (click)="addBrand()">Ajouter</button>
+                    </div>
+
+
+                    <div class="table-wrapper-scroll-y my-custom-scrollbar">
+
+                        <table class="table table-bordered table-striped mb-0">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Marque</th>
+                                    <th scope="col">Supprimer</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let element of brands">
+
+                                    <td>{{element}}</td>
+                                    <td>
+                                        <fa-icon class="icon" [icon]="faTrash" (click)="removeBrand(element)"></fa-icon>
+                                    </td>
+                                </tr>
+                                <tr>
+
+                                    <td colspan="2" *ngIf="brands.length==0">
+                                        <h3>Aucune marque n'est saisie</h3>
+                                    </td>
+
+                                </tr>
+
+                            </tbody>
+                        </table>
+
+                    </div>
+
+
+                </div>
+            </div>
+
+
+        </div>
+        <div class="row button-row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4 col-md-offset-4 button-bloc"><button
+                    class="btn custom-btn-secondary">Réinitialiser</button> <button class="btn custom-btn-primary"
+                    (click)="save()">Confirmer</button></div>
+        </div>
+    </form>
+
+</div>

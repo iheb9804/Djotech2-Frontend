@@ -1,0 +1,156 @@
+<div class="container-fluid" style="padding-top:100px">
+  <div class="row title-row">
+    <div class="col-md-12">
+      <h1 class="title">Gérer les produits</h1>
+    </div>
+  </div>
+  <div class="row filters">
+    <div class="col-md-12">
+      <div class="btn-container">
+        <button class="btn custom-btn-primary add-btn" [routerLink]="['/manageProducts/addProduct']"
+          routerLinkActive="router-link-active">
+          <fa-icon class="icon" [icon]="faPlus"></fa-icon>
+        </button>
+        <button class="btn custom-btn-secondary show-filter-btn" (click)="showFilters=!showFilters">
+          <fa-icon class="icon" [icon]="faFilter"></fa-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="filters" *ngIf="showFilters">
+    <div class="row filter-row">
+      <div class="col-md-2">
+        <label for="color">Couleur</label>
+        <ng-select [(ngModel)]="color" name="color">
+          <ng-option *ngFor="let element of colors" [value]="element">{{element.name}}</ng-option>
+        </ng-select>
+
+      </div>
+      <div class="col-md-2">
+        <label for="category">Catégorie</label>
+        <ng-select [(ngModel)]="category" name="category">
+          <ng-option *ngFor="let element of categories" [value]="element">{{element.name}}</ng-option>
+        </ng-select>
+
+      </div>
+      <div class="col-md-2">
+        <label for="brand">Marque</label>
+        <ng-select [(ngModel)]="brand" name="brand">
+          <ng-option *ngFor="let element of category?.brands" [value]="element">{{element}}</ng-option>
+        </ng-select>
+
+      </div>
+      <div class="col-md-2">
+        <label for="state">Etat</label>
+        <ng-select [(ngModel)]="state" name="state">
+          <ng-option *ngFor="let element of states" [value]="element">{{element}}</ng-option>
+        </ng-select>
+      </div>
+      <div class="col-md-2"></div>
+
+
+
+
+      <div class="col-md-2">
+        <form (submit)="search()">
+          <div class="form-outline searchable">
+            <input type="search" id="form1" class="form-control search-input" placeholder="Rechercher"
+              [(ngModel)]="searchable" [ngModelOptions]="{standalone: true}" />
+          </div>
+          <button type="submit" class="btn custom-btn-primary search-input-btn">
+            <fa-icon class="icon" [icon]="faSearch"></fa-icon>
+          </button>
+        </form>
+      </div>
+    </div>
+    <div class="row filter-row">
+      <div class="col-md-2">
+        <label for="provider">Fournisseur</label>
+        <ng-select [(ngModel)]="provider" name="provider">
+          <ng-option *ngFor="let element of providers" [value]="element">{{element.name}}</ng-option>
+        </ng-select>
+      </div>
+      <div class="col-md-2">
+        <div class="form-group">
+          <label>Prix</label>
+          <input type="number" class="form-control amount-input" [(ngModel)]="minPrice" name="minPrice"
+            placeholder="De">
+          <input type="number" class="form-control amount-input" [(ngModel)]="maxPrice" name="maxPrice"
+            placeholder="Jusqu'à">
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="form-group">
+          <label>Quantité</label>
+          <input type="number" class="form-control amount-input" [(ngModel)]="minQuantity" name="minQuantity"
+            placeholder="De">
+          <input type="number" class="form-control amount-input" [(ngModel)]="maxQuantity" name="maxQuantity"
+            placeholder="Jusqu'à">
+        </div>
+      </div>
+      <div class="col-md-2 search-btn-container">
+        <button class="btn custom-btn-secondary reset-btn" (click)="reset()">Réinitialiser</button>
+        <button class="btn custom-btn-primary search-btn" (click)="searchWithFilters()">Filtrer</button>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+
+    <div class="col-md-12" *ngIf="filtredProducts?.length==0">
+      <h1 class="message">Aucun produit trouvé</h1>
+    </div>
+
+    <div class="col-md-3 product-container" *ngFor="let product of filtredProducts">
+      <div class="product-details">
+        <div class="product-title">
+          <div class="product-name">
+            <span>{{product?.name}}</span>
+          </div>
+          <div class="delete-icon">
+            <fa-icon [icon]="faTimes" (click)="deleteProduct(product)"></fa-icon>
+          </div>
+        </div>
+        <div class="product-content">
+          <div class="image-container">
+            <img class="product-image" src="{{IMAGE_BASE_PATH+product.image[0]}}" alt="Image Not Found"
+              (click)="openModal(product.image,product.name)" />
+          </div>
+          <div class="product-description">
+            <span class="subtitle">
+              Description :
+            </span>
+            {{product?.description}}
+          </div>
+        </div>
+        <div class="product-footer">
+          <div class="amounts-container">
+            <div class="quantity"><span class="amount-subtitle">Catégorie :</span><span
+                class="amount-value">{{product.category}}</span></div>
+            <div class="quantity"><span class="amount-subtitle">Marque :</span><span
+                class="amount-value">{{product.brand}}</span></div>
+            <div class="quantity"><span class="amount-subtitle">Couleur :</span><span
+                class="amount-value">{{product.color}}</span></div>
+            <div class="quantity"><span class="amount-subtitle">Quantité :</span><span
+                class="amount-value">{{product.quantity}}</span></div>
+            <div class="product-price"><span class="amount-subtitle">Prix :</span><span
+                class="amount-value">{{product?.price}} DT</span></div>
+            <div class="product-sell-price"><span class="amount-subtitle">Prix de vente :</span><span
+                class="amount-value">{{product.sellingPrice}} DT</span>
+            </div>
+
+          </div>
+          <div class="buttons-container">
+            <button class="btn custom-btn-primary product-button"
+              [routerLink]="['/manageProducts/updateProduct/'+product._id]"
+              routerLinkActive="router-link-active">Modifier</button>
+            <button class="btn custom-btn-secondary product-button"
+              [routerLink]="['/manageProducts/sellProduct/'+product._id]"
+              routerLinkActive="router-link-active">Vendre</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+</div>

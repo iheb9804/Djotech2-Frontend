@@ -1,0 +1,216 @@
+.menu-item-container {
+    padding: 30px;
+}
+
+.menu-item {
+    text-align: center;
+    vertical-align: middle;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    padding: 120px;
+    height: 100%;
+    color: white;
+    font-size: 30px;
+    background-color: #189ad3;
+    border-radius: 20px;
+    box-shadow: 10px 10px 30px 2px gray;
+}
+
+.menu-item:hover {
+    background-color: #1582b1;
+    box-shadow: 10px 10px 30px 10px gray;
+}
+
+.menu-item:active {
+    background-color: #167097;
+    box-shadow: 10px 10px 30px 16px gray;
+}
+
+.product-container {
+    padding: 30px;
+    padding-bottom: 50px;
+}
+
+.product-details {
+    vertical-align: middle;
+    height: 100%;
+    padding: 20px;
+    padding-bottom: 40px;
+    border-radius: 20px;
+    box-shadow: 10px 10px 30px 2px gray;
+}
+
+.product-details:hover {
+    background-color: rgba(185, 185, 185, 0.103);
+}
+
+.product-title{
+width: 100%;
+}
+
+.delete-icon{
+    display:inline;
+    float: right;
+    font-size: 30px;
+}
+
+.product-name {
+    font-size: 30px;
+    text-align: left;
+    display: inline;
+    overflow-wrap: normal;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    min-width: 80%;
+
+}
+
+.product-content {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    display: block;
+    border-top: dimgrey solid 1px;
+}
+
+.product-description {
+    font-size: 12px;
+    margin-top: 5px;
+    padding-bottom: 50px;
+    min-height: 200px;
+    border-bottom: dimgrey solid 1px;
+    border-top: dimgrey solid 1px;
+    overflow-wrap: normal;
+}
+
+.product-footer {
+    bottom: 0;
+    font-size: 10px;
+    display: block;
+    padding-bottom: 10px;
+}
+
+.image-container {
+    text-align: center;
+    min-height: 400px;
+    max-height: 400px;
+}
+
+.product-image {
+    text-align: center;
+    width: 100%;
+    max-height: 400px;
+    box-sizing: border-box;
+}
+
+.subtitle {
+    font-size: 18px;
+    color: dimgrey;
+    display: block;
+}
+
+.product-quantity {
+    overflow-wrap: normal;
+}
+
+.product-price {
+    overflow-wrap: normal;
+}
+
+.product-sell-price {
+    overflow-wrap: normal;
+}
+
+.amount-subtitle {
+    font-size: 15px;
+    color: dimgrey;
+}
+
+.amount-value {
+    font-size: 15px;
+    padding-left: 15px;
+    color: rgb(37, 37, 37);
+}
+
+.amounts-container {
+    float: left;
+}
+
+.buttons-container {
+    float: right;
+    padding: 10px;
+    padding-right: 0;
+}
+
+.product-button {
+    margin-bottom: 10px;
+    margin-right: 0;
+    display: block;
+    width: 90%;
+}
+
+.title {
+    text-align: center;
+}
+
+.title-row {
+    padding: 30px;
+    padding-top: 0;
+}
+
+.filter-row {
+    padding: 30px;
+}
+
+.searchable {
+    position: absolute;
+    bottom: 0;
+}
+
+.search-input {
+    float: left;
+}
+
+.search-input-btn {
+    position: absolute;
+    height: 60%;
+    right: 0;
+    bottom: 0;
+    float: right;
+}
+
+.amount-input {
+    margin-bottom: 5px;
+}
+
+.search-btn-container {
+    /*display: grid;*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.search-btn, .reset-btn {
+    margin: auto;
+    width: 40%;
+}
+
+.message {
+    text-align: center;
+    padding: 200px;
+    color: gray;
+}
+
+.btn-container {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    margin-right: 40px;
+}
+
+.add-btn, .show-filter-btn {
+    width: 100px;
+    font-size: 20px;
+}
