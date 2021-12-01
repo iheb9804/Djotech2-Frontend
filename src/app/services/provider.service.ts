@@ -1,13 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { GlobalVariable } from '../shared/global';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProviderService {
-
-  baseUrl: string = 'http://localhost:3000/providers/';
+  BASE_PATH = GlobalVariable.BASE_PATH;
+  baseUrl: string = this.BASE_PATH+'/providers/';
 
   constructor(private http: HttpClient) { }
 

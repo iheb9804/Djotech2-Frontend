@@ -3,6 +3,7 @@ import { Injectable, Injector } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { AuthGuardService } from './auth-guard.service';
+import { GlobalVariable } from '../shared/global';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class AuthService {
   authToken:any;
   user:any;
   authGuard:AuthGuardService;
-
+  BASE_PATH = GlobalVariable.BASE_PATH;
   constructor(private http:HttpClient, injector:Injector,private router : Router ) {
 
    }
@@ -24,16 +25,16 @@ export class AuthService {
    }
 
    registerUser(user:any) : Observable<any>{
-    return this.http.post<any>('http://localhost:3000/users/register',user);
+    return this.http.post<any>(this.BASE_PATH+'/users/register',user);
   }
 
   login(cordonnes:any) : Observable<any>{
-    return this.http.post<any>('http://localhost:3000/users/authenticate',cordonnes);
+    return this.http.post<any>(this.BASE_PATH+'/users/authenticate',cordonnes);
   }
 
   getProfile() : Observable<any>{
 
-    return this.http.get<any>('http://localhost:3000/users/profile');
+    return this.http.get<any>(this.BASE_PATH+'/users/profile');
   }
 
   getRole(){

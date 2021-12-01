@@ -1,13 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { GlobalVariable } from '../shared/global';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CategoryService {
-
-  baseUrl: string = 'http://localhost:3000/categories/';
+  BASE_PATH = GlobalVariable.BASE_PATH;
+  baseUrl: string = this.BASE_PATH+'/categories/';
 
   constructor(private http: HttpClient) { }
 

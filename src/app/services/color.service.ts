@@ -1,13 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { GlobalVariable } from '../shared/global';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ColorService {
-
-  baseUrl: string = 'http://localhost:3000/colors/';
+  BASE_PATH = GlobalVariable.BASE_PATH;
+  baseUrl: string = this.BASE_PATH+'/colors/';
 
   constructor(private http: HttpClient) { }
 
