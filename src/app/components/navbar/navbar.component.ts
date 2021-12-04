@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { faChevronCircleLeft } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from 'src/app/services/auth.service';
 import { ListenerService } from 'src/app/services/listener.service';
 
@@ -10,6 +11,7 @@ import { ListenerService } from 'src/app/services/listener.service';
 })
 export class NavbarComponent implements OnInit {
   user;
+  faChevronCircleLeft=faChevronCircleLeft;
   constructor(private authService:AuthService,private router:Router, private listener:ListenerService) { }
 
   ngOnInit(): void {
@@ -24,4 +26,24 @@ export class NavbarComponent implements OnInit {
 
   }
 
+  navigateBack(){
+    let navigation = JSON.parse(localStorage.getItem("navigation"));
+    if (navigation != null && navigation != undefined && navigation.length!=0){
+      let destination = navigation[navigation.length-1];
+      navigation.pop();
+      localStorage.setItem("navigation",JSON.stringify(navigation));
+      this.router.navigate([destination]);
+    }
+  }
+
+  navigate(destination){
+    let navigation = JSON.parse(localStorage.getItem("navigation"));
+    if (navigation != null && navigation != undefined ) {
+      navigation.push(this.router.url.toString());
+    }else{
+      navigation = [this.router.url.toString()]
+    }
+    localStorage.setItem("navigation",JSON.stringify(navigation));
+    this.router.navigate(['/'+destination]);
+  }
 }

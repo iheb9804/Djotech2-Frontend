@@ -16,6 +16,13 @@
     border-radius: 20px;
     box-shadow: 10px 10px 30px  2px gray;
 }
+.add-btn{
+    float:right;
+}
+
+.btn-container{
+    padding-right:130px;
+}
 
 .menu-item:hover{
     background-color: #1582b1;
@@ -37,4 +44,13 @@ padding:10px;
 }
 .actions{
     text-align: center;
+}
+
+.title {
+    text-align: center;
+}
+
+.title-row {
+    padding: 30px;
+    padding-top: 0;
 }

@@ -1,17 +1,38 @@
 <div class="container-fluid" style="padding-top:200px">
-    <div class="row">
-      <div class="col-md-4 menu-item-container" (click)="navigate('manageProducts')">
-        <div class="menu-item">Gérer les produits</div>
+  <div class="row">
+    <div class="col-md-4 menu-item-container" (click)="navigate('manageInventory')">
+      <div class="menu-item">
+        <div class="menu-item-icon">
+          <fa-icon class="icon" [icon]="faBoxOpen"></fa-icon>
+        </div>
+        <div class="menu-item-label">
+          Gérer l'inventaire
+        </div>
       </div>
-      <div class="col-md-4 menu-item-container">
-        <div class="menu-item">Consulter les statistiques de vente</div>
-      </div>
-
-      <div class="col-md-4 menu-item-container">
-        <div class="menu-item" (click)="navigate('manageProviders')">Fournisseurs</div>
-      </div>
-
-      
-      
     </div>
+    <div class="col-md-4 menu-item-container">
+      <div class="menu-item">
+        <div class="menu-item-icon">
+          <fa-icon class="icon" [icon]="faChartBar"></fa-icon>
+        </div>
+        <div class="menu-item-label">
+          Consulter les statistiques de vente
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4 menu-item-container">
+      <div class="menu-item" (click)="navigate('manageProviders')">
+        <div class="menu-item-icon">
+          <fa-icon class="icon" [icon]="faShippingfast"></fa-icon>
+        </div>
+        <div class="menu-item-label">
+          Fournisseurs
+        </div>
+      </div>
+    </div>
+
+
+
   </div>
+</div>

@@ -1,0 +1,38 @@
+<div class="container-fluid" style="padding-top:200px">
+    <div class="row">
+      <div class="col-md-4 menu-item-container" (click)="navigate('manageProducts')">
+        <div class="menu-item">
+          <div class="menu-item-icon">
+            <fa-icon class="icon" [icon]="faMobileAlt"></fa-icon>
+          </div>
+          <div class="menu-item-label">
+            Consulter les produits
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 menu-item-container">
+        <div class="menu-item" (click)="navigate('manageCategories')">
+          <div class="menu-item-icon">
+            <fa-icon class="icon" [icon]="faElementor"></fa-icon>
+          </div>
+          <div class="menu-item-label">
+            Gérer les catégories
+          </div>
+        </div>
+      </div>
+  
+      <div class="col-md-4 menu-item-container">
+        <div class="menu-item" (click)="navigate('manageColors')">
+          <div class="menu-item-icon">
+            <fa-icon class="icon" [icon]="faPalette"></fa-icon>
+          </div>
+          <div class="menu-item-label">
+            Gérer les couleurs
+          </div>
+        </div>
+      </div>
+  
+  
+  
+    </div>
+  </div>

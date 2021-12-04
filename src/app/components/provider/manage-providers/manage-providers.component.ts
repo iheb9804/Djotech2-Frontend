@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ProviderService } from 'src/app/services/provider.service';
-import { faTrash,faEdit } from '@fortawesome/free-solid-svg-icons';
+import { faTrash,faEdit, faPlus } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-manage-providers',
@@ -13,6 +13,7 @@ export class ManageProvidersComponent implements OnInit {
   providers;
   faTrash=faTrash;
   faEdit=faEdit;
+  faPlus=faPlus;
   p;
 
   constructor(private router: Router, private providerService: ProviderService) { }
@@ -27,8 +28,15 @@ export class ManageProvidersComponent implements OnInit {
     })
   }
 
-  navigate(destination) {
-    this.router.navigate(['/' + destination]);
+  navigate(destination){
+    let navigation = JSON.parse(localStorage.getItem("navigation"));
+    if (navigation != null && navigation != undefined ) {
+      navigation.push(this.router.url.toString());
+    }else{
+      navigation = [this.router.url.toString()]
+    }
+    localStorage.setItem("navigation",JSON.stringify(navigation));
+    this.router.navigate(['/'+destination]);
   }
 
   removeProvider(element){

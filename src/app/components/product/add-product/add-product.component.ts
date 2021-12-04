@@ -1,11 +1,13 @@
 import { Component, EventEmitter, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FileUploader } from 'ng2-file-upload';
 import { CategoryService } from 'src/app/services/category.service';
 import { ColorService } from 'src/app/services/color.service';
 import { ProductService } from 'src/app/services/product.service';
 import { ProviderService } from 'src/app/services/provider.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-add-product',
@@ -50,7 +52,7 @@ export class AddProductComponent implements OnInit {
 
   })
 
-  constructor(private providerService:ProviderService,private productService:ProductService,private categoryService:CategoryService, private colorService:ColorService) { }
+  constructor(private providerService:ProviderService,private productService:ProductService,private categoryService:CategoryService, private colorService:ColorService,private router:Router) { }
 
   ngOnInit(): void {
     this.uploader = new FileUploader({
@@ -106,13 +108,13 @@ export class AddProductComponent implements OnInit {
       console.log(this.uploader.queue);
     }
     this.uploader.uploadAll();
-    
+    console.log(this.category);
     let product={
       name:this.name,
       brand:this.brand,
       color:this.color,
       provider:this.provider,
-      category:this.category,
+      category:this.category._id,
       price:this.price,
       sellingPrice:this.sellingPrice,
       description:this.description,
@@ -120,8 +122,31 @@ export class AddProductComponent implements OnInit {
       image:filesNames
     };
     this.productService.addProduct(product).subscribe(data=>{
-      console.log(product)
+      Swal.fire({
+        title: 'Produit ajouté',
+        text:'Voulez-vous ajouter un autre produit ?',
+        icon: 'success',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        cancelButtonText: 'Oui',
+        confirmButtonText: 'Non'
+      }).then((result) => {
+        if (result.isConfirmed) {
+                    this.navigate('manageProducts');
+        }
+      })
     })
+  }
+  navigate(destination){
+    let navigation = JSON.parse(localStorage.getItem("navigation"));
+    if (navigation != null && navigation != undefined ) {
+      navigation.push(this.router.url.toString());
+    }else{
+      navigation = [this.router.url.toString()]
+    }
+    localStorage.setItem("navigation",JSON.stringify(navigation));
+    this.router.navigate(['/'+destination]);
   }
   reset(){
     this.form.reset();

@@ -28,6 +28,7 @@ import { UpdateProductComponent } from './components/product/update-product/upda
 import { SellProductComponent } from './components/product/sell-product/sell-product.component';
 import { ViewImagesComponent } from './components/modals/view-images/view-images.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ManageInventoryComponent } from './components/inventory/manage-inventory/manage-inventory.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     UpdateCategoryComponent,
     UpdateProductComponent,
     SellProductComponent,
-    ViewImagesComponent
+    ViewImagesComponent,
+    ManageInventoryComponent
   ],
   imports: [
     BrowserModule,

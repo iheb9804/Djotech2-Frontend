@@ -5,6 +5,7 @@ import { ManageCategoriesComponent } from './components/category/manage-categori
 import { UpdateCategoryComponent } from './components/category/update-category/update-category.component';
 import { ColorComponent } from './components/color/color.component';
 import { HomeComponent } from './components/home/home.component';
+import { ManageInventoryComponent } from './components/inventory/manage-inventory/manage-inventory.component';
 import { LoginComponent } from './components/login/login.component';
 import { AddProductComponent } from './components/product/add-product/add-product.component';
 import { ManageProductsComponent } from './components/product/manage-products/manage-products.component';
@@ -18,6 +19,9 @@ import { AuthGuardService } from './services/auth-guard.service';
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'home', component: HomeComponent, canActivate: [AuthGuardService], data: { expectedRole: ['Owner', 'Admin'] } },
+
+  // Manage Inventory
+  { path: 'manageInventory', component: ManageInventoryComponent, canActivate: [AuthGuardService], data: { expectedRole: ['Owner', 'Admin'] } },
 
 
   //  Manage Products

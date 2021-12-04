@@ -1,14 +1,18 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" [routerLink]="['/home']" routerLinkActive="router-link-active" ><img src="assets/logo.png" class="logo"></a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-  
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <img src="assets/arrowBack.png" class="arrow">
-        </li>
+  <a class="navbar-brand" (click)="navigate('/home')" routerLinkActive="router-link-active"><img src="assets/logo.png"
+      class="logo"></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <fa-icon class="arrow" [icon]="faChevronCircleLeft" (click)="navigateBack()"></fa-icon>
+      </li>
+      <!--
+
         <li class="nav-item">
           <img src="assets/arrowForward.png" class="arrow">
         </li>
@@ -26,10 +30,11 @@
         <li class="nav-item">
           <a class="nav-link disabled" href="#">Disabled</a>
         </li>
-      </ul>
-      <form class="form-inline my-2 my-lg-0">
-          <span><b>{{user?.firstName}}</b></span>
-        <img src="assets/power-icon.png" (click)="logout()" class="power-icon">
-      </form>
-    </div>
-  </nav>
+        -->
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <span><b>{{user?.firstName}}</b></span>
+      <img src="assets/power-icon.png" (click)="logout()" class="power-icon">
+    </form>
+  </div>
+</nav>

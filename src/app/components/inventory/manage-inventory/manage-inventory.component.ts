@@ -1,16 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { faBoxOpen, faChartBar, faShippingFast } from '@fortawesome/free-solid-svg-icons';
+import { faElementor } from '@fortawesome/free-brands-svg-icons';
+import { faBoxOpen, faChartBar, faMobileAlt, faPalette, faShippingFast } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  selector: 'app-manage-inventory',
+  templateUrl: './manage-inventory.component.html',
+  styleUrls: ['./manage-inventory.component.css']
 })
-export class HomeComponent implements OnInit {
-  faBoxOpen= faBoxOpen;
-  faChartBar= faChartBar;
-  faShippingfast= faShippingFast;
+export class ManageInventoryComponent implements OnInit {
+
+  faMobileAlt= faMobileAlt;
+  faElementor= faElementor;
+  faPalette= faPalette;
   constructor(private router:Router) { }
 
   ngOnInit(): void {
@@ -26,5 +28,4 @@ export class HomeComponent implements OnInit {
     localStorage.setItem("navigation",JSON.stringify(navigation));
     this.router.navigate(['/'+destination]);
   }
-
 }

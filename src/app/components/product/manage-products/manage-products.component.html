@@ -7,7 +7,7 @@
   <div class="row filters">
     <div class="col-md-12">
       <div class="btn-container">
-        <button class="btn custom-btn-primary add-btn" [routerLink]="['/manageProducts/addProduct']"
+        <button class="btn custom-btn-primary add-btn" (click)="navigate('/manageProducts/addProduct')"
           routerLinkActive="router-link-active">
           <fa-icon class="icon" [icon]="faPlus"></fa-icon>
         </button>

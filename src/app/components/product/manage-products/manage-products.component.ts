@@ -7,6 +7,7 @@ import { ColorService } from 'src/app/services/color.service';
 import { ProductService } from 'src/app/services/product.service';
 import { ProviderService } from 'src/app/services/provider.service';
 import { GlobalVariable } from 'src/app/shared/global';
+import Swal from 'sweetalert2';
 import { ViewImagesComponent } from '../../modals/view-images/view-images.component';
 
 @Component({
@@ -61,6 +62,13 @@ export class ManageProductsComponent implements OnInit {
   }
 
   navigate(destination) {
+    let navigation = JSON.parse(localStorage.getItem("navigation"));
+    if (navigation != null && navigation != undefined) {
+      navigation.push(this.router.url.toString());
+    } else {
+      navigation = [this.router.url.toString()]
+    }
+    localStorage.setItem("navigation", JSON.stringify(navigation));
     this.router.navigate(['/' + destination]);
   }
 
@@ -192,9 +200,28 @@ export class ManageProductsComponent implements OnInit {
   }
 
   deleteProduct(product) {
-    this.productService.deleteProduct(product._id).subscribe(data => {
-      this.products = this.products.filter(item => item._id != product._id);
-      this.filtredProducts = this.filtredProducts.filter(item => item._id != product._id);
+    Swal.fire({
+      title: 'Supprimer le produit ' + product.name + ' ?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Annuler',
+      confirmButtonText: 'Supprimer'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.productService.deleteProduct(product._id).subscribe(data => {
+          this.products = this.products.filter(item => item._id != product._id);
+          this.filtredProducts = this.filtredProducts.filter(item => item._id != product._id);
+          Swal.fire({
+            icon: 'success',
+            title: 'Produit supprimé',
+            showConfirmButton: false,
+            timer: 1500
+          })
+        })
+
+      }
     })
   }
 
