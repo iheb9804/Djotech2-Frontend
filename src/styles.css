@@ -280,7 +280,7 @@ html {
 
   .custom-btn-primary{
     color: white;
-    background-color: rgb(24,118,189);
+    background-color: rgb(24,118,189); /* #1876BD  */
     margin-right:10px;
     margin-left:10px;
     padding:10px;

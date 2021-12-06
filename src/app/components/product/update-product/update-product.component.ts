@@ -12,6 +12,7 @@ import { GlobalVariable } from 'src/app/shared/global';
 import { finalize, tap } from 'rxjs/operators';
 
 import Swal from 'sweetalert2';
+import { SPINNER } from 'ngx-loading-x';
 
 @Component({
   selector: 'app-update-product',
@@ -24,6 +25,10 @@ export class UpdateProductComponent implements OnInit {
   URL = GlobalVariable.BASE_PATH + '/file-upload';
   IMAGE_BASE_PATH = GlobalVariable.IMAGE_BASE_PATH;
   selectedFile;
+  saveInProgress;
+  spinnerType = SPINNER.xBallSpin;
+
+
   faTimes = faTimes
   faTrash = faTrash
 
@@ -75,6 +80,7 @@ export class UpdateProductComponent implements OnInit {
     private afStorage: AngularFireStorage) { }
 
   ngOnInit(): void {
+    this.saveInProgress = false;
     this.id = this.route.snapshot.paramMap.get('id');
     this.getData();
     this.uploader = new FileUploader({
@@ -124,6 +130,7 @@ export class UpdateProductComponent implements OnInit {
     let filesNames = [];
     let uploadedImages = 0;
     let numberOfFiles = this.uploader.queue.length;
+    this.saveInProgress = true;
 
     for (let element of this.uploader.queue) {
 
@@ -143,7 +150,7 @@ export class UpdateProductComponent implements OnInit {
           if (uploadedImages == numberOfFiles) {
 
             let product = {
-              _id:this.product._id,
+              _id: this.product._id,
               name: this.product.name,
               description: this.product.description,
               price: this.product.price,
@@ -163,10 +170,9 @@ export class UpdateProductComponent implements OnInit {
         })
       ).subscribe();
     }
-    console.log("test",numberOfFiles)
     if (numberOfFiles == 0) {
       let product = {
-        _id:this.product._id,
+        _id: this.product._id,
         name: this.product.name,
         description: this.product.description,
         price: this.product.price,
@@ -187,6 +193,7 @@ export class UpdateProductComponent implements OnInit {
   updateProduct(product) {
     console.log("updated")
     this.productService.updateProduct(product).subscribe(data => {
+      this.saveInProgress = false;
       Swal.fire({
         title: 'Produit modifié',
         icon: 'success',

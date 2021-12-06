@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { faEdit, faFilter, faPlus, faSearch, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faEdit, faFilter, faImage, faPlus, faSearch, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CategoryService } from 'src/app/services/category.service';
 import { ColorService } from 'src/app/services/color.service';
@@ -28,6 +28,7 @@ export class ManageProductsComponent implements OnInit {
   faEdit = faEdit;
   faPlus = faPlus;
   faTimes = faTimes;
+  faImage=faImage;
 
 
 

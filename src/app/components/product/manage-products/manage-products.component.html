@@ -1,10 +1,10 @@
-<div class="container-fluid" style="padding-top:100px">
+<div class="container-fluid" style="padding-top:20px">
   <div class="row title-row">
     <div class="col-md-12">
       <h1 class="title">Gérer les produits</h1>
     </div>
   </div>
-  <div class="row filters">
+  <div class="row filters" style="padding-top: 100px;">
     <div class="col-md-12">
       <div class="btn-container">
         <button class="btn custom-btn-primary add-btn" (click)="navigate('/manageProducts/addProduct')"
@@ -117,8 +117,11 @@
         </div>
         <div class="product-content">
           <div class="image-container">
-            <img class="product-image" src="{{product.image[0]}}" alt="Image Not Found"
+
+            <fa-icon [icon]="faImage" class="image-icon" *ngIf="product.image.length==0"></fa-icon>
+            <img class="product-image" src="{{product.image[0]}}" alt="Image Not Found" *ngIf="product.image.length>0"
               (click)="openModal(product.image,product.name)" />
+
           </div>
           <div class="product-description">
             <span class="subtitle">

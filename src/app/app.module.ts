@@ -32,6 +32,7 @@ import { LoadProductComponent } from './components/product/load-product/load-pro
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgxLoadingXModule } from 'ngx-loading-x';
 @NgModule({
   declarations: [
     AppComponent,
@@ -75,7 +76,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
       messagingSenderId: "604558925056",
       appId: "1:604558925056:web:1434d42c25e8e54a1867e5"
     }),
-    AngularFireStorageModule
+    AngularFireStorageModule,
+    NgxLoadingXModule
   ],
   providers: [],
   bootstrap: [AppComponent]

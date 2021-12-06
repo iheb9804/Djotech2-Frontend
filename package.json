@@ -37,6 +37,7 @@
     "ng-bootstrap": "^1.6.3",
     "ng-select": "^1.0.2",
     "ng2-file-upload": "^1.4.0",
+    "ngx-loading-x": "^1.0.3",
     "ngx-pagination": "^5.1.1",
     "rxjs": "~6.6.0",
     "sweetalert2": "^11.2.2",
