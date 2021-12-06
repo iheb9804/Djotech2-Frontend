@@ -1,20 +1,17 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { FileUploader } from 'ng2-file-upload';
 import { ListenerService } from 'src/app/services/listener.service';
 import { ProductService } from 'src/app/services/product.service';
-import { ProviderService } from 'src/app/services/provider.service';
-import { StatService } from 'src/app/services/stat.service';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-sell-product',
-  templateUrl: './sell-product.component.html',
-  styleUrls: ['./sell-product.component.css']
+  selector: 'app-load-product',
+  templateUrl: './load-product.component.html',
+  styleUrls: ['./load-product.component.css']
 })
-export class SellProductComponent implements OnInit {
+export class LoadProductComponent implements OnInit {
   @Input() name;
   @Input() id;
   price;
@@ -40,13 +37,13 @@ export class SellProductComponent implements OnInit {
     this.getProduct();
   }
 
-  sell() {
+  load() {
     const body = {
       _id: this.product._id,
       price: this.price,
       quantity: this.quantity
     };
-    this.productService.sellProduct(body).subscribe(
+    this.productService.loadProduct(body).subscribe(
       data => {
         if (data.success) {
           Swal.fire({
@@ -87,8 +84,7 @@ export class SellProductComponent implements OnInit {
   getProduct() {
     this.productService.getProduct(this.id).subscribe(data => {
       this.product = data;
-      this.price = this.product.sellingPrice;
+      this.price = this.product.price;
     })
   }
-
 }

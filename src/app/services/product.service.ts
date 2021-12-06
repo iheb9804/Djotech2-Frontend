@@ -34,4 +34,12 @@ export class ProductService {
   deleteProduct(id):Observable<any>{
     return this.http.delete<any>(this.baseUrl+"/"+id);
   }
+
+  sellProduct(body): Observable<any> {
+    return this.http.post<any>(this.baseUrl+"sellProduct",body);
+  }
+  
+  loadProduct(body): Observable<any> {
+    return this.http.post<any>(this.baseUrl+"loadProduct",body);
+  }
 }

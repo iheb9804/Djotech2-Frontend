@@ -6,5 +6,6 @@ import { Subject } from 'rxjs';
 })
 export class ListenerService {
   public connected = new Subject();
+  public reloadProducts = new Subject();
   constructor() { }
 }

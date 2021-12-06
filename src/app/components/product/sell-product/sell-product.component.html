@@ -1,35 +1,34 @@
-<div class="container edit-form" style="padding-top:200px;padding-bottom: 50px;">
-    <div class="row title-row">
-        <h1 class="title">Vendre un produit</h1>
-    </div>
-    
+<div class="modal-header">
+  <h4 class="modal-title">{{name}}</h4>
+  <button type="button" class="close" aria-label="Fermer" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <div class="container-fluid">
     <form>
-    <div class="row centered">
-        <div class="col-md-3"></div>
-        <div class="col-md-6 menu-item-container">
-            <div class="section">
-                <div class="form-group">
-                    <label for="exampleFormControlInput1">Quantité à vendre</label>
-                    <input type="number" class="form-control" id="exampleFormControlInput1" [(ngModel)]="product.quantity" name="name">
-                  </div>
+      <div class="row centered">
+        <div class="col-md-12 menu-item-container">
+          <div class="section">
+            <div class="form-group">
+              <label for="exampleFormControlInput1">Quantité à vendre</label>
+              <input type="number" class="form-control" id="exampleFormControlInput1" [(ngModel)]="quantity"
+                name="name">
+            </div>
 
-                  <div class="form-group">
-                    <label for="sellingPrice">Prix de vente</label>
-                    <input type="name" class="form-control" id="sellingPrice" [(ngModel)]="product.sellingPrice" name="sellingPrice">
-                  </div>
-                    
-
-                  
+            <div class="form-group">
+              <label for="price">Prix de vente</label>
+              <input type="name" class="form-control" id="price" [(ngModel)]="price" name="price">
+            </div>
           </div>
+        </div>
       </div>
-        
-    </div>
-    <div class="row button-row">
-        <div class="col-md-4"></div>
-        <div class="col-md-4 col-md-offset-4 button-bloc"><button
-                class="btn custom-btn-secondary" (click)="reset()">Annuler</button> <button
-                class="btn custom-btn-primary" (click)="save()">Confirmer</button></div>
-    </div>
-  </form>
-
+      <div class="row button-row">
+        <div class="col-md-12 col-md-offset-4 button-bloc"><button class="btn custom-btn-secondary"
+            (click)="activeModal.close('Close click')">Annuler</button> <button class="btn custom-btn-primary"
+            (click)="sell()">Confirmer</button>
+        </div>
+      </div>
+    </form>
+  </div>
 </div>

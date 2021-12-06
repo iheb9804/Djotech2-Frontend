@@ -23,7 +23,7 @@ export class AddCategoryComponent implements OnInit {
 
   ngOnInit(): void {
     this.valid=false;
-    this.brands=["Samsung","Apple"]
+    this.brands=[]
   }
   exist(brand){
     return this.brands.filter(item=>item?.toUpperCase()==brand?.toUpperCase()).length>0;

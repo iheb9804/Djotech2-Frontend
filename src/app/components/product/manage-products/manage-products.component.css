@@ -46,25 +46,30 @@
     background-color: rgba(185, 185, 185, 0.103);
 }
 
-.product-title{
-width: 100%;
+.product-title {
+    width: 100%;
 }
 
-.delete-icon{
-    display:inline;
+
+
+.edit-icon {
+    margin-right: 5px;
+}
+
+.icons {
+    display: inline;
     float: right;
-    font-size: 30px;
+    font-size: 25px;
 }
 
 .product-name {
     font-size: 30px;
     text-align: left;
-    display: inline;
-    overflow-wrap: normal;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    display:inline-block;
     overflow: hidden;
-    min-width: 80%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 80%;
 
 }
 

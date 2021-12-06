@@ -9,8 +9,9 @@
   
       <!-- Login Form -->
       <form>
-        <input type="text" id="login" class="fadeIn second" [(ngModel)]="login" name="login" placeholder="Login">
-        <input type="text" id="password" class="fadeIn third" [(ngModel)]="password" name="password" placeholder="Mot de passe">
+        <span *ngIf="incorrect" class="error">{{errorMessage}}</span>
+        <input type="text" id="login" class="fadeIn second" [(ngModel)]="login" name="login" placeholder="Login" required>
+        <input type="password" id="password" class="fadeIn third" [(ngModel)]="password" name="password" placeholder="Mot de passe" required>
         <input type="submit" class="fadeIn fourth" value="Connexion" (click)="onSubmit()">
       </form>
   

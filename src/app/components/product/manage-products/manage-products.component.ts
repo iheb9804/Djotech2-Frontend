@@ -1,14 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { faFilter, faPlus, faSearch, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faEdit, faFilter, faPlus, faSearch, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CategoryService } from 'src/app/services/category.service';
 import { ColorService } from 'src/app/services/color.service';
+import { ListenerService } from 'src/app/services/listener.service';
 import { ProductService } from 'src/app/services/product.service';
 import { ProviderService } from 'src/app/services/provider.service';
 import { GlobalVariable } from 'src/app/shared/global';
 import Swal from 'sweetalert2';
 import { ViewImagesComponent } from '../../modals/view-images/view-images.component';
+import { LoadProductComponent } from '../load-product/load-product.component';
+import { SellProductComponent } from '../sell-product/sell-product.component';
 
 @Component({
   selector: 'app-manage-products',
@@ -16,10 +19,13 @@ import { ViewImagesComponent } from '../../modals/view-images/view-images.compon
   styleUrls: ['./manage-products.component.css']
 })
 export class ManageProductsComponent implements OnInit {
+  
+  loading;
 
   IMAGE_BASE_PATH = GlobalVariable.IMAGE_BASE_PATH;
   faSearch = faSearch;
   faFilter = faFilter;
+  faEdit = faEdit;
   faPlus = faPlus;
   faTimes = faTimes;
 
@@ -53,11 +59,16 @@ export class ManageProductsComponent implements OnInit {
     private categoryService: CategoryService,
     private colorService: ColorService,
     private providerService: ProviderService,
-    private modalService: NgbModal) { }
+    private modalService: NgbModal,
+    private listener: ListenerService) { }
 
   ngOnInit(): void {
+    this.loading=true;
     this.getDetails();
-
+    this.listener.reloadProducts.subscribe(
+      () =>
+        this.getProducts()
+    )
     this.states = ["Neuf", "Occasion"]
   }
 
@@ -75,7 +86,7 @@ export class ManageProductsComponent implements OnInit {
   getProducts() {
     this.productService.getProducts().subscribe((data: any) => {
       this.products = data;
-
+      this.loading=false;
       this.products.forEach(element => {
         element.category = this.toCategory(element.category);
         element.color = this.toColor(element.color);
@@ -196,6 +207,18 @@ export class ManageProductsComponent implements OnInit {
   openModal(images, name) {
     const modalRef = this.modalService.open(ViewImagesComponent);
     modalRef.componentInstance.images = images;
+    modalRef.componentInstance.name = name;
+  }
+
+  sellingModal(id, name) {
+    const modalRef = this.modalService.open(SellProductComponent);
+    modalRef.componentInstance.id = id;
+    modalRef.componentInstance.name = name;
+  }
+
+  loadingModal(id, name) {
+    const modalRef = this.modalService.open(LoadProductComponent);
+    modalRef.componentInstance.id = id;
     modalRef.componentInstance.name = name;
   }
 

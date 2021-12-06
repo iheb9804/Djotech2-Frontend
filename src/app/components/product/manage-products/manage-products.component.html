@@ -94,19 +94,24 @@
       </div>
     </div>
   </div>
-  <div class="row">
+  <div class="row centered">
 
     <div class="col-md-12" *ngIf="filtredProducts?.length==0">
       <h1 class="message">Aucun produit trouvé</h1>
+    </div>
+    <div class="col-md-12" *ngIf="loading" style="text-align: center;padding-top: 100px;">
+      <img src="assets/loading.gif">
     </div>
 
     <div class="col-md-3 product-container" *ngFor="let product of filtredProducts">
       <div class="product-details">
         <div class="product-title">
           <div class="product-name">
-            <span>{{product?.name}}</span>
+            {{product?.name}}
           </div>
-          <div class="delete-icon">
+          <div class="icons">
+            <fa-icon [icon]="faEdit" class="edit-icon" (click)="navigate('/manageProducts/updateProduct/'+product._id)">
+            </fa-icon>
             <fa-icon [icon]="faTimes" (click)="deleteProduct(product)"></fa-icon>
           </div>
         </div>
@@ -140,11 +145,9 @@
 
           </div>
           <div class="buttons-container">
-            <button class="btn custom-btn-primary product-button"
-              [routerLink]="['/manageProducts/updateProduct/'+product._id]"
-              routerLinkActive="router-link-active">Modifier</button>
-            <button class="btn custom-btn-secondary product-button"
-              [routerLink]="['/manageProducts/sellProduct/'+product._id]"
+            <button class="btn custom-btn-primary product-button" (click)="loadingModal(product._id,product.name)"
+              routerLinkActive="router-link-active">Charger</button>
+            <button class="btn custom-btn-secondary product-button" (click)="sellingModal(product._id,product.name)"
               routerLinkActive="router-link-active">Vendre</button>
           </div>
         </div>

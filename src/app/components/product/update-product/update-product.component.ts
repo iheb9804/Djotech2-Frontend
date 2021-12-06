@@ -17,7 +17,7 @@ import { GlobalVariable } from 'src/app/shared/global';
 export class UpdateProductComponent implements OnInit {
 
   public uploader: FileUploader;
-  URL = 'http://localhost:3000/file-upload';
+  URL = GlobalVariable.BASE_PATH+'/file-upload';
   IMAGE_BASE_PATH=GlobalVariable.IMAGE_BASE_PATH;
   selectedFile;
   faTimes=faTimes

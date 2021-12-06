@@ -29,6 +29,7 @@ import { SellProductComponent } from './components/product/sell-product/sell-pro
 import { ViewImagesComponent } from './components/modals/view-images/view-images.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ManageInventoryComponent } from './components/inventory/manage-inventory/manage-inventory.component';
+import { LoadProductComponent } from './components/product/load-product/load-product.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { ManageInventoryComponent } from './components/inventory/manage-inventor
     UpdateProductComponent,
     SellProductComponent,
     ViewImagesComponent,
-    ManageInventoryComponent
+    ManageInventoryComponent,
+    LoadProductComponent
   ],
   imports: [
     BrowserModule,

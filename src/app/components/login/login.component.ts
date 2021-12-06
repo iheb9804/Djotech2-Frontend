@@ -14,28 +14,35 @@ export class LoginComponent implements OnInit {
 
   submitted;
   incorrect;
+  errorMessage;
 
   constructor(private auth: AuthService, private router: Router, private listener: ListenerService) { }
 
   ngOnInit(): void {
+    this.login = "";
+    this.password = "";
+    this.incorrect = false;
   }
-  
+
   onSubmit() {
-    this.submitted=true;
-    const cordonnes = {
-      login: this.login,
-      password: this.password
-    };
-    this.auth.login(cordonnes).subscribe(data => {
-      if (data.success) {
-        this.auth.enregistrerToken(data.token, data.user);
-        this.listener.connected.next();
-        this.router.navigate(['/home']);
-      } else {
-        this.incorrect=true;
-        console.log(data);// creer un message d'erreur 'mot de passe incorrect'
-      }
-    });
-  
+    this.submitted = true;
+    console.log(this.login)
+    if (this.login != "" && this.password != "") {
+      const cordonnes = {
+        login: this.login,
+        password: this.password
+      };
+      this.auth.login(cordonnes).subscribe(data => {
+        if (data.success) {
+          this.auth.enregistrerToken(data.token, data.user);
+          this.listener.connected.next();
+          this.router.navigate(['/home']);
+        } else {
+          this.incorrect = true;
+          this.errorMessage = data.error;
+          console.log(data);// creer un message d'erreur 'mot de passe incorrect'
+        }
+      });
+    }
   }
 }

@@ -34,7 +34,7 @@
     </ul>
     <form class="form-inline my-2 my-lg-0">
       <span><b>{{user?.firstName}}</b></span>
-      <img src="assets/power-icon.png" (click)="logout()" class="power-icon">
+      <fa-icon  [icon]="faPowerOff" (click)="logout()" class="power-icon"></fa-icon>
     </form>
   </div>
 </nav>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ProviderService } from 'src/app/services/provider.service';
 import { faTrash,faEdit, faPlus } from '@fortawesome/free-solid-svg-icons';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-manage-providers',
@@ -40,11 +41,28 @@ export class ManageProvidersComponent implements OnInit {
   }
 
   removeProvider(element){
-    console.log(element)
-    this.providerService.deleteProvider(element._id).subscribe(data=>{
-      console.log(data);
-      this.getProviders();
+    Swal.fire({
+      title: 'Supprimer le fournisseur ' + element.name + ' ?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Annuler',
+      confirmButtonText: 'Supprimer'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.providerService.deleteProvider(element._id).subscribe(data=>{
+          Swal.fire({
+            icon: 'success',
+            title: 'Fournisseur supprimé',
+            showConfirmButton: false,
+            timer: 1500
+          })
+          this.getProviders();
+        })
+      }
     })
+    
   }
 
   updateProvider(element){

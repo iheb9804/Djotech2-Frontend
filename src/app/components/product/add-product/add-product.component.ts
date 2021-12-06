@@ -7,6 +7,7 @@ import { CategoryService } from 'src/app/services/category.service';
 import { ColorService } from 'src/app/services/color.service';
 import { ProductService } from 'src/app/services/product.service';
 import { ProviderService } from 'src/app/services/provider.service';
+import { GlobalVariable } from 'src/app/shared/global';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -16,7 +17,7 @@ import Swal from 'sweetalert2';
 })
 export class AddProductComponent implements OnInit {
   public uploader: FileUploader;
-  URL = 'http://localhost:3000/file-upload';
+  URL = GlobalVariable.BASE_PATH+'/file-upload';
   selectedFile;
 
   faTrash=faTrash;
