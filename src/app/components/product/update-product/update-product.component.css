@@ -25,7 +25,10 @@
 
 }
 
-
+.description{
+  height: 220px;
+  resize: none;
+}
 
 
 
@@ -473,7 +476,6 @@ input{
     margin-right:auto;
     display: inline;
     padding:0;
-    border: rgba(151, 151, 151, 0.472) 1px solid;
 }
 
 .images{

@@ -1,5 +1,5 @@
 <div class="modal-header">
-    <h4 class="modal-title">{{name}}</h4>
+    <h4 class="modal-title">{{name ? name : "--"}}</h4>
     <button type="button" class="close" aria-label="Fermer" (click)="activeModal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
     </button>
@@ -8,12 +8,12 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12" class="image-container">
-                <img src="{{IMAGE_BASE_PATH + mainImage}}" class="product-main-image" />
+                <img src="{{mainImage}}" class="product-main-image" />
             </div>
         </div>
         <div class="row">
-            <div *ngFor="let image of images" class="col-md-3">
-                <img src="{{IMAGE_BASE_PATH + image}}" class="product-image" (click)="selectImage(image)" />
+            <div *ngFor="let image of images" class="col">
+                <img src="{{image}}" class="product-image" (click)="selectImage(image)" />
             </div>
         </div>
     </div>

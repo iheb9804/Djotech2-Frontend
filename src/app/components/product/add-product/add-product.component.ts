@@ -1,8 +1,10 @@
 import { Component, EventEmitter, OnInit } from '@angular/core';
+import { AngularFireStorage, AngularFireStorageReference, AngularFireUploadTask } from '@angular/fire/storage';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faBullseye, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FileUploader } from 'ng2-file-upload';
+import { finalize, tap } from 'rxjs/operators';
 import { CategoryService } from 'src/app/services/category.service';
 import { ColorService } from 'src/app/services/color.service';
 import { ProductService } from 'src/app/services/product.service';
@@ -17,10 +19,11 @@ import Swal from 'sweetalert2';
 })
 export class AddProductComponent implements OnInit {
   public uploader: FileUploader;
-  URL = GlobalVariable.BASE_PATH+'/file-upload';
+  URL = GlobalVariable.BASE_PATH + '/file-upload';
   selectedFile;
+  saveInProgress=false;
 
-  faTrash=faTrash;
+  faTrash = faTrash;
 
   name;
   price;
@@ -36,8 +39,14 @@ export class AddProductComponent implements OnInit {
   categories;
   providers;
   colors;
-  states;
+  states = GlobalVariable.STATES;
   brands;
+
+
+  //    Firebase
+  selectedFiles;
+
+
 
   form = new FormGroup({
     name: new FormControl(''),
@@ -53,7 +62,12 @@ export class AddProductComponent implements OnInit {
 
   })
 
-  constructor(private providerService:ProviderService,private productService:ProductService,private categoryService:CategoryService, private colorService:ColorService,private router:Router) { }
+  constructor(private providerService: ProviderService,
+    private productService: ProductService,
+    private categoryService: CategoryService,
+    private colorService: ColorService,
+    private router: Router,
+    private afStorage: AngularFireStorage) { }
 
   ngOnInit(): void {
     this.uploader = new FileUploader({
@@ -70,26 +84,23 @@ export class AddProductComponent implements OnInit {
     this.getProviders();
     this.getCategories();
     this.getColors();
-
-    this.states=["Neuf","Bon occasion","Occasion"]
-
   }
 
-  getProviders(){
-    this.providerService.getProviders().subscribe(data=>{
-      this.providers=data;
+  getProviders() {
+    this.providerService.getProviders().subscribe(data => {
+      this.providers = data;
     })
   }
 
-  getColors(){
-    this.colorService.getColors().subscribe(data=>{
-      this.colors=data;
+  getColors() {
+    this.colorService.getColors().subscribe(data => {
+      this.colors = data;
     })
   }
 
-  getCategories(){
-    this.categoryService.getCategories().subscribe(data=>{
-      this.categories=data;
+  getCategories() {
+    this.categoryService.getCategories().subscribe(data => {
+      this.categories = data;
 
     })
   }
@@ -98,58 +109,76 @@ export class AddProductComponent implements OnInit {
     this.selectedFile = event.target.files[0]
   }
 
-  save(){
+  save() {
     let filesNames = [];
-    let sec = 1;
-    for (let item in this.uploader.queue) {
-      let newName = (Date.now() + sec) + this.uploader.queue[0].file.name.substring(this.uploader.queue[0].file.name.lastIndexOf('.'));
-      sec++;
-      this.uploader.queue[item].file.name = newName;
-      filesNames.push(newName);
-      console.log(this.uploader.queue);
+    let uploadedImages = 0;
+    let numberOfFiles=this.uploader.queue.length;
+    this.saveInProgress=true;
+    for (let element of this.uploader.queue) {
+
+      const randomId = Math.random().toString(36).substring(2);
+      let newName = randomId + element.file.name.substring(element.file.name.lastIndexOf('.'));
+
+      let path = '/images/' + newName;
+      let ref = this.afStorage.ref(path);
+      console.log(element)
+      let task = this.afStorage.upload(path, element.file.rawFile);
+      task.snapshotChanges().pipe(
+        tap(console.log),
+        finalize(async () => {
+          let downloadURL = await ref.getDownloadURL().toPromise();
+          filesNames.push(downloadURL);
+          uploadedImages++;
+          if (uploadedImages == numberOfFiles) {
+
+            let product = {
+              name: this.name,
+              brand: this.brand,
+              color: this.color,
+              provider: this.provider,
+              category: this.category?._id,
+              price: this.price,
+              sellingPrice: this.sellingPrice,
+              description: this.description,
+              quantity: this.quantity,
+              image: filesNames
+            };
+            this.productService.addProduct(product).subscribe(data => {
+              this.saveInProgress=false;
+              Swal.fire({
+                title: 'Produit ajouté',
+                text: 'Voulez-vous ajouter un autre produit ?',
+                icon: 'success',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                cancelButtonText: 'Oui',
+                confirmButtonText: 'Non'
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  this.navigate('manageProducts');
+                }
+              })
+            })
+          }
+        })
+      ).subscribe();
     }
-    this.uploader.uploadAll();
-    console.log(this.category);
-    let product={
-      name:this.name,
-      brand:this.brand,
-      color:this.color,
-      provider:this.provider,
-      category:this.category._id,
-      price:this.price,
-      sellingPrice:this.sellingPrice,
-      description:this.description,
-      quantity:this.quantity,
-      image:filesNames
-    };
-    this.productService.addProduct(product).subscribe(data=>{
-      Swal.fire({
-        title: 'Produit ajouté',
-        text:'Voulez-vous ajouter un autre produit ?',
-        icon: 'success',
-        showCancelButton: true,
-        confirmButtonColor: '#d33',
-        cancelButtonColor: '#3085d6',
-        cancelButtonText: 'Oui',
-        confirmButtonText: 'Non'
-      }).then((result) => {
-        if (result.isConfirmed) {
-                    this.navigate('manageProducts');
-        }
-      })
-    })
+
+
   }
-  navigate(destination){
+
+  navigate(destination) {
     let navigation = JSON.parse(localStorage.getItem("navigation"));
-    if (navigation != null && navigation != undefined ) {
+    if (navigation != null && navigation != undefined) {
       navigation.push(this.router.url.toString());
-    }else{
+    } else {
       navigation = [this.router.url.toString()]
     }
-    localStorage.setItem("navigation",JSON.stringify(navigation));
-    this.router.navigate(['/'+destination]);
+    localStorage.setItem("navigation", JSON.stringify(navigation));
+    this.router.navigate(['/' + destination]);
   }
-  reset(){
+  reset() {
     this.form.reset();
   }
   public onFileSelected(event: EventEmitter<File[]>) {
@@ -158,5 +187,8 @@ export class AddProductComponent implements OnInit {
     console.log(this.uploader.queue)
     console.log(file);
   }
-
+  upload(event) {
+    console.log(event.target.files)
+    this.selectedFiles = event.target.files;
+  }
 }

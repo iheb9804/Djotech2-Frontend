@@ -1,4 +1,9 @@
+
+
 <div class="container-fluid edit-form" style="padding-top:200px">
+  <div id="overlay">
+    
+  </div>
     <div class="row title-row">
         <h1 class="title">Ajouter un produit</h1>
     </div>
@@ -29,15 +34,15 @@
 
                     <div class="form-group">
                         <label for="exampleFormControlInput1">Prix</label>
-                        <input type="price" class="form-control" id="exampleFormControlInput1" [(ngModel)]="price" name="price">
+                        <input type="number" class="form-control" id="exampleFormControlInput1" [(ngModel)]="price" name="price">
                     </div>
                     <div class="form-group">
                       <label for="exampleFormControlInput1">Prix de vente</label>
-                      <input type="price" class="form-control" id="exampleFormControlInput1" [(ngModel)]="sellingPrice" name="sellingPrice">
+                      <input type="number" class="form-control" id="exampleFormControlInput1" [(ngModel)]="sellingPrice" name="sellingPrice">
                   </div>
                   <div class="form-group">
                     <label for="exampleFormControlInput1">Quantité</label>
-                    <input type="price" class="form-control" id="exampleFormControlInput1" [(ngModel)]="quantity" name="quantity">
+                    <input type="number" class="form-control" id="exampleFormControlInput1" [(ngModel)]="quantity" name="quantity">
                 </div>
                    
             </div>
@@ -70,7 +75,7 @@
                   
                   <div class="form-group">
                       <label for="exampleFormControlTextarea1">Description</label>
-                      <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" [(ngModel)]="description" name="description"></textarea>
+                      <textarea class="form-control description" id="exampleFormControlTextarea1" rows="3" [(ngModel)]="description" name="description"></textarea>
                   </div>
           </div>
       </div>
@@ -80,7 +85,7 @@
     <div class="form-group color text-center">
       <h3 style="font-weight:bold;padding:20px;" >Vous pouvez ajouter jusqu'à 5 photos :</h3>
       <span class="hidden-file">
-        <input type="file" name="image" #fileInput ng2FileSelect [uploader]="uploader"
+        <input type="file" name="image" #fileInput (change)="upload($event)" ng2FileSelect [uploader]="uploader"
           accept="image/x-png,image/gif,image/jpeg" multiple (onFileSelected)="onFileSelected($event)" />
       </span>
       <div class="col text-center">
@@ -95,9 +100,9 @@
    
 
     <div>
-      <h4 style="color:red;" *ngIf="uploader.queue.length > 5">Vous pouvez seulement choisir 5 photos au maximum !</h4>
+      <h4 style="color:red;" *ngIf="uploader.queue?.length > 5">Vous pouvez seulement choisir 5 photos au maximum !</h4>
       <div class="table-wrapper-scroll-y my-custom-scrollbar">
-    <table class="table" *ngIf="uploader.queue.length > 0">
+    <table class="table" *ngIf="uploader.queue?.length > 0">
       <thead>
         <tr>
           <th>Nom</th>

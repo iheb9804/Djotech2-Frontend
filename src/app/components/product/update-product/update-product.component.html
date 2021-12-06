@@ -1,141 +1,147 @@
 <div class="container-fluid edit-form" style="padding-top:200px;padding-bottom: 50px;">
-    <div class="row title-row">
-        <h1 class="title">Modifier un produit</h1>
+  <div class="row title-row">
+    <h1 class="title">Modifier un produit</h1>
+  </div>
+  <div class="row images">
+    <div class="col-md-2 image-container" *ngFor="let image of product?.image">
+      <fa-icon class="icon" [icon]="faTimes" (click)="removeImage(image)"></fa-icon>
+      <div class="container"> <img src="{{image}}" class="product-image" /></div>
+
     </div>
-    <div class="row images">
-        <div class="col-md-2 image-container" *ngFor="let image of product?.image">
-            <fa-icon class="icon" [icon]="faTimes" (click)="removeImage(image)"></fa-icon>
-            <div class="container"> <img src="{{IMAGE_BASE_PATH+image}}" class="product-image"/></div>
-           
-        </div>
-    </div>
-    <form>
+  </div>
+  <form>
     <div class="row">
-        <div class="col-md-3 menu-item-container">
-            <div class="section">
-                    <div class="form-group">
-                      <label for="exampleFormControlInput1">Nom du produit</label>
-                      <input type="name" class="form-control" id="exampleFormControlInput1" [(ngModel)]="product.name" name="name">
-                    </div>
-                    <div class="form-group">
-                      <label for="exampleFormControlSelect1">Catégorie</label>
-                      <ng-select [(ngModel)]="product.category" name="category">
-                        <ng-option *ngFor="let element of categories" [value]="element" >{{element.name}}</ng-option>
-                     </ng-select>
-                  </div>
+      <div class="col-md-3 menu-item-container">
+        <div class="section">
+          <div class="form-group">
+            <label for="exampleFormControlInput1">Nom du produit</label>
+            <input type="name" class="form-control" id="exampleFormControlInput1" [(ngModel)]="product.name"
+              name="name">
+          </div>
+          <div class="form-group">
+            <label for="exampleFormControlSelect1">Catégorie</label>
+            <ng-select [(ngModel)]="product.category" name="category">
+              <ng-option *ngFor="let element of categories" [value]="element">{{element.name}}</ng-option>
+            </ng-select>
+          </div>
 
-                  <div class="form-group">
-                    <label for="exampleFormControlSelect1">Marque</label>
-                    <ng-select [(ngModel)]="product.brand" name="brand">
-                      <ng-option *ngFor="let element of product.category?.brands" [value]="element">{{element}}</ng-option>
-                   </ng-select>
-                </div>
-                   
+          <div class="form-group">
+            <label for="exampleFormControlSelect1">Marque</label>
+            <ng-select [(ngModel)]="product.brand" name="brand">
+              <ng-option *ngFor="let element of product.category?.brands" [value]="element">{{element}}</ng-option>
+            </ng-select>
+          </div>
 
-                   
 
-                    <div class="form-group">
-                        <label for="exampleFormControlInput1">Prix</label>
-                        <input type="price" class="form-control" id="exampleFormControlInput1" [(ngModel)]="product.price" name="price">
-                    </div>
-                    <div class="form-group">
-                      <label for="exampleFormControlInput1">Prix de vente</label>
-                      <input type="price" class="form-control" id="exampleFormControlInput1" [(ngModel)]="product.sellingPrice" name="sellingPrice">
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleFormControlInput1">Quantité</label>
-                    <input type="price" class="form-control" id="exampleFormControlInput1" [(ngModel)]="product.quantity" name="quantity">
-                </div>
-                   
-            </div>
+
+
+          <div class="form-group">
+            <label for="exampleFormControlInput1">Prix</label>
+            <input type="number" class="form-control" id="exampleFormControlInput1" [(ngModel)]="product.price"
+              name="price">
+          </div>
+          <div class="form-group">
+            <label for="exampleFormControlInput1">Prix de vente</label>
+            <input type="number" class="form-control" id="exampleFormControlInput1" [(ngModel)]="product.sellingPrice"
+              name="sellingPrice">
+          </div>
+          <div class="form-group">
+            <label for="exampleFormControlInput1">Quantité</label>
+            <input type="number" class="form-control" id="exampleFormControlInput1" [(ngModel)]="product.quantity"
+              name="quantity">
+          </div>
+
         </div>
-        <div class="col-md-3 menu-item-container right-border">
-          <div class="section">
-                  
-            <div class="form-group">
-              <label for="exampleFormControlSelect1">Couleur</label>
-              <ng-select [(ngModel)]="product.color" name="color">
-                <ng-option *ngFor="let element of colors" [value]="element._id">{{element.name}}</ng-option>
-             </ng-select>
+      </div>
+      <div class="col-md-3 menu-item-container right-border">
+        <div class="section">
+
+          <div class="form-group">
+            <label for="exampleFormControlSelect1">Couleur</label>
+            <ng-select [(ngModel)]="product.color" name="color">
+              <ng-option *ngFor="let element of colors" [value]="element._id">{{element.name}}</ng-option>
+            </ng-select>
           </div>
 
           <div class="form-group">
             <label for="exampleFormControlSelect1">Etat</label>
             <ng-select [(ngModel)]="product.state" name="state">
               <ng-option *ngFor="let element of states" [value]="element">{{element}}</ng-option>
-           </ng-select>
-        </div>
+            </ng-select>
+          </div>
 
           <div class="form-group">
             <label for="exampleFormControlSelect1">Fournisseur</label>
             <ng-select [(ngModel)]="product.provider" name="product">
               <ng-option *ngFor="let element of providers" [value]="element._id">{{element.name}}</ng-option>
-           </ng-select>
-        </div>
-
-                  
-                  
-                  <div class="form-group">
-                      <label for="exampleFormControlTextarea1">Description</label>
-                      <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" [(ngModel)]="product.description" name="description"></textarea>
-                  </div>
+            </ng-select>
           </div>
-      </div>
-        <div class="col-md-5 menu-item-container">
-            <h2 class="text-center" style="width:100%;text-align: center;">Photos du produit</h2>
-
-    <div class="form-group color text-center">
-      <h3 style="font-weight:bold;padding:20px;" >Vous pouvez choisir jusqu'à 5 photos :</h3>
-      <span class="hidden-file">
-        <input type="file" name="image" #fileInput ng2FileSelect [uploader]="uploader"
-          accept="image/x-png,image/gif,image/jpeg" multiple (onFileSelected)="onFileSelected($event)" />
-      </span>
-      <div class="col text-center">
-        <button class="center myButton" type="button" (click)="fileInput.click()">
-          Séléctionner des photos
-        </button>
-
-      </div>
-    </div>
 
 
-   
 
-    <div>
-      <h4 style="color:red;" *ngIf="uploader?.queue?.length+product?.image?.length > 5">Vous pouvez seulement choisir 5 photos maximum !</h4>
-    <table class="table" *ngIf="uploader?.queue?.length > 0">
-      <thead>
-        <tr>
-          <th>Nom</th>
-          <th>Taille</th>
-          <th style="text-align: center;">Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let item of uploader.queue">
-          <td>
-            {{ item?.file?.name }}
-          </td>
-          <td>
-            {{ item?.file?.size/1024/1024 | number:'.2' }} MB
-          </td>
-          <td style="text-align: center;">
-            <button type="button" class="btn-danger btn-xs" style="border-radius: 10px;" (click)="item.remove()">
-              <fa-icon [icon]="faTrash"></fa-icon>
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+          <div class="form-group">
+            <label for="exampleFormControlTextarea1">Description</label>
+            <textarea class="form-control description" id="exampleFormControlTextarea1" rows="3"
+              [(ngModel)]="product.description" name="description"></textarea>
+          </div>
         </div>
+      </div>
+      <div class="col-md-5 menu-item-container">
+        <h2 class="text-center" style="width:100%;text-align: center;">Photos du produit</h2>
+
+        <div class="form-group color text-center">
+          <h3 style="font-weight:bold;padding:20px;">Vous pouvez choisir jusqu'à 5 photos :</h3>
+          <span class="hidden-file">
+            <input type="file" name="image" #fileInput ng2FileSelect [uploader]="uploader"
+              accept="image/x-png,image/gif,image/jpeg" multiple (onFileSelected)="onFileSelected($event)" />
+          </span>
+          <div class="col text-center">
+            <button class="center myButton" type="button" (click)="fileInput.click()">
+              Séléctionner des photos
+            </button>
+
+          </div>
+        </div>
+
+
+
+
+        <div>
+          <h4 style="color:red;" *ngIf="uploader.queue?.length+product?.image?.length > 5">Vous pouvez seulement choisir
+            5 photos au maximum !</h4>
+          <table class="table" *ngIf="uploader.queue?.length > 0">
+            <thead>
+              <tr>
+                <th>Nom</th>
+                <th>Taille</th>
+                <th style="text-align: center;">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of uploader.queue">
+                <td>
+                  {{ item?.file?.name }}
+                </td>
+                <td>
+                  {{ item?.file?.size/1024/1024 | number:'.2' }} MB
+                </td>
+                <td style="text-align: center;">
+                  <button type="button" class="btn-danger btn-xs" style="border-radius: 10px;" (click)="item.remove()">
+                    <fa-icon [icon]="faTrash"></fa-icon>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
 
     </div>
     <div class="row button-row">
-        <div class="col-md-4"></div>
-        <div class="col-md-4 col-md-offset-4 button-bloc"><button
-                class="btn custom-btn-secondary" (click)="reset()">Réinitialiser</button> <button
-                class="btn custom-btn-primary" (click)="save()" [disabled]="uploader?.queue?.length + product.image?.length > 5">Confirmer</button></div>
+      <div class="col-md-4"></div>
+      <div class="col-md-4 col-md-offset-4 button-bloc"><button class="btn custom-btn-secondary"
+          (click)="reset()">Réinitialiser</button> <button class="btn custom-btn-primary" (click)="save()"
+          [disabled]="selectedFiles?.length + product?.image?.length > 5">Confirmer</button></div>
     </div>
   </form>
 

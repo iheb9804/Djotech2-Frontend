@@ -51,7 +51,7 @@ export class ManageProductsComponent implements OnInit {
   colors;
   categories;
   brands;
-  states;
+  states = GlobalVariable.STATES;
   providers;
 
   constructor(private router: Router,
@@ -69,7 +69,6 @@ export class ManageProductsComponent implements OnInit {
       () =>
         this.getProducts()
     )
-    this.states = ["Neuf", "Occasion"]
   }
 
   navigate(destination) {
@@ -122,6 +121,7 @@ export class ManageProductsComponent implements OnInit {
   }
   search() {
     this.filtredProducts = this.products;
+    console.log("Searchable : ",this.filtredProducts);
     if (this.searchable != undefined && this.searchable != null)
       this.filtredProducts = this.filtredProducts.filter(item => ((item.name?.toUpperCase()?.indexOf(this.searchable?.toUpperCase()) != -1) ||
         (item.description?.toUpperCase()?.indexOf(this.searchable?.toUpperCase()) != -1)));
@@ -129,7 +129,7 @@ export class ManageProductsComponent implements OnInit {
   }
 
   toCategory(id) {
-    let result = "NA";
+    let result = "--";
     this.categories.forEach(element => {
       if (element._id == id) {
         result = element.name
@@ -139,7 +139,7 @@ export class ManageProductsComponent implements OnInit {
   }
 
   toProvider(id) {
-    let result = "NA";
+    let result = "--";
     this.providers.forEach(element => {
       if (element._id == id) {
         result = element.name
@@ -149,7 +149,7 @@ export class ManageProductsComponent implements OnInit {
   }
 
   toColor(id) {
-    let result = "NA";
+    let result = "--";
     this.colors.forEach(element => {
       if (element._id == id) {
         result = element.name
@@ -161,10 +161,10 @@ export class ManageProductsComponent implements OnInit {
   searchWithFilters() {
     this.filtredProducts = this.products;
     if (this.color != undefined && this.color != null)
-      this.filtredProducts = this.filtredProducts.filter(item => item.color == this.color._id);
+      this.filtredProducts = this.filtredProducts.filter(item => item.color == this.color.name);
 
     if (this.category != undefined && this.category != null)
-      this.filtredProducts = this.filtredProducts.filter(item => item.category == this.category._id);
+      this.filtredProducts = this.filtredProducts.filter(item => item.category == this.category.name);
 
     if (this.brand != undefined && this.brand != null)
       this.filtredProducts = this.filtredProducts.filter(item => item.brand == this.brand);
@@ -173,7 +173,7 @@ export class ManageProductsComponent implements OnInit {
       this.filtredProducts = this.filtredProducts.filter(item => item.state == this.state);
 
     if (this.provider != undefined && this.provider != null)
-      this.filtredProducts = this.filtredProducts.filter(item => item.provider == this.provider._id);
+      this.filtredProducts = this.filtredProducts.filter(item => item.provider == this.provider.name);
 
 
     if (this.minPrice != undefined && this.minPrice != null)
@@ -205,7 +205,7 @@ export class ManageProductsComponent implements OnInit {
   }
 
   openModal(images, name) {
-    const modalRef = this.modalService.open(ViewImagesComponent);
+    const modalRef = this.modalService.open(ViewImagesComponent, { size: 'xl'});
     modalRef.componentInstance.images = images;
     modalRef.componentInstance.name = name;
   }

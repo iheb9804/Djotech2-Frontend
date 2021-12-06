@@ -19,7 +19,6 @@ import { ManageCategoriesComponent } from './components/category/manage-categori
 import { AddCategoryComponent } from './components/category/add-category/add-category.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UpdateProviderComponent } from './components/provider/update-provider/update-provider.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ColorComponent } from './components/color/color.component';
@@ -30,7 +29,9 @@ import { ViewImagesComponent } from './components/modals/view-images/view-images
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ManageInventoryComponent } from './components/inventory/manage-inventory/manage-inventory.component';
 import { LoadProductComponent } from './components/product/load-product/load-product.component';
-
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireStorageModule } from '@angular/fire/storage';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 @NgModule({
   declarations: [
     AppComponent,
@@ -65,7 +66,16 @@ import { LoadProductComponent } from './components/product/load-product/load-pro
     BrowserAnimationsModule,
     MatPaginatorModule,
     NgxPaginationModule,
-    NgbModule
+    NgbModule,
+    AngularFireModule.initializeApp({
+      apiKey: "AIzaSyBk5TAgXRUx-nXKqCMhegRI3efNpwbUxNw",
+      authDomain: "djotech-94d44.firebaseapp.com",
+      projectId: "djotech-94d44",
+      storageBucket: "djotech-94d44.appspot.com",
+      messagingSenderId: "604558925056",
+      appId: "1:604558925056:web:1434d42c25e8e54a1867e5"
+    }),
+    AngularFireStorageModule
   ],
   providers: [],
   bootstrap: [AppComponent]
