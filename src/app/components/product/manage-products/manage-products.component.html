@@ -4,8 +4,9 @@
       <h1 class="title">Gérer les produits</h1>
     </div>
   </div>
-  <div class="row filters" style="padding-top: 100px;">
-    <div class="col-md-12">
+  <div class="row d-flex justify-content-center flex-nowrap filters" style="padding-top: 100px;">
+    <div class="col-md-10"></div>
+    <div class="col-md-2">
       <div class="btn-container">
         <button class="btn custom-btn-primary add-btn" (click)="navigate('/manageProducts/addProduct')"
           routerLinkActive="router-link-active">
@@ -18,7 +19,7 @@
     </div>
   </div>
   <div class="filters" *ngIf="showFilters">
-    <div class="row filter-row">
+    <div class="row d-flex justify-content-center flex-nowrap filter-row">
       <div class="col-md-2">
         <label for="color">Couleur</label>
         <ng-select [(ngModel)]="color" name="color">
@@ -46,14 +47,13 @@
           <ng-option *ngFor="let element of states" [value]="element">{{element}}</ng-option>
         </ng-select>
       </div>
-      <div class="col-md-2"></div>
 
 
 
 
       
     </div>
-    <div class="row filter-row">
+    <div class="row d-flex justify-content-center flex-nowrap filter-row">
       <div class="col-md-2">
         <label for="provider">Fournisseur</label>
         <ng-select [(ngModel)]="provider" name="provider">
@@ -117,15 +117,10 @@
 
             <fa-icon [icon]="faImage" class="image-icon" *ngIf="product.image.length==0"></fa-icon>
             <img class="product-image" src="{{product.image[0]}}" alt="Image Not Found" *ngIf="product.image.length>0"
-              (click)="openModal(product.image,product.name)" />
+              (click)="openModal(product)" />
 
           </div>
-          <div class="product-description">
-            <span class="subtitle">
-              Déscription :
-            </span>
-            {{product?.description}}
-          </div>
+          
         </div>
         <div class="product-footer">
           <div class="amounts-container">
@@ -137,8 +132,6 @@
                 class="amount-value">{{product.color ? product.color: "--"}}</span></div>
             <div class="quantity"><span class="amount-subtitle">Quantité :</span><span
                 class="amount-value">{{product.quantity ? product.quantity : "--"}}</span></div>
-            <div class="product-price"><span class="amount-subtitle">Prix :</span><span
-                class="amount-value">{{product?.price ? product?.price+" DT" : "--"}}</span></div>
             <div class="product-sell-price"><span class="amount-subtitle">Prix de vente :</span><span
                 class="amount-value">{{product.sellingPrice ? product.sellingPrice+" DT" : "--"}}</span>
             </div>

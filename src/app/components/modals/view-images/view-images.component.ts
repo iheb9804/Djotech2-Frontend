@@ -10,12 +10,11 @@ import { GlobalVariable } from 'src/app/shared/global';
 export class ViewImagesComponent implements OnInit {
   IMAGE_BASE_PATH = GlobalVariable.IMAGE_BASE_PATH;
   mainImage;
-  @Input() images;
-  @Input() name;
+  @Input() product;
   constructor(public activeModal: NgbActiveModal) { }
 
   ngOnInit(): void {
-    this.mainImage = this.images[0];
+    this.mainImage = this.product.image[0];
   }
   selectImage(image) {
     this.mainImage = image;

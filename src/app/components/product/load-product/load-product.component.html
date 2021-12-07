@@ -18,15 +18,19 @@
   
               <div class="form-group">
                 <label for="price">Prix d'achat</label>
-                <input type="name" class="form-control" id="price" [(ngModel)]="price" name="price">
+                <input type="number" class="form-control" id="price" [(ngModel)]="price" name="price">
               </div>
             </div>
           </div>
         </div>
         <div class="row button-row">
           <div class="col-md-12 col-md-offset-4 button-bloc"><button class="btn custom-btn-secondary"
-              (click)="activeModal.close('Close click')">Annuler</button> <button class="btn custom-btn-primary"
-              (click)="load()">Confirmer</button>
+              (click)="activeModal.close('Close click')">Annuler</button> 
+              <button 
+              class="btn custom-btn-primary"
+              (click)="load()" 
+              [disabled]="(price == null) || (price == undefined) || (quantity == null) || (quantity == undefined)"
+              >Confirmer</button>
           </div>
         </div>
       </form>

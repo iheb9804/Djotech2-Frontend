@@ -1,7 +1,7 @@
 
 
 <ngx-loading-x [show]="saveInProgress" [spinnerColor]="'#1876BD'" [spinnerType]="spinnerType"></ngx-loading-x>
-<div class="container-fluid edit-form" style="padding-top:200px">
+<div class="container-fluid edit-form">
   <div id="overlay">
     
   </div>
@@ -103,7 +103,7 @@
     <div>
       <h4 style="color:red;" *ngIf="data?.length > 5">Vous pouvez seulement choisir 5 photos au maximum !</h4>
       <div class="table-wrapper-scroll-y my-custom-scrollbar" style="text-align: center;">
-    <table class="table" >
+    <table class="table" *ngIf="data?.length > 0">
       <thead>
         <tr>
           <th>Nom</th>
@@ -127,9 +127,8 @@
         </div>
 
     </div>
-    <div class="row button-row">
-        <div class="col-md-4"></div>
-        <div class="col-md-4 col-md-offset-4 button-bloc"><button
+    <div class="row d-flex justify-content-center flex-nowrap">
+        <div class="col-md-4 button-bloc"><button
                 class="btn custom-btn-secondary" (click)="reset()">Réinitialiser</button> <button
                 class="btn custom-btn-primary" (click)="save()" [disabled]="data?.length>5">Confirmer</button></div>
     </div>

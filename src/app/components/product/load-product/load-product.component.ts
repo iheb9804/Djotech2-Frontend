@@ -84,7 +84,6 @@ export class LoadProductComponent implements OnInit {
   getProduct() {
     this.productService.getProduct(this.id).subscribe(data => {
       this.product = data;
-      this.price = this.product.price;
     })
   }
 }

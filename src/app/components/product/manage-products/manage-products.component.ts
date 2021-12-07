@@ -205,10 +205,9 @@ export class ManageProductsComponent implements OnInit {
     this.filtredProducts = this.products;
   }
 
-  openModal(images, name) {
+  openModal(product) {
     const modalRef = this.modalService.open(ViewImagesComponent, { size: 'xl'});
-    modalRef.componentInstance.images = images;
-    modalRef.componentInstance.name = name;
+    modalRef.componentInstance.product = product;
   }
 
   sellingModal(id, name) {
