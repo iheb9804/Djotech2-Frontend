@@ -93,7 +93,7 @@
         <div class="form-group color text-center">
           <h3 style="font-weight:bold;padding:20px;">Vous pouvez choisir jusqu'à 5 photos :</h3>
           <span class="hidden-file">
-            <input type="file" name="image" #fileInput ng2FileSelect [uploader]="uploader"
+            <input type="file" name="image" #fileInput (change)="process($event)"
               accept="image/x-png,image/gif,image/jpeg" multiple (onFileSelected)="onFileSelected($event)" />
           </span>
           <div class="col text-center">
@@ -108,32 +108,28 @@
 
 
         <div>
-          <h4 style="color:red;" *ngIf="uploader.queue?.length+product?.image?.length > 5">Vous pouvez seulement choisir
+          <h4 style="color:red;" *ngIf="data?.length+product?.image?.length > 5">Vous pouvez seulement choisir
             5 photos au maximum !</h4>
-          <table class="table" *ngIf="uploader.queue?.length > 0">
-            <thead>
-              <tr>
-                <th>Nom</th>
-                <th>Taille</th>
-                <th style="text-align: center;">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let item of uploader.queue">
-                <td>
-                  {{ item?.file?.name }}
-                </td>
-                <td>
-                  {{ item?.file?.size/1024/1024 | number:'.2' }} MB
-                </td>
-                <td style="text-align: center;">
-                  <button type="button" class="btn-danger btn-xs" style="border-radius: 10px;" (click)="item.remove()">
-                    <fa-icon [icon]="faTrash"></fa-icon>
-                  </button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+          <div style="text-align: center;">
+            <table class="table" *ngIf="data?.length > 0">
+              <thead>
+                <tr>
+                  <th>Nom</th>
+                  <th>Taille</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of data">
+                  <td>
+                    {{ item?.name }}
+                  </td>
+                  <td>
+                    {{ item?.size/1024/1024 | number:'.2' }} MB
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
 
@@ -142,7 +138,7 @@
       <div class="col-md-4"></div>
       <div class="col-md-4 col-md-offset-4 button-bloc"><button class="btn custom-btn-secondary"
           (click)="reset()">Réinitialiser</button> <button class="btn custom-btn-primary" (click)="save()"
-          [disabled]="selectedFiles?.length + product?.image?.length > 5">Confirmer</button></div>
+          [disabled]="data?.length + product?.image?.length > 5">Confirmer</button></div>
     </div>
   </form>
 

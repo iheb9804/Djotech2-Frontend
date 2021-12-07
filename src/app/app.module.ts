@@ -33,6 +33,7 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxLoadingXModule } from 'ngx-loading-x';
+import { NgxImageCompressService } from 'ngx-image-compress';
 @NgModule({
   declarations: [
     AppComponent,
@@ -79,7 +80,7 @@ import { NgxLoadingXModule } from 'ngx-loading-x';
     AngularFireStorageModule,
     NgxLoadingXModule
   ],
-  providers: [],
+  providers: [NgxImageCompressService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -9,10 +9,11 @@ import { ColorService } from 'src/app/services/color.service';
 import { ProductService } from 'src/app/services/product.service';
 import { ProviderService } from 'src/app/services/provider.service';
 import { GlobalVariable } from 'src/app/shared/global';
-import { finalize, tap } from 'rxjs/operators';
-
+import { finalize, tap, map, expand } from 'rxjs/operators';
+import { EMPTY } from 'rxjs';
 import Swal from 'sweetalert2';
 import { SPINNER } from 'ngx-loading-x';
+import { CompressorService } from 'src/app/services/compressor.service';
 
 @Component({
   selector: 'app-update-product',
@@ -53,6 +54,9 @@ export class UpdateProductComponent implements OnInit {
 
   //********* File upload */
   selectedFiles = [];
+  data: FileList;
+  compressedImages = [];
+
 
   product = { _id: "", name: "", description: "", price: null, sellingPrice: null, category: null, brand: null, provider: null, color: null, state: null, quantity: null, image: null };
   id;
@@ -77,7 +81,8 @@ export class UpdateProductComponent implements OnInit {
     private categoryService: CategoryService,
     private route: ActivatedRoute,
     private router: Router,
-    private afStorage: AngularFireStorage) { }
+    private afStorage: AngularFireStorage,
+    private compressor:CompressorService) { }
 
   ngOnInit(): void {
     this.saveInProgress = false;
@@ -129,17 +134,17 @@ export class UpdateProductComponent implements OnInit {
 
     let filesNames = [];
     let uploadedImages = 0;
-    let numberOfFiles = this.uploader.queue.length;
+    let numberOfFiles = this.compressedImages.length;
     this.saveInProgress = true;
 
-    for (let element of this.uploader.queue) {
+    for (let element of this.compressedImages) {
 
       const randomId = Math.random().toString(36).substring(2);
-      let newName = randomId + element.file.name.substring(element.file.name.lastIndexOf('.'));
+      let newName = randomId + element.name.substring(element.name.lastIndexOf('.'));
 
       let path = '/images/' + newName;
       let ref = this.afStorage.ref(path);
-      let task = this.afStorage.upload(path, element.file.rawFile);
+      let task = this.afStorage.upload(path, element);
 
       task.snapshotChanges().pipe(
         tap(console.log),
@@ -219,8 +224,8 @@ export class UpdateProductComponent implements OnInit {
   }
   public onFileSelected(event: EventEmitter<File[]>) {
     const file: File = event[0];
-    // this.uploader.queue[0].file.name = "Name" + this.uploader.queue[0].file.name.substring(this.uploader.queue[0].file.name.lastIndexOf('.'));
-    console.log(this.uploader.queue)
+    // this.compressedImages[0].file.name = "Name" + this.compressedImages[0].file.name.substring(this.compressedImages[0].file.name.lastIndexOf('.'));
+    console.log(this.compressedImages)
     console.log(file);
   }
 
@@ -248,4 +253,41 @@ export class UpdateProductComponent implements OnInit {
     this.product.image = this.product.image.filter(item => item != image)
   }
 
+  recursiveCompress = (image: File, index, array) => {
+    return this.compressor.compress(image).pipe (
+      map(response => {
+
+      //Code block after completing each compression
+        console.log('compressed ' + index + image.name);
+        this.compressedImages.push(response);
+        return {
+          data: response,
+          index: index + 1,
+          array: array,
+        };
+      }),
+    );
+  }
+
+//process files for upload
+  public process (event) {
+  this.data = event.target.files;
+  this.compressedImages=[];
+  console.log('input: '  + this.data);
+  const compress = this.recursiveCompress( this.data[0], 0, this.data ).pipe(
+    expand(res => {
+      return res.index > res.array.length - 1
+        ? EMPTY
+        : this.recursiveCompress( this.data[res.index], res.index, this.data );
+    }),
+  );
+  compress.subscribe(res => {
+    if (res.index > res.array.length - 1) {
+
+
+    //Code block after completing all compression
+      console.log('Compression successful ' + this.compressedImages);
+    }
+  });
+}
 }
