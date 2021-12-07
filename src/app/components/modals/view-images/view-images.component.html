@@ -6,13 +6,13 @@
 </div>
 <div class="modal-body">
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-12" class="image-container">
+        <div class="row d-flex justify-content-center flex-nowrap">
+            <div class="col-md-12 mx-auto" class="image-container">
                 <img src="{{mainImage}}" class="product-main-image" />
             </div>
         </div>
-        <div class="row">
-            <div *ngFor="let image of images" class="col">
+        <div class="row d-flex justify-content-center flex-nowrap">
+            <div *ngFor="let image of images" class="col-md-2">
                 <img src="{{image}}" class="product-image" (click)="selectImage(image)" />
             </div>
         </div>
