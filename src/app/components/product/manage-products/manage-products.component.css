@@ -179,7 +179,6 @@
 }
 
 .title-row {
-    padding: 30px;
     padding-top: 0;
 }
 
@@ -187,21 +186,14 @@
     padding: 30px;
 }
 
-.searchable {
-    position: absolute;
-    bottom: 0;
-}
+
+
 
 .search-input {
-    float: left;
+    font-size: 20px;
 }
 
 .search-input-btn {
-    position: absolute;
-    height: 60%;
-    right: 0;
-    bottom: 0;
-    float: right;
 }
 
 .amount-input {

@@ -122,7 +122,7 @@ export class ManageProductsComponent implements OnInit {
   }
   search() {
     this.filtredProducts = this.products;
-    console.log("Searchable : ",this.filtredProducts);
+    console.log("Searchable : ",this.searchable);
     if (this.searchable != undefined && this.searchable != null)
       this.filtredProducts = this.filtredProducts.filter(item => ((item.name?.toUpperCase()?.indexOf(this.searchable?.toUpperCase()) != -1) ||
         (item.description?.toUpperCase()?.indexOf(this.searchable?.toUpperCase()) != -1)));

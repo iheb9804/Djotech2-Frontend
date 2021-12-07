@@ -1,4 +1,4 @@
-<div class="container-fluid" style="padding-top:100px">
+<div class="container">
   <div class="row title-row">
     <h1 class="title">Consulter les fournisseurs</h1>
   </div>
@@ -12,9 +12,7 @@
       </div>
     </div>
   </div>
-  <div class="row" style="text-align: center;">
-    <div class="col-md-1"></div>
-    <div class="col-md-10">
+  <div class="table-responsive"> 
       <table class="table table-hover">
         <thead>
           <tr>
@@ -44,11 +42,11 @@
           </tr>
         </tbody>
       </table>
-    </div>
+      </div>
     <div style="width: 100%;text-align: center;" *ngIf="providers.length > 10">
       <pagination-controls (pageChange)="p = $event" directionLinks="true" responsive="true" previousLabel="Précedent"
         nextLabel="Suivant"></pagination-controls>
     </div>
 
-  </div>
+  
 </div>

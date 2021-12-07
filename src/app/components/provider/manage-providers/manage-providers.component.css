@@ -32,13 +32,13 @@
 }
 .btn-container{
     padding-bottom:100px;
-    padding-right:150px;
 }
 .menu-item:hover{
     background-color: #1582b1;
     box-shadow: 10px 10px 30px  10px gray;
-
-
+}
+td,th{
+    text-align: center;
 }
 
 .menu-item:active{
