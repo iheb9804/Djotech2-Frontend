@@ -34,6 +34,7 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxLoadingXModule } from 'ngx-loading-x';
 import { NgxImageCompressService } from 'ngx-image-compress';
+import { MatTooltipModule } from '@angular/material/tooltip';
 @NgModule({
   declarations: [
     AppComponent,
@@ -67,6 +68,7 @@ import { NgxImageCompressService } from 'ngx-image-compress';
     ReactiveFormsModule,
     BrowserAnimationsModule,
     MatPaginatorModule,
+    MatTooltipModule,
     NgxPaginationModule,
     NgbModule,
     AngularFireModule.initializeApp({

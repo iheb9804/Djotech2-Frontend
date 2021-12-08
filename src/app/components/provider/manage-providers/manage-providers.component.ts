@@ -7,7 +7,7 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-manage-providers',
   templateUrl: './manage-providers.component.html',
-  styleUrls: ['./manage-providers.component.css']
+  styleUrls: ['./manage-providers.component.scss']
 })
 export class ManageProvidersComponent implements OnInit {
 

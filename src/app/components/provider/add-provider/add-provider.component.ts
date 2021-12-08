@@ -4,7 +4,7 @@ import { ProviderService } from 'src/app/services/provider.service';
 @Component({
   selector: 'app-add-provider',
   templateUrl: './add-provider.component.html',
-  styleUrls: ['./add-provider.component.css']
+  styleUrls: ['./add-provider.component.scss']
 })
 export class AddProviderComponent implements OnInit {
 

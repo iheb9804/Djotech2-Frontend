@@ -5,7 +5,7 @@ import { faBoxOpen, faChartBar, faShippingFast } from '@fortawesome/free-solid-s
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
   faBoxOpen= faBoxOpen;

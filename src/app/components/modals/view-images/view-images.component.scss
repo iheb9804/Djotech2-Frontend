@@ -31,21 +31,27 @@
 }
 
 .subtitle {
-    font-size: 15px;
     color: dimgrey;
 }
 
 .amount-value {
-    font-size: 15px;
     padding-left: 15px;
     color: rgb(37, 37, 37);
 }
 
 .amounts-container {
-    position: absolute;
-    bottom: 0;
+   
     width: 100%;
 
+}
+
+.detail{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.description{
+    display: block;
 }
 
 .splitter-left {

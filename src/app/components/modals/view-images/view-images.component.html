@@ -11,35 +11,46 @@
                 <img src="{{mainImage}}" class="product-main-image" />
             </div>
             <div class="col-md-6 details">
-                <div class="product-details">
-                    <span class="subtitle">Déscription :</span>
-                    <br />
-                    <span class="product-description">
-                        {{product.description ? product.description : "--"}}
-                    </span>
-                    <div class="amounts-container">
-                        <div class="splitter-left">
-                            <div class="quantity"><span class="subtitle">Catégorie :</span><span
-                                    class="amount-value">{{product.category ? product.category : "--"}}</span></div>
-                            <div class="quantity"><span class="subtitle">Marque :</span><span
-                                    class="amount-value">{{product.brand ? product.brand : "--"}}</span></div>
-                            <div class="quantity"><span class="subtitle">Couleur :</span><span
-                                    class="amount-value">{{product.color ? product.color: "--"}}</span></div>
-                            <div class="quantity"><span class="subtitle">Quantité :</span><span
-                                    class="amount-value">{{product.quantity ? product.quantity : "--"}}</span></div>
-                        </div>
-                        <div class="splitter-right">
-                            <div class="product-sell-price"><span class="subtitle">Prix de vente :</span><span
-                                    class="amount-value">{{product.sellingPrice ? product.sellingPrice+" DT" :
-                                    "--"}}</span>
-                            </div>
-                            <div class="product-state"><span class="subtitle">Etat :</span><span
-                                    class="amount-value">{{product.state ? product.state : "--"}}</span>
-                            </div>
-                            <div class="product-provider"><span class="subtitle">Fournisseur :</span><span
-                                    class="amount-value">{{product.provider ? product.provider : "--"}}</span>
-                            </div>
-                        </div>
+                <div class="row">
+                    <div class="col-12 col-sm-12 detail">
+                        <span class="subtitle">Catégorie :</span>
+                        <span >{{product.category ? product.category : "--"}}</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-sm-12">
+                        <span class="subtitle">Marque :</span>
+                        <span>{{product.brand ? product.brand : "--"}}</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-sm-12 ">
+                        <span class="subtitle">Couleur :</span>
+                        <span>{{product.color ? product.color : "--"}}</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-sm-12">
+                        <span class="subtitle">Fournisseur :</span>
+                        <span>{{product.provider ? product.provider : "--"}}</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-sm-12">
+                        <span class="subtitle">Prix de vente :</span>
+                        <span>{{product.sellingPrice ? product.sellingPrice+" DT" : "--"}}</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-sm-12">
+                        <span class="subtitle">Quantité :</span>
+                        <span>{{product.quantity ? product.quantity : "--"}}</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-sm-12">
+                        <span class="subtitle">Déscription :</span><br/>
+                        <span>{{product.description ? product.description : "--"}}</span>
                     </div>
                 </div>
             </div>

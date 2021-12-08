@@ -5,7 +5,7 @@ import { ProviderService } from 'src/app/services/provider.service';
 @Component({
   selector: 'app-update-provider',
   templateUrl: './update-provider.component.html',
-  styleUrls: ['./update-provider.component.css']
+  styleUrls: ['./update-provider.component.scss']
 })
 export class UpdateProviderComponent implements OnInit {
 

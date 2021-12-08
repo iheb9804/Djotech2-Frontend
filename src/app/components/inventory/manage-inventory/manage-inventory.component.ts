@@ -6,7 +6,7 @@ import { faBoxOpen, faChartBar, faMobileAlt, faPalette, faShippingFast } from '@
 @Component({
   selector: 'app-manage-inventory',
   templateUrl: './manage-inventory.component.html',
-  styleUrls: ['./manage-inventory.component.css']
+  styleUrls: ['./manage-inventory.component.scss']
 })
 export class ManageInventoryComponent implements OnInit {
 

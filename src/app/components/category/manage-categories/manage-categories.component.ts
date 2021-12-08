@@ -7,7 +7,7 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-manage-categories',
   templateUrl: './manage-categories.component.html',
-  styleUrls: ['./manage-categories.component.css']
+  styleUrls: ['./manage-categories.component.scss']
 })
 export class ManageCategoriesComponent implements OnInit {
 

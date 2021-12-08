@@ -5,7 +5,7 @@ import { GlobalVariable } from 'src/app/shared/global';
 @Component({
   selector: 'app-view-images',
   templateUrl: './view-images.component.html',
-  styleUrls: ['./view-images.component.css']
+  styleUrls: ['./view-images.component.scss']
 })
 export class ViewImagesComponent implements OnInit {
   IMAGE_BASE_PATH = GlobalVariable.IMAGE_BASE_PATH;
