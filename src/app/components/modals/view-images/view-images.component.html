@@ -48,7 +48,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-12 col-sm-12">
+                    <div class="col-12 col-sm-12 description">
                         <span class="subtitle">Déscription :</span><br/>
                         <span>{{product.description ? product.description : "--"}}</span>
                     </div>
@@ -57,7 +57,7 @@
         </div>
         <div class="row d-flex justify-content-center flex-nowrap">
             <div class="col-md-6 images-row">
-                <div *ngFor="let image of product.image">
+                <div *ngFor="let image of product.image" style="text-align: center;">
                     <img src="{{image}}" class="product-image" (click)="selectImage(image)" />
                 </div>
 

@@ -4,15 +4,15 @@
       <h1 class="title">Gérer les produits</h1>
     </div>
   </div>
-  <div class="row d-flex justify-content-center flex-nowrap filters" style="padding-top: 100px;">
-    <div class="col-xs-0 col-md-10"></div>
-    <div class="col-md-1">
+  <div class="row d-flex justify-content-center flex-nowrap filters" style="padding-top: 20px;padding-bottom: 20px;">
+    <div class="col col-lg-10"></div>
+    <div class="col-sm-1 col-md-1">
       <button class="btn custom-btn-primary add-btn" (click)="navigate('/manageProducts/addProduct')"
         routerLinkActive="router-link-active">
         <fa-icon class="icon" [icon]="faPlus"></fa-icon>
       </button>
     </div>
-    <div class="col-md-1">
+    <div class="col-sm-1 col-md-1">
       <button class="btn custom-btn-secondary show-filter-btn" (click)="showFilters=!showFilters">
         <fa-icon class="icon" [icon]="faFilter"></fa-icon>
       </button>
@@ -20,29 +20,30 @@
 
   </div>
   <div class="filters" *ngIf="showFilters">
-    <div class="row d-flex justify-content-center flex-nowrap filter-row">
-      <div class="col-md-2">
+    <div class="row">
+      <div class="col-sm col-lg-2"></div>
+      <div class="col-sm-6 col-lg-2">
         <label for="color">Couleur</label>
         <ng-select [(ngModel)]="color" name="color">
           <ng-option *ngFor="let element of colors" [value]="element">{{element.name}}</ng-option>
         </ng-select>
 
       </div>
-      <div class="col-md-2">
+      <div class="col-sm-6 col-lg-2">
         <label for="category">Catégorie</label>
         <ng-select [(ngModel)]="category" name="category">
           <ng-option *ngFor="let element of categories" [value]="element">{{element.name}}</ng-option>
         </ng-select>
 
       </div>
-      <div class="col-md-2">
+      <div class="col-sm-6 col-lg-2">
         <label for="brand">Marque</label>
         <ng-select [(ngModel)]="brand" name="brand">
           <ng-option *ngFor="let element of category?.brands" [value]="element">{{element}}</ng-option>
         </ng-select>
 
       </div>
-      <div class="col-md-2">
+      <div class="col-sm-6 col-lg-2">
         <label for="state">Etat</label>
         <ng-select [(ngModel)]="state" name="state">
           <ng-option *ngFor="let element of states" [value]="element">{{element}}</ng-option>
@@ -54,14 +55,15 @@
 
 
     </div>
-    <div class="row d-flex justify-content-center flex-nowrap filter-row">
-      <div class="col-md-2">
+    <div class="row">
+      <div class="col-sm col-lg-2"></div>
+      <div class="col-sm-6 col-lg-2">
         <label for="provider">Fournisseur</label>
         <ng-select [(ngModel)]="provider" name="provider">
           <ng-option *ngFor="let element of providers" [value]="element">{{element.name}}</ng-option>
         </ng-select>
       </div>
-      <div class="col-md-2">
+      <div class="col-sm-6 col-lg-2">
         <div class="form-group">
           <label>Prix</label>
           <input type="number" class="form-control amount-input" [(ngModel)]="minPrice" name="minPrice"
@@ -70,7 +72,7 @@
             placeholder="Jusqu'à">
         </div>
       </div>
-      <div class="col-md-2">
+      <div class="col-sm-6 col-lg-2">
         <div class="form-group">
           <label>Quantité</label>
           <input type="number" class="form-control amount-input" [(ngModel)]="minQuantity" name="minQuantity"
@@ -79,7 +81,7 @@
             placeholder="Jusqu'à">
         </div>
       </div>
-      <div class="col-md-2 search-btn-container">
+      <div class="col-sm-6 col-lg-2 search-btn-container">
         <button class="btn custom-btn-secondary reset-btn" (click)="reset()">Réinitialiser</button>
         <button class="btn custom-btn-primary search-btn" (click)="searchWithFilters()">Filtrer</button>
       </div>
@@ -101,7 +103,7 @@
       <img src="assets/loading.gif">
     </div>
 
-    <div class="col-md-3 product-container" *ngFor="let product of filtredProducts">
+    <div class="col-sm-3 col-lg-3 product-container" *ngFor="let product of filtredProducts">
       <div class="product-details">
         <div class="product-title">
           <div class="product-name">
@@ -123,8 +125,8 @@
           </div>
 
         </div>
-        <div class="product-footer">
-          <div class="amounts-container">
+        <div class="row product-footer">
+          <div class="col-sm-6 col-lg-6 amounts-container">
             <div class="quantity"><span class="amount-subtitle">Catégorie :</span><span
                 class="amount-value">{{product.category ? product.category : "--"}}</span></div>
             <div class="quantity"><span class="amount-subtitle">Marque :</span><span
@@ -138,7 +140,7 @@
             </div>
 
           </div>
-          <div class="buttons-container">
+          <div class="col-sm-6 col-lg-6 buttons-container">
             <button class="btn custom-btn-primary product-button" (click)="loadingModal(product._id,product.name)"
               routerLinkActive="router-link-active">Charger</button>
             <button class="btn custom-btn-secondary product-button" (click)="sellingModal(product._id,product.name)"

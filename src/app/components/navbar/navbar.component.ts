@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { faChevronCircleLeft, faPowerOff } from '@fortawesome/free-solid-svg-icons';
+import { faChevronCircleLeft, faPowerOff, faReply } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from 'src/app/services/auth.service';
 import { ListenerService } from 'src/app/services/listener.service';
 
@@ -11,7 +11,7 @@ import { ListenerService } from 'src/app/services/listener.service';
 })
 export class NavbarComponent implements OnInit {
   user;
-  faChevronCircleLeft=faChevronCircleLeft;
+  faChevronCircleLeft=faReply;
   faPowerOff=faPowerOff;
   constructor(private authService:AuthService,private router:Router, private listener:ListenerService) { }
 
