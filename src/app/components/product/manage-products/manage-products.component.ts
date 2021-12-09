@@ -178,10 +178,10 @@ export class ManageProductsComponent implements OnInit {
 
 
     if (this.minPrice != undefined && this.minPrice != null)
-      this.filtredProducts = this.filtredProducts.filter(item => item.price >= this.minPrice);
+      this.filtredProducts = this.filtredProducts.filter(item => item.sellingPrice >= this.minPrice);
 
     if (this.maxPrice != undefined && this.maxPrice != null)
-      this.filtredProducts = this.filtredProducts.filter(item => item.price <= this.maxPrice);
+      this.filtredProducts = this.filtredProducts.filter(item => item.sellingPrice <= this.maxPrice);
 
 
     if (this.minQuantity != undefined && this.minQuantity != null)

@@ -4,15 +4,15 @@
       <h1 class="title">Gérer les produits</h1>
     </div>
   </div>
-  <div class="row d-flex justify-content-center flex-nowrap filters" style="padding-top: 20px;padding-bottom: 20px;">
-    <div class="col col-lg-10"></div>
-    <div class="col-sm-1 col-md-1">
+  <div class="row filters" style="padding-top: 20px;padding-bottom: 20px;">
+    <div class="col-0 col-md-4 col-lg-10"></div>
+    <div class="col-6 col-sm-1 col-md-2 col-lg-1 btn-container">
       <button class="btn custom-btn-primary add-btn" (click)="navigate('/manageProducts/addProduct')"
         routerLinkActive="router-link-active">
         <fa-icon class="icon" [icon]="faPlus"></fa-icon>
       </button>
     </div>
-    <div class="col-sm-1 col-md-1">
+    <div class="col-6 col-sm-1 col-md-2 col-lg-1 btn-container">
       <button class="btn custom-btn-secondary show-filter-btn" (click)="showFilters=!showFilters">
         <fa-icon class="icon" [icon]="faFilter"></fa-icon>
       </button>
@@ -21,7 +21,7 @@
   </div>
   <div class="filters" *ngIf="showFilters">
     <div class="row">
-      <div class="col-sm col-lg-2"></div>
+      <div class="col-md-0 col-lg-2"></div>
 
       <div class="col-6 col-sm-6 col-lg-2">
         <label for="category">Catégorie</label>
@@ -58,7 +58,7 @@
     </div>
     <div class="row">
       <div class="col-sm col-lg-2"></div>
-      <div class="col-12 col-sm-6 col-lg-2">
+      <div class="col-12 col-sm-6 col-md-12 col-lg-2">
         <label for="provider">Fournisseur</label>
         <ng-select [(ngModel)]="provider" name="provider">
           <ng-option *ngFor="let element of providers" [value]="element">{{element.name}}</ng-option>
@@ -82,7 +82,7 @@
             placeholder="Jusqu'à">
         </div>
       </div>
-      <div class="col-12 col-sm-6 col-lg-2 search-btn-container">
+      <div class="col-12 col-sm-6 col-md-12 col-lg-2 search-btn-container">
         <button class="btn custom-btn-secondary reset-btn" (click)="reset()">Réinitialiser</button>
         <button class="btn custom-btn-primary search-btn" (click)="searchWithFilters()">Filtrer</button>
       </div>
@@ -97,14 +97,14 @@
   </div>
   <div class="row centered">
 
-    <div class="col-12 col-md-12" *ngIf="filtredProducts?.length==0">
+    <div class="col-12 col-md-12 col-lg-12" *ngIf="filtredProducts?.length==0">
       <h1 class="message">Aucun produit trouvé</h1>
     </div>
-    <div class="col-md-12" *ngIf="loading" style="text-align: center;padding-top: 100px;">
+    <div class="col-12 col-md-12 col-lg-12" *ngIf="loading" style="text-align: center;padding-top: 100px;">
       <img src="assets/loading.gif">
     </div>
 
-    <div class="col-lg-3 product-container" *ngFor="let product of filtredProducts">
+    <div class="col-md-6 col-lg-3 product-container" *ngFor="let product of filtredProducts">
       <div class="product-details">
         <div class="product-title">
           <div class="product-name">

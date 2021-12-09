@@ -42,7 +42,7 @@
       </tbody>
     </table>
   </div>
-  <div style="width: 100%;text-align: center;" *ngIf="providers.length > 10">
+  <div style="width: 100%;text-align: center;" *ngIf="providers?.length > 10">
     <pagination-controls (pageChange)="p = $event" directionLinks="true" responsive="true" previousLabel="Précedent"
       nextLabel="Suivant"></pagination-controls>
   </div>
