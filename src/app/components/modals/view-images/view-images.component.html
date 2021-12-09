@@ -7,43 +7,43 @@
 <div class="modal-body">
     <div class="container-fluid">
         <div class="row d-flex justify-content-center flex-nowrap">
-            <div class="col-md-6">
+            <div class="col-md-6" style="text-align: center;padding-bottom: 10px;">
                 <img src="{{mainImage}}" class="product-main-image" />
             </div>
             <div class="col-md-6 details">
                 <div class="row">
                     <div class="col-12 col-sm-12 detail">
-                        <span class="subtitle">Catégorie :</span>
+                        <span class="subtitle">Catégorie : </span>
                         <span >{{product.category ? product.category : "--"}}</span>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-12 col-sm-12">
-                        <span class="subtitle">Marque :</span>
+                        <span class="subtitle">Marque : </span>
                         <span>{{product.brand ? product.brand : "--"}}</span>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-12 col-sm-12 ">
-                        <span class="subtitle">Couleur :</span>
+                        <span class="subtitle">Couleur : </span>
                         <span>{{product.color ? product.color : "--"}}</span>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-12 col-sm-12">
-                        <span class="subtitle">Fournisseur :</span>
+                        <span class="subtitle">Fournisseur : </span>
                         <span>{{product.provider ? product.provider : "--"}}</span>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-12 col-sm-12">
-                        <span class="subtitle">Prix de vente :</span>
+                        <span class="subtitle">Prix de vente : </span>
                         <span>{{product.sellingPrice ? product.sellingPrice+" DT" : "--"}}</span>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-12 col-sm-12">
-                        <span class="subtitle">Quantité :</span>
+                        <span class="subtitle">Quantité : </span>
                         <span>{{product.quantity ? product.quantity : "--"}}</span>
                     </div>
                 </div>
@@ -56,7 +56,7 @@
             </div>
         </div>
         <div class="row d-flex justify-content-center flex-nowrap">
-            <div class="col-md-6 images-row">
+            <div class="col-12 images-row">
                 <div *ngFor="let image of product.image" style="text-align: center;">
                     <img src="{{image}}" class="product-image" (click)="selectImage(image)" />
                 </div>
