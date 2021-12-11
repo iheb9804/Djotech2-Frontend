@@ -1,0 +1,246 @@
+<div class="container-fluid">
+
+
+    <div class="row  widgets-row">
+        <div class="col-0 col-md col-lg-1"></div>
+        <div class="col-12 col-md-6 col-lg-3 widget-container">
+            <div class="widget">
+                <div class="row widget-header">
+                    <div class="col-3 col-md-3 col-lg-3 widget-icon">
+                        <fa-icon class="icon" [icon]="faArchive"></fa-icon>
+                    </div>
+                    <div class="col-9 col-md-9 col-lg-9 widget-title">
+                        <span class="subtitle">Fond de commerce</span>
+                    </div>
+                </div>
+                <div class="row widget-content">
+                    <div class="col-12 col-md-12 col-lg-12">
+                        <span class="widget-value">{{stockInTrade + " DT"}}</span>
+                    </div>
+                </div>
+                
+
+            </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-3 widget-container">
+            <div class="widget">
+                <div class="row widget-header">
+                    <div class="col-3 col-md-3 col-lg-3 widget-icon">
+                        <fa-icon class="icon" [icon]="faCashRegister"></fa-icon>
+                    </div>
+                    <div class="col-9 col-md-9 col-lg-9 widget-title">
+                        <span class="subtitle">Valeur total</span>
+                    </div>
+                </div>
+                <div class="row widget-content">
+                    <div class="col-12 col-md-12 col-lg-12">
+                        <span class="widget-value">{{stockInTrade + " DT"}}</span>
+                    </div>
+                </div>
+                
+
+            </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-3 widget-container">
+            <div class="widget">
+                <div class="row widget-header">
+                    <div class="col-3 col-md-3 col-lg-3 widget-icon">
+                        <fa-icon class="icon" [icon]="faFileInvoiceDollar"></fa-icon>
+                    </div>
+                    <div class="col-9 col-md-9 col-lg-9 widget-title">
+                        <span class="subtitle">Net</span>
+                    </div>
+                </div>
+                <div class="row widget-content">
+                    <div class="col-12 col-md-12 col-lg-12">
+                        <span class="widget-value">{{stockInTrade + " DT"}}</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-3 widget-container">
+            <div class="widget">
+                <div class="row widget-header">
+                    <div class="col-3 col-md-3 col-lg-3 widget-icon">
+                        <fa-icon class="icon" [icon]="faHandHoldingUsd"></fa-icon>
+                    </div>
+                    <div class="col-9 col-md-9 col-lg-9 widget-title">
+                        <span class="subtitle">Crédit</span>
+                    </div>
+                </div>
+                <div class="row widget-content">
+                    <div class="col-12 col-md-12 col-lg-12">
+                        <span class="widget-value">{{stockInTrade + " DT"}}</span>
+                    </div>
+                </div>
+                
+
+            </div>
+        </div>
+
+        <div class="col-12 col-md-6 col-lg-3 widget-container">
+            <div class="widget">
+                <div class="row widget-header">
+                    <div class="col-3 col-md-3 col-lg-3 widget-icon">
+                        <fa-icon class="icon" [icon]="faHandHoldingUsd"></fa-icon>
+                    </div>
+                    <div class="col-9 col-md-9 col-lg-9 widget-title">
+                        <span class="subtitle">Crédit</span>
+                    </div>
+                </div>
+                <div class="row widget-content">
+                    <div class="col-12 col-md-12 col-lg-12">
+                        <span class="widget-value">{{stockInTrade + " DT"}}</span>
+                    </div>
+                </div>
+                
+
+            </div>
+        </div>
+    </div>
+
+    <div class="row dates-row">
+        <div class="col-6 col-md-6 col-lg-3 date-container ">
+            <button class="btn custom-btn-primary date-btn" [ngClass]="{selected: selectedDate=='DAILY'}"
+                (click)="selectedDate='DAILY'">Quotidien</button>
+        </div>
+        <div class="col-6 col-md-6 col-lg-3 date-container ">
+
+            <button class="btn custom-btn-primary date-btn" [ngClass]="{selected: selectedDate=='WEEKLY'}"
+                (click)="selectedDate='WEEKLY'">Hebdomadaire</button>
+        </div>
+        <div class="col-6 col-md-6 col-lg-3 date-container ">
+
+            <button class="btn custom-btn-primary date-btn" [ngClass]="{selected: selectedDate=='MONTHLY'}"
+                (click)="selectedDate='MONTHLY'">Mensuelle</button>
+        </div>
+
+        <div class="col-6 col-md-6 col-lg-3 date-container ">
+
+            <button class="btn custom-btn-primary date-btn" [ngClass]="{selected: selectedDate=='ANUALLY'}"
+                (click)="selectedDate='ANUALLY'">Annuelle</button>
+        </div>
+    </div>
+
+    <div class="row charts-row">
+        
+    </div>
+    <div class="row title-row">
+        <div class="col col-md-3 col-lg-3"></div>
+        <div class="col-12 col-md-6 col-lg-6 title-container">
+            <h1 class="title">Opérations</h1>
+        </div>
+    </div>
+    <div class="row operations-row">
+
+        <div class="col-6 col-md-4 col-lg-4 btn-container">
+            <button class="btn custom-btn-primary operation-btn" [ngClass]="{selected: selectedOperations=='SOLD'}"
+                (click)="selectedOperations='SOLD'">Vente</button>
+        </div>
+        <div class="col-6 col-md-4 col-lg-4 btn-container ">
+
+            <button class="btn custom-btn-primary operation-btn" [ngClass]="{selected: selectedOperations=='LOADED'}"
+                (click)="selectedOperations='LOADED'">Chargement</button>
+        </div>
+        <div class="col-12 col-md-4 col-lg-4 btn-container ">
+
+            <button class="btn custom-btn-primary operation-btn" [ngClass]="{selected: selectedOperations=='RETURNED'}"
+                (click)="selectedOperations='RETURNED'">Retour</button>
+        </div>
+
+    </div>
+
+    <div class="row selling-operations-row" *ngIf="selectedOperations=='SOLD'">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">Nom du produit</th>
+                        <th scope="col">Catégorie</th>
+                        <th scope="col">Marque</th>
+                        <th scope="col">Prix</th>
+                        <th scope="col">Quantité vendue</th>
+                        <th scope="col">Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let element of sellingOperations | paginate:{itemsPerPage: 5, currentPage:sellingPage}">
+                        <th scope="row">{{element.product?.name ? element.product.name : "--"}}</th>
+                        <td>{{element.product?.category ? element.product.category : "--"}}</td>
+                        <td>{{element.product.brand ? element.product.brand: "--"}}</td>
+                        <td>{{element.product?.sellingPrice ? element.product.sellingPrice+" DT" : "--"}}</td>
+                        <td>{{element.quantity ? element.quantity : "--"}}</td>
+                        <td>{{( element.date ? element.date : "--" )| date:'medium' }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div style="width: 100%;text-align: center;" *ngIf="sellingOperations?.length > 10">
+            <pagination-controls (pageChange)="sellingPage = $event" directionLinks="true" responsive="true"
+                previousLabel="Précedent" nextLabel="Suivant"></pagination-controls>
+        </div>
+    </div>
+
+    <div class="row loading-operations-row" *ngIf="selectedOperations=='LOADED'">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">Nom du produit</th>
+                        <th scope="col">Catégorie</th>
+                        <th scope="col">Marque</th>
+                        <th scope="col">Prix</th>
+                        <th scope="col">Quantité chargée</th>
+                        <th scope="col">Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let element of loadingOperations | paginate:{itemsPerPage: 5, currentPage:loadingPage}">
+                        <th scope="row">{{element.product?.name ? element.product.name : "--"}}</th>
+                        <td>{{element.product?.category ? element.product.category : "--"}}</td>
+                        <td>{{element.product.brand ? element.product.brand: "--"}}</td>
+                        <td>{{element.product?.sellingPrice ? element.product.sellingPrice+" DT" : "--"}}</td>
+                        <td>{{element.quantity ? element.quantity : "--"}}</td>
+                        <td>{{( element.date ? element.date : "--" )| date:'medium' }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div style="width: 100%;text-align: center;" *ngIf="loadingOperations?.length > 10">
+            <pagination-controls (pageChange)="loadingPage = $event" directionLinks="true" responsive="true"
+                previousLabel="Précedent" nextLabel="Suivant"></pagination-controls>
+        </div>
+    </div>
+
+    <div class="row returning-operations-row" *ngIf="selectedOperations=='RETURNED'">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">Nom du produit</th>
+                        <th scope="col">Catégorie</th>
+                        <th scope="col">Marque</th>
+                        <th scope="col">Prix</th>
+                        <th scope="col">Quantité retournée</th>
+                        <th scope="col">Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let element of returningOperations | paginate:{itemsPerPage: 5, currentPage:returningPage}">
+                        <th scope="row">{{element.product?.name ? element.product.name : "--"}}</th>
+                        <td>{{element.product?.category ? element.product.category : "--"}}</td>
+                        <td>{{element.product.brand ? element.product.brand: "--"}}</td>
+                        <td>{{element.product?.sellingPrice ? element.product.sellingPrice+" DT" : "--"}}</td>
+                        <td>{{element.quantity ? element.quantity : "--"}}</td>
+                        <td>{{( element.date ? element.date : "--" )| date:'medium' }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div style="width: 100%;text-align: center;" *ngIf="returningOperations?.length > 10">
+            <pagination-controls (pageChange)="returningPage = $event" directionLinks="true" responsive="true"
+                previousLabel="Précedent" nextLabel="Suivant"></pagination-controls>
+        </div>
+    </div>
+</div>

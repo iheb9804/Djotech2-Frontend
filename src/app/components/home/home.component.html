@@ -1,4 +1,4 @@
-<div class="container-fluid" style="padding-top:100px">
+<div class="container-fluid" style="padding-top:20px">
   <div class="row">
     <div class="col-md-4 menu-item-container" (click)="navigate('manageInventory')">
       <div class="menu-item">
@@ -28,6 +28,19 @@
         </div>
         <div class="menu-item-label">
           Fournisseurs
+        </div>
+      </div>
+    </div>
+
+    <div class="col col-md-0 col-lg-4"></div>
+
+    <div class="col-md-4 menu-item-container">
+      <div class="menu-item" (click)="navigate('manageLoans')">
+        <div class="menu-item-icon">
+          <fa-icon class="icon" [icon]="faHandHoldingUsd"></fa-icon>
+        </div>
+        <div class="menu-item-label">
+          Crédits
         </div>
       </div>
     </div>

@@ -1,0 +1,459 @@
+.section{
+    padding-right:50px;
+    padding-left:50px;
+}
+
+.button-bloc{
+    text-align: center;
+}
+
+.button-row{
+    padding-top:60px
+}
+
+.edit-form{
+    padding-top: 30px !important;
+}
+
+.title{
+    padding:20px;
+    width: 100%;
+}
+
+.title-row{
+    text-align: center !important;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* File Input Style */
+
+.files input {
+    outline: 2px dashed #92b0b3;
+    outline-offset: -10px;
+    -webkit-transition: outline-offset .15s ease-in-out, background-color .15s linear;
+    transition: outline-offset .15s ease-in-out, background-color .15s linear;
+    padding: 120px 0px 85px 35%;
+    text-align: center !important;
+    margin: 0;
+    width: 100% !important;
+  }
+  
+  .files input:focus {
+    outline: 2px dashed #92b0b3;
+    outline-offset: -10px;
+    -webkit-transition: outline-offset .15s ease-in-out, background-color .15s linear;
+    transition: outline-offset .15s ease-in-out, background-color .15s linear;
+    border: 1px solid #92b0b3;
+  }
+  
+  .files {
+    position: relative;
+  }
+  
+  .files:after {
+    pointer-events: none;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 50px;
+    right: 0;
+    height: 56px;
+    content: "";
+    /*background-image: url(https://image.flaticon.com/icons/png/128/109/109612.png);*/
+    display: block;
+    margin: 0 auto;
+    background-size: 100%;
+    background-repeat: no-repeat;
+  }
+  
+  .color input {
+    background-color: #ffffff;
+  }
+  
+  .files:before {
+  
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    pointer-events: none;
+    width: 100%;
+    right: 0;
+    height: 75px;
+    display: block;
+    margin: 0 auto;
+    color: #2ea591;
+    font-weight: 600;
+    text-transform: capitalize;
+    text-align: center;
+  
+  }
+  
+  .myButton {
+  background: rgb(24,118,189);
+	border:0px solid #000000;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:8px 35px;
+	text-decoration:none;
+
+}
+.myButton:hover {
+	background:rgb(18, 92, 148);
+}
+.myButton:active {
+	
+}
+
+.right-border{
+  border-right:2px solid rgb(18, 92, 148);
+}
+
+.model1{
+  background-color: rgb(255, 255, 255);
+  height: 100px;
+  padding-left: 15px;
+  margin-bottom: 15px;
+  margin: 0;
+  width: 100% !important;
+}
+.model2{
+  background-color: rgb(255, 255, 255);
+  height: 60px;
+  padding-left: 150px;
+  margin-bottom: 15px;
+  margin: 0;
+  width: 100% !important;
+}
+.model3{
+  background-color: rgb(255, 255, 255);
+  height: 60px;
+  padding-left: 15px;
+  padding-top: 15px;
+  margin-top: 15px;
+  margin: 0;
+  width: 100% !important;
+}
+.div2{
+  padding-bottom: 20
+  px;
+
+}
+.divp{
+  padding-top: 20px;
+}
+.divb{
+  padding-top: 20px;
+  padding-bottom: 150px;
+
+}
+mat-nav-list{
+  padding-top: 0px;
+}
+.btn0{
+  float: right;
+
+}
+.example-form-field {
+  width: 50% !important;
+  padding-left: 400px;
+
+}
+mat-label {
+  font-size: 18px;
+  width: 50%;
+
+
+}
+
+.label1{
+  width:10%;
+}
+.div1{
+  padding-bottom: 20px;
+}
+/*
+*/
+
+.files input {
+  outline: 2px dashed #92b0b3;
+  outline-offset: -10px;
+  -webkit-transition: outline-offset .15s ease-in-out, background-color .15s linear;
+  transition: outline-offset .15s ease-in-out, background-color .15s linear;
+  padding: 120px 0px 85px 35%;
+  text-align: center !important;
+  margin: 0;
+  width: 100% !important;
+}
+
+.files input:focus {
+  outline: 2px dashed #92b0b3;
+  outline-offset: -10px;
+  -webkit-transition: outline-offset .15s ease-in-out, background-color .15s linear;
+  transition: outline-offset .15s ease-in-out, background-color .15s linear;
+  border: 1px solid #92b0b3;
+}
+
+.files {
+  position: relative;
+}
+
+.files:after {
+  pointer-events: none;
+  position: absolute;
+  top: 60px;
+  left: 0;
+  width: 50px;
+  right: 0;
+  height: 56px;
+  content: "";
+  /*background-image: url(https://image.flaticon.com/icons/png/128/109/109612.png);*/
+  display: block;
+  margin: 0 auto;
+  background-size: 100%;
+  background-repeat: no-repeat;
+}
+
+.color input {
+  background-color: #ffffff;
+}
+
+.files:before {
+
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  pointer-events: none;
+  width: 100%;
+  right: 0;
+  height: 75px;
+  display: block;
+  margin: 0 auto;
+  color: #2ea591;
+  font-weight: 600;
+  text-transform: capitalize;
+  text-align: center;
+
+}
+
+
+/*
+*/
+a {
+  color: #47b6ff;
+  text-decoration: none;
+  -webkit-transition: color 0.25s ease-in-out;
+  -moz-transition: color 0.25s ease-in-out;
+  -ms-transition: color 0.25s ease-in-out;
+  -o-transition: color 0.25s ease-in-out;
+  transition: color 0.25s ease-in-out;
+}
+
+a:hover {
+  color: #fa6661;
+}
+
+h3 {
+  font-size: 24px;
+  font-family: Montserrat;
+}
+
+h5 {
+  font-size: 14px;
+  font-family: Montserrat;
+}
+
+p {
+  margin: 0;
+}
+
+.accordion .card {
+  border-radius: 12px;
+}
+
+.accordion .card-header {
+  background-color: #fff;
+  border: none;
+  border-radius: 12px !important;
+  padding: 10px 12px;
+}
+
+.accordion .card-header h5 {
+  font-family: "Open Sans";
+}
+
+.accordion .card-header a {
+  display: block;
+  color: #333;
+}
+
+.accordion .card-header a:hover {
+  text-decoration: none;
+}
+
+.accordion .card-body {
+  border-top: 1px solid #e2e0e0;
+  padding: 12px;
+}
+
+.accordion.accordion-select .card {
+  border-radius: 12px !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+.accordion.accordion-select .card-header {
+  padding: 6px 12px;
+}
+
+.accordion.accordion-select .card-header a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.accordion.accordion-select .card-header a .fa {
+  margin: 0 0 0 auto;
+  font-size: 25px;
+}
+
+.accordion.accordion-select .card-body {
+  padding: 10px 0;
+}
+
+.accordion.accordion-select .card-body ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.accordion.accordion-select .card-body li {
+  margin: 0 0 10px;
+  padding: 0 12px 10px;
+  border-bottom: 1px solid #ebebeb;
+}
+
+.accordion.accordion-select .card-body li:last-child {
+  border: none;
+  padding: 0 12px;
+  margin: 0;
+}
+
+.accordion.accordion-select .card-body a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #333;
+  text-decoration: none;
+}
+
+.accordion.accordion-select .card-body a span {
+  margin: 0 0 0 auto;
+  font-size: 12px;
+  background-color: #fa6661;
+  padding: 4px 7px;
+  border-radius: 4px;
+  color: #fff;
+}
+
+a{
+  text-decoration: none;
+  color: rgb(0, 0, 0);
+  background-color: white;
+}
+
+a:hover, a:active{
+  color: black;
+
+}
+
+.nav-caption{
+  display: inline-block;
+  padding-left: 6px;
+}
+a:hover{
+  background-color:#bff569;
+
+}
+
+
+
+.list-group > .list-group {
+  display: none;
+  margin-bottom: 0;
+
+}
+.list-group-item:focus-within + .list-group {
+  display: block;
+}
+
+.list-group > .list-group-item {
+  border-radius: 0;
+  border-width: 1px 0 0 0;
+}
+
+.list-group > .list-group-item:first-child {
+  border-top-width: 0;
+}
+
+.list-group  > .list-group > .list-group-item {
+  padding-left: 2.5rem;
+}
+
+.hidden-file {
+  visibility: hidden;
+  position: absolute;
+  overflow: hidden;
+  width: 0px;
+  height:0px;
+  border:none;
+  margin:0;
+  padding:0
+}
+
+.container{
+  padding:20px;
+}
+
+
+
+.categorie{
+  padding:10px;
+  margin:50px;
+}
+
+.inputcontainer{
+float:right;
+}
+
+.categoriecontainer{
+float:left;
+}
+
+.catcontainer{
+  padding-right:10px;
+}
+
+input{
+  margin-right:10px;
+}

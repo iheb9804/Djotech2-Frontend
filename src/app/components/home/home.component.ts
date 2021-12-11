@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { faBoxOpen, faChartBar, faShippingFast } from '@fortawesome/free-solid-svg-icons';
+import { faBoxOpen, faChartBar, faHandHoldingUsd, faShippingFast } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-home',
@@ -11,6 +11,8 @@ export class HomeComponent implements OnInit {
   faBoxOpen= faBoxOpen;
   faChartBar= faChartBar;
   faShippingfast= faShippingFast;
+  faHandHoldingUsd = faHandHoldingUsd;
+
   constructor(private router:Router) { }
 
   ngOnInit(): void {

@@ -35,6 +35,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxLoadingXModule } from 'ngx-loading-x';
 import { NgxImageCompressService } from 'ngx-image-compress';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { LoanComponent } from './components/loan/loan.component';
+import { AddBorrowerComponent } from './components/loan/add-borrower/add-borrower.component';
+import { UpdateBorrowerComponent } from './components/loan/update-borrower/update-borrower.component';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -55,7 +61,11 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     SellProductComponent,
     ViewImagesComponent,
     ManageInventoryComponent,
-    LoadProductComponent
+    LoadProductComponent,
+    DashboardComponent,
+    LoanComponent,
+    AddBorrowerComponent,
+    UpdateBorrowerComponent
   ],
   imports: [
     BrowserModule,

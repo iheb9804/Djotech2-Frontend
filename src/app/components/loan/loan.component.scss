@@ -1,0 +1,85 @@
+.menu-item-container{
+    padding:30px;
+}
+.menu-item{
+    text-align: center;
+    vertical-align:middle;
+    display: flex;
+    justify-content: center;
+    align-items: center;    
+    cursor: pointer;
+    padding:120px;
+    height:100%;
+    color:white;
+    font-size: 30px;
+    background-color: #189ad3;
+    border-radius: 20px;
+    box-shadow: 10px 10px 30px  2px gray;
+}
+
+
+.title {
+    width: 100%;
+    text-align: center;
+}
+
+.message{
+    padding-top: 50px;
+    padding-bottom: 50px;
+    width: 100%;
+    text-align: center;
+    color: gray;
+}
+
+.title-row {
+    padding: 30px;
+    padding-top: 0;
+}
+.btn-container{
+    padding-bottom:50px;
+    text-align: center;
+}
+.menu-item:hover{
+    background-color: #1582b1;
+    box-shadow: 10px 10px 30px  10px gray;
+}
+td,th{
+    text-align: center;
+}
+
+.menu-item:active{
+    background-color: #167097;
+    box-shadow: 10px 10px 30px  16px gray;
+
+
+}
+.icon{
+    padding:20px;
+}
+
+
+
+::ng-deep .mat-paginator-page-size-select {
+    width: 27px!important;
+}
+::ng-deep .mat-form-field-appearance-legacy .mat-form-field-underline {
+    background-color: transparent;
+}
+
+::ng-deep .mat-select-value {
+  color: #005999;
+    font-weight: bold;
+    font-size: 15px;
+}
+::ng-deep .mat-select-arrow {
+    color: #005999;
+}
+::ng-deep .mat-option{
+  padding: 0!important;
+
+}
+::ng-deep .mat-option-text {
+
+    text-align: right;
+}
+

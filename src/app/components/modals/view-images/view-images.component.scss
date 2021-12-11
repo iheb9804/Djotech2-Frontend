@@ -4,7 +4,7 @@
 }
 
 .product-main-image {
-    width: 90%;
+    width: 60%;
     margin-left: auto;
     margin-right: auto;
     box-sizing: border-box;
@@ -15,10 +15,19 @@
 
 .product-image {
     text-align: center;
-    width: 18%;
+    width: 10%;
     margin-right: 4px;
     box-sizing: border-box;
     border: 1px solid rgba(128, 128, 128, 0.363);
+}
+
+@media (max-width: 667px) {
+    .product-main-image {
+        width: 100%;
+    }   
+    .product-image {
+        width: 20%;
+    }
 }
 
 

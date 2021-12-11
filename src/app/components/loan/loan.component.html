@@ -1,0 +1,54 @@
+<div class="container-fluid">
+    <div class="row title-row">
+        <h1 class="title">Consulter les crédits</h1>
+    </div>
+    <div class="row">
+        <div class="col-0 col-lg-10"></div>
+        <div class="col-12 col-lg-2 btn-container">
+            <button class="btn custom-btn-primary add-btn" (click)="navigate('/manageLoans/addBorrower')"
+                routerLinkActive="router-link-active">
+                <fa-icon class="icon" [icon]="faPlus"></fa-icon>
+            </button>
+        </div>
+    </div>
+    <div class="col-12 col-lg-12" *ngIf="borrowers?.length == 0">
+        <h1 class="message">Aucun crédit trouvé</h1>
+    </div>
+    <div class="table-responsive" *ngIf="borrowers?.length > 0">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Nom et prénom</th>
+                    <th scope="col">Téléphone</th>
+                    <th scope="col">Crédit</th>
+                    <th scope="col">Date de remboursement</th>
+                    <th scope="col">Commentaire</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let element of borrowers | paginate:{itemsPerPage: 10, currentPage:p}">
+                    <th scope="row">{{element.name ? element.name : "--"}}</th>
+                    <td>{{element.phone ? element.phone : "--"}}</td>
+                    <td>{{element.credit ? element.credit+" DT" : "--"}}</td>
+                    <td>{{(element.date ? (element.date | date:'fullDate') : "--") }}</td>
+                    <td>{{element.comment ? element.comment : "--"}}</td>
+                    <td>
+                        <span class="icon">
+                            <fa-icon class="icon" [icon]="faTrash" (click)="removeBorrower(element)"></fa-icon>
+                        </span>
+                        <span class="icon">
+                            <fa-icon class="icon" [icon]="faEdit" (click)="updateBorrower(element)"></fa-icon>
+                        </span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div style="width: 100%;text-align: center;" *ngIf="borrowers?.length > 10">
+        <pagination-controls (pageChange)="p = $event" directionLinks="true" responsive="true" previousLabel="Précedent"
+            nextLabel="Suivant"></pagination-controls>
+    </div>
+
+
+</div>
