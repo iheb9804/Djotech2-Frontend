@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { faArchive, faCashRegister, faFileInvoiceDollar, faHandHoldingUsd } from '@fortawesome/free-solid-svg-icons';
+import { faArchive, faCashRegister, faFileInvoiceDollar, faHandHoldingUsd, faHeadphones, faMobileAlt } from '@fortawesome/free-solid-svg-icons';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { CategoryService } from 'src/app/services/category.service';
 import { ProductService } from 'src/app/services/product.service';
@@ -17,6 +17,8 @@ export class DashboardComponent implements OnInit {
   faCashRegister = faCashRegister;
   faHandHoldingUsd = faHandHoldingUsd;
   faFileInvoiceDollar = faFileInvoiceDollar;
+  faMobileAlt = faMobileAlt;
+  faHeadphones = faHeadphones;
 
 
 
@@ -37,6 +39,8 @@ export class DashboardComponent implements OnInit {
   // Widgets
   stockInTrade;
   totalValue;
+  phonesValue;
+  accessoriesValue;
   netWorth;
   loan;
   debt;
@@ -57,12 +61,36 @@ export class DashboardComponent implements OnInit {
     this.getData();
     this.selectedOperations = "SOLD";
     this.selectedDate = "DAILY";
-    this.stockInTrade = 50000;
+    this.setWidgetsValues();
   }
 
 
   getData() {
     this.getCategories();
+  }
+
+  setWidgetsValues() {
+    this.statService.getDebts().subscribe(data => {
+      this.debt = this.round(data.total, 1);
+    })
+
+    this.statService.getLoans().subscribe(data => {
+      this.loan = this.round(data.total, 1);
+    })
+
+    this.statService.getTotalValue().subscribe((data: any) => {
+      this.totalValue = this.round(data.total, 1);
+      this.statService.getStockInTrade().subscribe(data => {
+        this.stockInTrade = this.round(data.total, 1);
+        this.netWorth = this.round(this.totalValue - this.stockInTrade, 1);
+      })
+      this.statService.getPhonesValue().subscribe(data => {
+        this.phonesValue = this.round(data.total, 1);
+        this.accessoriesValue = this.round(this.totalValue - this.phonesValue, 1);
+      })
+    })
+
+
   }
 
   getStats() {
@@ -132,7 +160,10 @@ export class DashboardComponent implements OnInit {
 
 
 
-
+  round(value, precision) {
+    var multiplier = Math.pow(10, precision || 0);
+    return Math.round(value * multiplier) / multiplier;
+  }
 
 
 
@@ -172,6 +203,8 @@ export class DashboardComponent implements OnInit {
   public chartOptions: any = {
     responsive: true
   };
+
+
   public chartClicked(e: any): void { }
   public chartHovered(e: any): void { }
 }

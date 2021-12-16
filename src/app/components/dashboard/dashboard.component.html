@@ -3,99 +3,142 @@
 
     <div class="row  widgets-row">
         <div class="col-0 col-md col-lg-1"></div>
-        <div class="col-12 col-md-6 col-lg-3 widget-container">
+        <div class="col-6 col-md-6 col-lg-3 widget-container">
             <div class="widget">
                 <div class="row widget-header">
-                    <div class="col-3 col-md-3 col-lg-3 widget-icon">
+                    <div class="col-4 col-md-3 col-lg-3 widget-icon">
                         <fa-icon class="icon" [icon]="faArchive"></fa-icon>
                     </div>
-                    <div class="col-9 col-md-9 col-lg-9 widget-title">
+                    <div class="col-8 col-md-9 col-lg-9 widget-title">
                         <span class="subtitle">Fond de commerce</span>
                     </div>
                 </div>
                 <div class="row widget-content">
                     <div class="col-12 col-md-12 col-lg-12">
-                        <span class="widget-value">{{stockInTrade + " DT"}}</span>
+                        <img src="assets/loading.gif" class="loading"
+                            *ngIf="stockInTrade==null || stockInTrade == undefined">
+                        <span class="widget-value"
+                            *ngIf="stockInTrade!=null && stockInTrade != undefined">{{stockInTrade + " DT"}}</span>
                     </div>
                 </div>
-                
+
 
             </div>
         </div>
-        <div class="col-12 col-md-6 col-lg-3 widget-container">
+        <div class="col-6 col-md-6 col-lg-3 widget-container">
             <div class="widget">
                 <div class="row widget-header">
-                    <div class="col-3 col-md-3 col-lg-3 widget-icon">
+                    <div class="col-4 col-md-3 col-lg-3 widget-icon">
                         <fa-icon class="icon" [icon]="faCashRegister"></fa-icon>
                     </div>
-                    <div class="col-9 col-md-9 col-lg-9 widget-title">
+                    <div class="col-8 col-md-9 col-lg-9 widget-title">
                         <span class="subtitle">Valeur total</span>
                     </div>
                 </div>
                 <div class="row widget-content">
                     <div class="col-12 col-md-12 col-lg-12">
-                        <span class="widget-value">{{stockInTrade + " DT"}}</span>
+                        <img src="assets/loading.gif" class="loading"
+                            *ngIf="totalValue==null || totalValue == undefined">
+                        <span class="widget-value" *ngIf="totalValue!=null && totalValue != undefined">{{totalValue + "
+                            DT"}}</span>
                     </div>
                 </div>
-                
+
 
             </div>
         </div>
-        <div class="col-12 col-md-6 col-lg-3 widget-container">
+        <div class="col-6 col-md-6 col-lg-3 widget-container">
             <div class="widget">
                 <div class="row widget-header">
-                    <div class="col-3 col-md-3 col-lg-3 widget-icon">
+                    <div class="col-4 col-md-3 col-lg-3 widget-icon">
                         <fa-icon class="icon" [icon]="faFileInvoiceDollar"></fa-icon>
                     </div>
-                    <div class="col-9 col-md-9 col-lg-9 widget-title">
+                    <div class="col-8 col-md-9 col-lg-9 widget-title">
                         <span class="subtitle">Net</span>
                     </div>
                 </div>
                 <div class="row widget-content">
                     <div class="col-12 col-md-12 col-lg-12">
-                        <span class="widget-value">{{stockInTrade + " DT"}}</span>
+                        <img src="assets/loading.gif" class="loading" *ngIf="netWorth==null || netWorth == undefined">
+                        <span class="widget-value" *ngIf="netWorth!=null && netWorth != undefined">{{netWorth + "
+                            DT"}}</span>
                     </div>
                 </div>
 
             </div>
         </div>
-        <div class="col-12 col-md-6 col-lg-3 widget-container">
+        <div class="col-6 col-md-6 col-lg-3 widget-container">
             <div class="widget">
                 <div class="row widget-header">
-                    <div class="col-3 col-md-3 col-lg-3 widget-icon">
-                        <fa-icon class="icon" [icon]="faHandHoldingUsd"></fa-icon>
+                    <div class="col-4 col-md-3 col-lg-3 widget-icon">
+                        <fa-icon class="icon" [icon]="faMobileAlt"></fa-icon>
                     </div>
-                    <div class="col-9 col-md-9 col-lg-9 widget-title">
-                        <span class="subtitle">Crédit</span>
+                    <div class="col-8 col-md-9 col-lg-9 widget-title">
+                        <span class="subtitle">Valeur des téléphones</span>
                     </div>
                 </div>
                 <div class="row widget-content">
                     <div class="col-12 col-md-12 col-lg-12">
-                        <span class="widget-value">{{stockInTrade + " DT"}}</span>
+                        <img src="assets/loading.gif" class="loading" *ngIf="phonesValue==null || phonesValue == undefined">
+                        <span class="widget-value" *ngIf="phonesValue!=null && phonesValue != undefined">{{phonesValue + " DT"}}</span>
                     </div>
                 </div>
-                
-
             </div>
         </div>
 
-        <div class="col-12 col-md-6 col-lg-3 widget-container">
+        <div class="col-6 col-md-6 col-lg-3 widget-container">
             <div class="widget">
                 <div class="row widget-header">
-                    <div class="col-3 col-md-3 col-lg-3 widget-icon">
+                    <div class="col-4 col-md-3 col-lg-3 widget-icon">
+                        <fa-icon class="icon" [icon]="faHeadphones"></fa-icon>
+                    </div>
+                    <div class="col-8 col-md-9 col-lg-9 widget-title">
+                        <span class="subtitle">Valeur des accessoires</span>
+                    </div>
+                </div>
+                <div class="row widget-content">
+                    <div class="col-12 col-md-12 col-lg-12">
+                        <img src="assets/loading.gif" class="loading" *ngIf="accessoriesValue==null || accessoriesValue == undefined">
+                        <span class="widget-value" *ngIf="accessoriesValue!=null && accessoriesValue != undefined">{{accessoriesValue + " DT"}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 col-md-6 col-lg-3 widget-container">
+            <div class="widget">
+                <div class="row widget-header">
+                    <div class="col-4 col-md-3 col-lg-3 widget-icon">
                         <fa-icon class="icon" [icon]="faHandHoldingUsd"></fa-icon>
                     </div>
-                    <div class="col-9 col-md-9 col-lg-9 widget-title">
+                    <div class="col-8 col-md-9 col-lg-9 widget-title">
                         <span class="subtitle">Crédit</span>
                     </div>
                 </div>
                 <div class="row widget-content">
                     <div class="col-12 col-md-12 col-lg-12">
-                        <span class="widget-value">{{stockInTrade + " DT"}}</span>
+                        <img src="assets/loading.gif" class="loading" *ngIf="loan==null || loan == undefined">
+                        <span class="widget-value" *ngIf="loan!=null && loan != undefined">{{loan + " DT"}}</span>
                     </div>
                 </div>
-                
+            </div>
+        </div>
 
+        <div class="col-6 col-md-6 col-lg-3 widget-container">
+            <div class="widget">
+                <div class="row widget-header">
+                    <div class="col-4 col-md-3 col-lg-3 widget-icon">
+                        <fa-icon class="icon" [icon]="faHandHoldingUsd"></fa-icon>
+                    </div>
+                    <div class="col-8 col-md-9 col-lg-9 widget-title">
+                        <span class="subtitle">Dette</span>
+                    </div>
+                </div>
+                <div class="row widget-content">
+                    <div class="col-12 col-md-12 col-lg-12">
+                        <img src="assets/loading.gif" class="loading" *ngIf="debt==null || debt == undefined">
+                        <span class="widget-value" *ngIf="debt!=null && debt != undefined">{{debt + " DT"}}</span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -124,7 +167,7 @@
     </div>
 
     <div class="row charts-row">
-        
+
     </div>
     <div class="row title-row">
         <div class="col col-md-3 col-lg-3"></div>
@@ -150,17 +193,23 @@
         </div>
 
     </div>
+    <div class="col-12 col-md-12 col-lg-12" 
+    *ngIf="(selectedOperations=='SOLD'  && sellingOperations?.length == 0 ) ||
+     (selectedOperations=='LOADED'  && loadingOperations?.length == 0 ) ||
+     (selectedOperations=='RETURNED'  && returningOperations?.length == 0 )">
+        <h1 class="message">Aucune opération trouvé</h1>
+      </div>
 
-    <div class="row selling-operations-row" *ngIf="selectedOperations=='SOLD'">
+    <div class="row selling-operations-row" *ngIf="selectedOperations=='SOLD'  && sellingOperations?.length != 0">
         <div class="table-responsive">
             <table class="table table-hover">
                 <thead>
                     <tr>
-                        <th scope="col">Nom du produit</th>
+                        <th scope="col">Nom Du Produit</th>
                         <th scope="col">Catégorie</th>
                         <th scope="col">Marque</th>
                         <th scope="col">Prix</th>
-                        <th scope="col">Quantité vendue</th>
+                        <th scope="col">Quantité Vendue</th>
                         <th scope="col">Date</th>
                     </tr>
                 </thead>
@@ -182,16 +231,16 @@
         </div>
     </div>
 
-    <div class="row loading-operations-row" *ngIf="selectedOperations=='LOADED'">
+    <div class="row loading-operations-row" *ngIf="selectedOperations=='LOADED' && loadingOperations?.length != 0">
         <div class="table-responsive">
             <table class="table table-hover">
                 <thead>
                     <tr>
-                        <th scope="col">Nom du produit</th>
+                        <th scope="col">Nom Du Produit</th>
                         <th scope="col">Catégorie</th>
                         <th scope="col">Marque</th>
                         <th scope="col">Prix</th>
-                        <th scope="col">Quantité chargée</th>
+                        <th scope="col">Quantité Chargée</th>
                         <th scope="col">Date</th>
                     </tr>
                 </thead>
@@ -213,21 +262,22 @@
         </div>
     </div>
 
-    <div class="row returning-operations-row" *ngIf="selectedOperations=='RETURNED'">
+    <div class="row returning-operations-row" *ngIf="selectedOperations=='RETURNED' && returningOperations?.length != 0">
         <div class="table-responsive">
             <table class="table table-hover">
                 <thead>
                     <tr>
-                        <th scope="col">Nom du produit</th>
+                        <th scope="col">Nom Du Produit</th>
                         <th scope="col">Catégorie</th>
                         <th scope="col">Marque</th>
                         <th scope="col">Prix</th>
-                        <th scope="col">Quantité retournée</th>
+                        <th scope="col">Quantité Retournée</th>
                         <th scope="col">Date</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let element of returningOperations | paginate:{itemsPerPage: 5, currentPage:returningPage}">
+                    <tr
+                        *ngFor="let element of returningOperations | paginate:{itemsPerPage: 5, currentPage:returningPage}">
                         <th scope="row">{{element.product?.name ? element.product.name : "--"}}</th>
                         <td>{{element.product?.category ? element.product.category : "--"}}</td>
                         <td>{{element.product.brand ? element.product.brand: "--"}}</td>

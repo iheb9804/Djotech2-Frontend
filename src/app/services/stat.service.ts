@@ -8,12 +8,32 @@ import { GlobalVariable } from '../shared/global';
 })
 export class StatService {
   BASE_PATH = GlobalVariable.BASE_PATH;
-  baseUrl: string = this.BASE_PATH+'/stats/';
+  baseUrl: string = this.BASE_PATH + '/stats/';
 
   constructor(private http: HttpClient) { }
 
   getStats(): Observable<any> {
     return this.http.get<any>(this.baseUrl);
   }
-  
+
+  getPhonesValue(): Observable<any> {
+    return this.http.get<any>(this.baseUrl + "/phonesValue");
+  }
+
+  getStockInTrade(): Observable<any> {
+    return this.http.get<any>(this.baseUrl + "/stockInTrade");
+  }
+
+  getTotalValue(): Observable<any> {
+    return this.http.get<any>(this.baseUrl + "/totalValue");
+  }
+
+  getLoans(): Observable<any> {
+    return this.http.get<any>(this.baseUrl + "/loans");
+  }
+
+  getDebts(): Observable<any> {
+    return this.http.get<any>(this.baseUrl + "/debts");
+  }
+
 }
