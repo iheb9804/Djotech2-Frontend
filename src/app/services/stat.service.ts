@@ -20,6 +20,10 @@ export class StatService {
     return this.http.get<any>(this.baseUrl + "/phonesValue");
   }
 
+  getPhonesTradeValue(): Observable<any> {
+    return this.http.get<any>(this.baseUrl + "/phonesTradeValue");
+  }
+
   getStockInTrade(): Observable<any> {
     return this.http.get<any>(this.baseUrl + "/stockInTrade");
   }

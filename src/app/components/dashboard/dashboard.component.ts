@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { faArchive, faCashRegister, faFileInvoiceDollar, faHandHoldingUsd, faHeadphones, faMobileAlt } from '@fortawesome/free-solid-svg-icons';
+import { faArchive, faCashRegister, faFileInvoiceDollar, faHandHoldingUsd, faHeadphones, faMobileAlt, faTags } from '@fortawesome/free-solid-svg-icons';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { CategoryService } from 'src/app/services/category.service';
 import { ProductService } from 'src/app/services/product.service';
@@ -19,6 +19,7 @@ export class DashboardComponent implements OnInit {
   faFileInvoiceDollar = faFileInvoiceDollar;
   faMobileAlt = faMobileAlt;
   faHeadphones = faHeadphones;
+  faTags=faTags;
 
 
 
@@ -42,6 +43,7 @@ export class DashboardComponent implements OnInit {
   phonesValue;
   accessoriesValue;
   netWorth;
+  mobilesNetWorth;
   loan;
   debt;
 
@@ -87,6 +89,9 @@ export class DashboardComponent implements OnInit {
       this.statService.getPhonesValue().subscribe(data => {
         this.phonesValue = this.round(data.total, 1);
         this.accessoriesValue = this.round(this.totalValue - this.phonesValue, 1);
+        this.statService.getPhonesTradeValue().subscribe(data=>{
+            this.mobilesNetWorth = this.round(this.phonesValue - data.total, 1)
+        })
       })
     })
 
