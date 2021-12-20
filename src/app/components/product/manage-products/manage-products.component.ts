@@ -21,6 +21,7 @@ import { SellProductComponent } from '../sell-product/sell-product.component';
 export class ManageProductsComponent implements OnInit {
   
   loading;
+  page;
 
   IMAGE_BASE_PATH = GlobalVariable.IMAGE_BASE_PATH;
   faSearch = faSearch;

@@ -104,7 +104,8 @@
       <img src="assets/loading.gif">
     </div>
 
-    <div class="col-md-6 col-lg-3 product-container" *ngFor="let product of filtredProducts">
+    <div class="col-6 col-md-6 col-lg-3 product-container" 
+    *ngFor="let product of filtredProducts | paginate:{itemsPerPage: 20, currentPage:page}">
       <div class="product-details">
         <div class="product-title">
           <div class="product-name">
@@ -151,6 +152,10 @@
       </div>
     </div>
 
-
+    <div style="width: 100%;text-align: center;padding-top:50px;padding-right:40px;" *ngIf="filtredProducts?.length > 20">
+      <pagination-controls (pageChange)="page = $event" directionLinks="true" class="nopadding" responsive="true"
+          previousLabel="Précedent" nextLabel="Suivant"></pagination-controls>
   </div>
+  </div>
+  
 </div>
