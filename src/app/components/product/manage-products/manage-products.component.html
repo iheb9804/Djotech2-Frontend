@@ -112,9 +112,9 @@
             {{product?.name ? product?.name : "--"}}
           </div>
           <div class="icons">
-            <fa-icon [icon]="faEdit" class="edit-icon" (click)="navigate('/manageProducts/updateProduct/'+product._id)">
+            <fa-icon [icon]="faEdit" class="icon" (click)="navigate('/manageProducts/updateProduct/'+product._id)">
             </fa-icon>
-            <fa-icon [icon]="faTimes" (click)="deleteProduct(product)"></fa-icon>
+            <fa-icon [icon]="faTimes" class="icon" (click)="deleteProduct(product)"></fa-icon>
           </div>
         </div>
         <div class="product-content">

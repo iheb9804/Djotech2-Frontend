@@ -50,8 +50,10 @@
     width: 100%;
 }
 
-.edit-icon {
-    margin-right: 5px;
+
+.icon{
+    float: right;
+    margin-left: 5px;
 }
 
 .icons {
@@ -227,7 +229,12 @@
 
     .product-name {
         font-size: 10px;
-        width: 70%;
+        width: 75%;
+    }
+
+    .product-details{
+        padding-right:15px;
+        padding-left:15px;
     }
 
     .product-container {
@@ -236,15 +243,15 @@
 
     .icons {
         font-size: 11px;
-        width: 30%;
+        width: 25%;
     }
     .image-container {
-        min-height: 120px;
-        max-height: 120px;
+        min-height: 150px;
+        max-height: 150px;
     }
 
     .product-image {
-        max-height: 100px;
+        max-height: 150px;
     }
 
     .amount-subtitle {
