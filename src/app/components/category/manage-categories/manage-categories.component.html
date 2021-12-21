@@ -32,7 +32,7 @@
         </tbody>
       </table>
     </div>
-      <div style="width: 100%;text-align: center;" *ngIf="categories.length>10"><pagination-controls (pageChange)="p = $event"
+      <div style="width: 100%;text-align: center;" *ngIf="categories?.length>10"><pagination-controls (pageChange)="p = $event"
         directionLinks="true"
         responsive="true"
         previousLabel="Précedent"

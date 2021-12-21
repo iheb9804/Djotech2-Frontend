@@ -9,12 +9,12 @@
     <div class="col-6 col-sm-1 col-md-2 col-lg-1 btn-container">
       <button class="btn custom-btn-primary add-btn" (click)="navigate('/manageProducts/addProduct')"
         routerLinkActive="router-link-active">
-        <fa-icon class="icon" [icon]="faPlus"></fa-icon>
+        <fa-icon  [icon]="faPlus"></fa-icon>
       </button>
     </div>
     <div class="col-6 col-sm-1 col-md-2 col-lg-1 btn-container">
       <button class="btn custom-btn-secondary show-filter-btn" (click)="showFilters=!showFilters">
-        <fa-icon class="icon" [icon]="faFilter"></fa-icon>
+        <fa-icon  [icon]="faFilter"></fa-icon>
       </button>
     </div>
 
@@ -88,9 +88,9 @@
       </div>
     </div>
   </div>
-  <div class="row centered" style="padding: 30px;text-align: center;">
-    <div class="col-md-3"></div>
-    <div class="col-md-6">
+  <div class="row centered" style="padding-bottom: 30px;padding-top: 30px;text-align: center;">
+    <div class="col-0 col-md-3"></div>
+    <div class="col-12 col-md-6 col-lg-6">
       <input type="name" id="form1" class="form-control search-input" placeholder="Rechercher" [(ngModel)]="searchable"
         [ngModelOptions]="{standalone: true}" (keyup)="search()" />
     </div>
@@ -112,9 +112,10 @@
             {{product?.name ? product?.name : "--"}}
           </div>
           <div class="icons">
+           
+            <fa-icon [icon]="faTimes" class="icon" (click)="deleteProduct(product)"></fa-icon>
             <fa-icon [icon]="faEdit" class="icon" (click)="navigate('/manageProducts/updateProduct/'+product._id)">
             </fa-icon>
-            <fa-icon [icon]="faTimes" class="icon" (click)="deleteProduct(product)"></fa-icon>
           </div>
         </div>
         <div class="product-content">

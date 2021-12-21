@@ -240,7 +240,7 @@
                     <tr *ngFor="let element of sellingOperations | paginate:{itemsPerPage: 5, currentPage:sellingPage}">
                         <th scope="row">{{element.product?.name ? element.product.name : "--"}}</th>
                         <td>{{element.product?.category ? element.product.category : "--"}}</td>
-                        <td>{{element.product.brand ? element.product.brand: "--"}}</td>
+                        <td>{{element.product?.brand ? element.product?.brand: "--"}}</td>
                         <td>{{element.product?.sellingPrice ? element.product.sellingPrice+" DT" : "--"}}</td>
                         <td>{{element.quantity ? element.quantity : "--"}}</td>
                         <td>{{( element.date ? element.date : "--" )| date:'medium' }}</td>
@@ -271,7 +271,7 @@
                     <tr *ngFor="let element of loadingOperations | paginate:{itemsPerPage: 5, currentPage:loadingPage}">
                         <th scope="row">{{element.product?.name ? element.product.name : "--"}}</th>
                         <td>{{element.product?.category ? element.product.category : "--"}}</td>
-                        <td>{{element.product.brand ? element.product.brand: "--"}}</td>
+                        <td>{{element.product?.brand ? element.product?.brand: "--"}}</td>
                         <td>{{element.product?.sellingPrice ? element.product.sellingPrice+" DT" : "--"}}</td>
                         <td>{{element.quantity ? element.quantity : "--"}}</td>
                         <td>{{( element.date ? element.date : "--" )| date:'medium' }}</td>
@@ -303,7 +303,7 @@
                         *ngFor="let element of returningOperations | paginate:{itemsPerPage: 5, currentPage:returningPage}">
                         <th scope="row">{{element.product?.name ? element.product.name : "--"}}</th>
                         <td>{{element.product?.category ? element.product.category : "--"}}</td>
-                        <td>{{element.product.brand ? element.product.brand: "--"}}</td>
+                        <td>{{element.product?.brand ? element.product?.brand: "--"}}</td>
                         <td>{{element.product?.sellingPrice ? element.product.sellingPrice+" DT" : "--"}}</td>
                         <td>{{element.quantity ? element.quantity : "--"}}</td>
                         <td>{{( element.date ? element.date : "--" )| date:'medium' }}</td>

@@ -30,10 +30,10 @@ export class LoadProductComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     public activeModal: NgbActiveModal,
-    private listener:ListenerService) { }
+    private listener: ListenerService) { }
 
   ngOnInit(): void {
-    this.quantity=1;
+    this.quantity = 1;
     this.getProduct();
   }
 
@@ -84,6 +84,7 @@ export class LoadProductComponent implements OnInit {
   getProduct() {
     this.productService.getProduct(this.id).subscribe(data => {
       this.product = data;
+      this.price = data.price;
     })
   }
 }

@@ -3,6 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { ColorService } from 'src/app/services/color.service';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -65,10 +66,31 @@ export class ColorComponent implements OnInit {
   }
 
   deleteColor(color){
-    this.colors=this.colors.filter(item=>item._id!=color._id);
-    this.colorService.deleteColor(color._id).subscribe(data=>{
-      console.log(data);
-
+    Swal.fire({
+      title: 'Supprimer le couleur ' + color.name + ' ?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Annuler',
+      confirmButtonText: 'Supprimer'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.colorService.deleteColor(color._id).subscribe(data=>{
+          Swal.fire({
+            icon: 'success',
+            title: 'Couleur supprimé',
+            showConfirmButton: false,
+            timer: 1500
+          })
+          this.updatedColor.name="";
+          this.colors=this.colors.filter(item=>item._id!=color._id);
+        })
+      }
     })
+
+
+
+    
   }
 }
