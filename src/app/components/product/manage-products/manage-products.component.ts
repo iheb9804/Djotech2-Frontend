@@ -93,7 +93,9 @@ export class ManageProductsComponent implements OnInit {
         element.color = this.toColor(element.color);
         element.provider = this.toProvider(element.provider);
       });
+      this.products = this.products.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
       this.filtredProducts = this.products;
+      
     })
   }
   getDetails() {

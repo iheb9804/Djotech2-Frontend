@@ -39,8 +39,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { LoanComponent } from './components/loan/loan.component';
 import { AddBorrowerComponent } from './components/loan/add-borrower/add-borrower.component';
 import { UpdateBorrowerComponent } from './components/loan/update-borrower/update-borrower.component';
-
-
+import { ChartModule } from 'primeng/chart';
 @NgModule({
   declarations: [
     AppComponent,
@@ -81,6 +80,7 @@ import { UpdateBorrowerComponent } from './components/loan/update-borrower/updat
     MatTooltipModule,
     NgxPaginationModule,
     NgbModule,
+    ChartModule,
     AngularFireModule.initializeApp({
       apiKey: "AIzaSyBk5TAgXRUx-nXKqCMhegRI3efNpwbUxNw",
       authDomain: "djotech-94d44.firebaseapp.com",

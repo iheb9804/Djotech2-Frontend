@@ -30,6 +30,12 @@
                     </div>
                 </div>
                 <div class="row">
+                    <div class="col-12 col-sm-12 ">
+                        <span class="subtitle">Etat : </span>
+                        <span>{{product.state ? product.state : "--"}}</span>
+                    </div>
+                </div>
+                <div class="row">
                     <div class="col-12 col-sm-12">
                         <span class="subtitle">Fournisseur : </span>
                         <span>{{product.provider ? product.provider : "--"}}</span>
@@ -44,7 +50,7 @@
                 <div class="row">
                     <div class="col-12 col-sm-12">
                         <span class="subtitle">Quantité : </span>
-                        <span>{{product.quantity ? product.quantity : "--"}}</span>
+                        <span [ngClass]="{epuise: product.quantity <= 0}">{{product.quantity ? product.quantity : ((product.quantity == 0) ? "Epuisé" :"--")}}</span>
                     </div>
                 </div>
                 <div class="row">

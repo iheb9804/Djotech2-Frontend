@@ -136,8 +136,9 @@
                 class="amount-value">{{product.brand ? product.brand : "--"}}</span></div>
             <div class="quantity"><span class="amount-subtitle">Couleur :</span><span
                 class="amount-value">{{product.color ? product.color: "--"}}</span></div>
-            <div class="quantity"><span class="amount-subtitle">Quantité :</span><span
-                class="amount-value">{{product.quantity ? product.quantity : "--"}}</span></div>
+            <div class="quantity"><span class="amount-subtitle">Quantité :</span>
+              <span
+              class="amount-value" [ngClass]="{epuise: product.quantity <= 0}">{{product.quantity ? product.quantity : ((product.quantity == 0) ? "Epuisé" :"--")}}</span></div>
             <div class="product-sell-price"><span class="amount-subtitle">Prix de vente :</span><span
                 class="amount-value">{{product.sellingPrice ? product.sellingPrice+" DT" : "--"}}</span>
             </div>

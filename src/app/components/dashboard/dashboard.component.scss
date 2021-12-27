@@ -28,7 +28,7 @@
 }
 
 .title-row {
-    padding: 30px;
+    padding: 20px;
     padding-top: 0;
 }
 .btn-container{
@@ -82,7 +82,7 @@ td,th{
 }
 .title {
     width: 100%;
-    padding-bottom: 30px;
+    padding-bottom: 10px;
     border-bottom: 2px solid rgb(24, 118, 189);
 }
 
@@ -97,6 +97,7 @@ td,th{
 .date-container, .btn-container {
     text-align: center;
     margin-bottom: 20px;
+    margin-top: 20px;
 }
 
 .date-btn {
@@ -105,6 +106,7 @@ td,th{
 }
 
 .charts-row{
+    padding-top:30px;
     height:600px;
 }
 
@@ -174,7 +176,7 @@ td,th{
 .returning-operations-row,
 .selling-operations-row {
     padding-top: 50px;
-    padding-bottom: 50px;
+    padding-bottom: 0px;
     text-align: center;
 }
 
@@ -195,7 +197,15 @@ td,th{
 
 
 @media (max-width: 667px) {
-    
+    .loading-operations-row, .selling-operations-row, .returning-operations-row{
+        padding-top:0;
+    }
+    .btn-container{
+        padding-bottom:20px;
+    }
+    .operations-row{
+        padding-bottom:10px;
+    }
     .widgets-row {
         padding-top: 50px;
         padding-bottom: 50px;

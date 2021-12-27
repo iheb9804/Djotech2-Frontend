@@ -2,7 +2,7 @@
 
 
     <div class="row  widgets-row">
-        
+
         <div class="col-6 col-md-6 col-lg-3 widget-container">
             <div class="widget">
                 <div class="row widget-header">
@@ -80,8 +80,10 @@
                 </div>
                 <div class="row widget-content">
                     <div class="col-12 col-md-12 col-lg-12">
-                        <img src="assets/loading.gif" class="loading" *ngIf="mobilesNetWorth==null || mobilesNetWorth == undefined">
-                        <span class="widget-value" *ngIf="mobilesNetWorth!=null && mobilesNetWorth != undefined">{{mobilesNetWorth + "
+                        <img src="assets/loading.gif" class="loading"
+                            *ngIf="mobilesNetWorth==null || mobilesNetWorth == undefined">
+                        <span class="widget-value"
+                            *ngIf="mobilesNetWorth!=null && mobilesNetWorth != undefined">{{mobilesNetWorth + "
                             DT"}}</span>
                     </div>
                 </div>
@@ -102,8 +104,10 @@
                 </div>
                 <div class="row widget-content">
                     <div class="col-12 col-md-12 col-lg-12">
-                        <img src="assets/loading.gif" class="loading" *ngIf="phonesValue==null || phonesValue == undefined">
-                        <span class="widget-value" *ngIf="phonesValue!=null && phonesValue != undefined">{{phonesValue + " DT"}}</span>
+                        <img src="assets/loading.gif" class="loading"
+                            *ngIf="phonesValue==null || phonesValue == undefined">
+                        <span class="widget-value" *ngIf="phonesValue!=null && phonesValue != undefined">{{phonesValue +
+                            " DT"}}</span>
                     </div>
                 </div>
             </div>
@@ -121,8 +125,11 @@
                 </div>
                 <div class="row widget-content">
                     <div class="col-12 col-md-12 col-lg-12">
-                        <img src="assets/loading.gif" class="loading" *ngIf="accessoriesValue==null || accessoriesValue == undefined">
-                        <span class="widget-value" *ngIf="accessoriesValue!=null && accessoriesValue != undefined">{{accessoriesValue + " DT"}}</span>
+                        <img src="assets/loading.gif" class="loading"
+                            *ngIf="accessoriesValue==null || accessoriesValue == undefined">
+                        <span class="widget-value"
+                            *ngIf="accessoriesValue!=null && accessoriesValue != undefined">{{accessoriesValue + "
+                            DT"}}</span>
                     </div>
                 </div>
             </div>
@@ -166,31 +173,61 @@
         </div>
     </div>
 
-    <div class="row dates-row">
+    <div class="row d-flex justify-content-center dates-row">
         <div class="col-6 col-md-6 col-lg-3 date-container ">
             <button class="btn custom-btn-primary date-btn" [ngClass]="{selected: selectedDate=='DAILY'}"
-                (click)="selectedDate='DAILY'">Quotidien</button>
+                (click)="loadCharts('DAILY')">Quotidien</button>
         </div>
+        <!--
         <div class="col-6 col-md-6 col-lg-3 date-container ">
 
             <button class="btn custom-btn-primary date-btn" [ngClass]="{selected: selectedDate=='WEEKLY'}"
-                (click)="selectedDate='WEEKLY'">Hebdomadaire</button>
+                (click)="loadCharts('WEEKLY')">Hebdomadaire</button>
         </div>
+        -->
         <div class="col-6 col-md-6 col-lg-3 date-container ">
 
             <button class="btn custom-btn-primary date-btn" [ngClass]="{selected: selectedDate=='MONTHLY'}"
-                (click)="selectedDate='MONTHLY'">Mensuelle</button>
+                (click)="loadCharts('MONTHLY')">Mensuelle</button>
         </div>
 
         <div class="col-6 col-md-6 col-lg-3 date-container ">
 
             <button class="btn custom-btn-primary date-btn" [ngClass]="{selected: selectedDate=='ANUALLY'}"
-                (click)="selectedDate='ANUALLY'">Annuelle</button>
+                (click)="loadCharts('ANUALLY')">Annuelle</button>
+        </div>
+        <div class="col-0 col-md-0 col-lg-5"></div>
+        
+
+
+    </div>
+    <div class="row d-flex justify-content-center">
+        <div class="col-12 col-md-12 col-lg-2 date-container ">
+            <input *ngIf="selectedDate=='DAILY'" class="form-control" type="date" id="day" name="day"
+                [(ngModel)]="filterDay" (change)="loadCharts('DAILY')">
+
+            <input *ngIf="selectedDate=='WEEKLY'" class="form-control" type="week" id="week" name="week"
+                [(ngModel)]="filterWeek" (change)="loadCharts('WEEKLY')">
+
+            <input *ngIf="selectedDate=='MONTHLY'" class="form-control" type="month" id="month" name="month"
+                [(ngModel)]="filterMonth" (change)="loadCharts('MONTHLY')">
+
+
         </div>
     </div>
 
-    <div class="row charts-row">
+    <div class="row  charts-row">
+        <div class="col-12 col-md-6 col-lg-6 date-container ">
 
+            <p-chart type="bar" [data]="userUsageHoursData" [options]="optionsBarChart"></p-chart>
+
+        </div>
+
+        <div class="col-12 col-md-6 col-lg-6 date-container ">
+
+            <p-chart type="pie" [data]="userAppData" [options]="options"></p-chart>
+
+        </div>
     </div>
     <div class="row title-row">
         <div class="col col-md-3 col-lg-3"></div>
@@ -216,12 +253,11 @@
         </div>
 
     </div>
-    <div class="col-12 col-md-12 col-lg-12" 
-    *ngIf="(selectedOperations=='SOLD'  && sellingOperations?.length == 0 ) ||
+    <div class="col-12 col-md-12 col-lg-12" *ngIf="(selectedOperations=='SOLD'  && sellingOperations?.length == 0 ) ||
      (selectedOperations=='LOADED'  && loadingOperations?.length == 0 ) ||
      (selectedOperations=='RETURNED'  && returningOperations?.length == 0 )">
         <h1 class="message">Aucune opération trouvé</h1>
-      </div>
+    </div>
 
     <div class="row selling-operations-row" *ngIf="selectedOperations=='SOLD'  && sellingOperations?.length != 0">
         <div class="table-responsive">
@@ -241,7 +277,7 @@
                         <th scope="row">{{element.product?.name ? element.product.name : "--"}}</th>
                         <td>{{element.product?.category ? element.product.category : "--"}}</td>
                         <td>{{element.product?.brand ? element.product?.brand: "--"}}</td>
-                        <td>{{element.product?.sellingPrice ? element.product.sellingPrice+" DT" : "--"}}</td>
+                        <td>{{element?.price ? element?.price+" DT" : "--"}}</td>
                         <td>{{element.quantity ? element.quantity : "--"}}</td>
                         <td>{{( element.date ? element.date : "--" )| date:'medium' }}</td>
                     </tr>
@@ -272,7 +308,7 @@
                         <th scope="row">{{element.product?.name ? element.product.name : "--"}}</th>
                         <td>{{element.product?.category ? element.product.category : "--"}}</td>
                         <td>{{element.product?.brand ? element.product?.brand: "--"}}</td>
-                        <td>{{element.product?.sellingPrice ? element.product.sellingPrice+" DT" : "--"}}</td>
+                        <td>{{element.product?.price ? element.product?.price+" DT" : "--"}}</td>
                         <td>{{element.quantity ? element.quantity : "--"}}</td>
                         <td>{{( element.date ? element.date : "--" )| date:'medium' }}</td>
                     </tr>
@@ -285,7 +321,8 @@
         </div>
     </div>
 
-    <div class="row returning-operations-row" *ngIf="selectedOperations=='RETURNED' && returningOperations?.length != 0">
+    <div class="row returning-operations-row"
+        *ngIf="selectedOperations=='RETURNED' && returningOperations?.length != 0">
         <div class="table-responsive">
             <table class="table table-hover">
                 <thead>

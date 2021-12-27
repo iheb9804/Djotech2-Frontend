@@ -74,17 +74,19 @@
     color: gray;
 }
 
+
+
 .image-container {
     position: relative;
     text-align: center;
-    min-height: 400px;
-    max-height: 400px;
+    min-height: 500px;
+    max-height: 500px;
 }
 
 .product-image {
     text-align: center;
     width: 100%;
-    max-height: 400px;
+    max-height: 500px;
     box-sizing: border-box;
 }
 
@@ -149,6 +151,11 @@
     font-size: 14px;
     padding-left: 5px;
     color: rgb(37, 37, 37);
+}
+
+.epuise{
+    color: red;
+    font-weight: bold;
 }
 
 .amounts-container {

@@ -4,6 +4,7 @@ import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { CategoryService } from 'src/app/services/category.service';
 import { ProductService } from 'src/app/services/product.service';
 import { StatService } from 'src/app/services/stat.service';
+import { GlobalVariable } from 'src/app/shared/global';
 
 @Component({
   selector: 'app-dashboard',
@@ -19,7 +20,7 @@ export class DashboardComponent implements OnInit {
   faFileInvoiceDollar = faFileInvoiceDollar;
   faMobileAlt = faMobileAlt;
   faHeadphones = faHeadphones;
-  faTags=faTags;
+  faTags = faTags;
 
 
 
@@ -52,20 +53,535 @@ export class DashboardComponent implements OnInit {
   selectedOperations;
   selectedDate;
 
+  filterMonth;
+  filterWeek;
+  filterDay;
 
 
+  userUsageHoursData;
+  months = GlobalVariable.MONTHES;
+  days = [];
+  daysOfWeek = [];
+  hours = [];
+
+  userAppData;
+  sellingBarChartData;
+  loadingBarChartData;
+  options;
+  optionsBarChart;
 
   constructor(private statService: StatService,
     private productService: ProductService,
     private categoryService: CategoryService) { }
 
+
+
   ngOnInit(): void {
+
     this.getData();
+
+    this.filterDay = new Date().getFullYear() + "-" +
+      ((new Date().getMonth() + 1) < 10 ? "0" + (new Date().getMonth() + 1) : (new Date().getMonth() + 1)) + "-" +
+      ((new Date().getDate()) < 10 ? "0" + (new Date().getDate()) : (new Date().getDate()));
+
+    this.filterMonth = new Date().getFullYear() + "-" +
+      ((new Date().getMonth() + 1) < 10 ? "0" + (new Date().getMonth() + 1) : (new Date().getMonth() + 1));
+
+    /*
+    this.filterWeek = new Date().getFullYear() + "-W" +
+      ((this.getWeek(new Date())) < 10 ? "0" + (this.getWeek(new Date())) : (this.getWeek(new Date())));
+    */
     this.selectedOperations = "SOLD";
-    this.selectedDate = "DAILY";
+    this.selectedDate = "MONTHLY";
     this.setWidgetsValues();
+    this.sellingBarChartData = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    this.loadingBarChartData = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+
+    // ***************************************************
+
+
+
+
+
+
+    this.userAppData = {
+      labels: [this.toCategory("617b1efedf2a89293933c589"), "Accessoirs"],
+      datasets: [
+        {
+          data: [
+            0,
+            0,
+          ],
+          backgroundColor: [
+            '#ff0000',
+            '#FFBB00',
+          ],
+        },
+      ],
+    };
+    this.optionsBarChart = {
+      scales: {
+        yAxes: [{
+            display: true,
+            ticks: {
+                suggestedMin: 0,    // minimum will be 0, unless there is a lower value.
+                // OR //
+                beginAtZero: true   // minimum value will be 0.
+            }
+        }]
+    },
+      //display labels on data elements in graph
+      plugins: {
+
+        datalabels: {
+          align: 'end',
+          anchor: 'end',
+          borderRadius: 4,
+          backgroundColor: 'teal',
+          color: 'white',
+          font: {
+            weight: 'bold',
+          },
+        },
+        // display chart title
+        title: {
+          display: true,
+          fontSize: 10,
+        },
+        legend: {
+          position: 'bottom',
+        },
+      },
+    };
+
+    this.options = {
+      
+      //display labels on data elements in graph
+      plugins: {
+
+        datalabels: {
+          align: 'end',
+          anchor: 'end',
+          borderRadius: 4,
+          backgroundColor: 'teal',
+          color: 'white',
+          font: {
+            weight: 'bold',
+          },
+        },
+        // display chart title
+        title: {
+          display: true,
+          fontSize: 10,
+        },
+        legend: {
+          position: 'bottom',
+        },
+      },
+    };
+    // ****************************************
   }
 
+  loadCharts(date) {
+
+    this.selectedDate = date;
+    this.getOperations();
+  }
+
+
+  setPieChart() {
+    let totalTelephones = 0;
+    let totalAccessoirs = 0;
+
+
+    if (this.selectedDate == "DAILY") {
+      let sellingOperations = this.sellingOperations?.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+      for (let operation of sellingOperations) {
+        if (new Date(operation.date).getDate() == new Date(this.filterDay).getDate()) {
+          if (operation.product?.category == this.toCategory("617b1efedf2a89293933c589")) {
+            totalTelephones += (operation?.price && operation?.quantity) ? operation?.price * operation?.quantity : 0
+          } else if (operation.product != undefined) {
+            totalAccessoirs += (operation?.price && operation?.quantity) ? operation?.price * operation?.quantity : 0
+          }
+        }
+      }
+    }
+
+    /*
+    if (this.selectedDate == "WEEKLY") {
+      let sellingOperations = this.sellingOperations?.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+      this.sellingBarChartData = [];
+      this.daysOfWeek = [];
+
+      for (let i = 0; i < 7; i++) {
+        this.sellingBarChartData.push(0);
+        this.daysOfWeek.push(i + 1);
+      }
+
+      for (let operation of sellingOperations) {
+        let startCounter = 0;
+        let weekFound = false;
+        console.log(this.getWeek(new Date(operation.date)), this.getWeek(new Date(this.filterWeek)),
+          (new Date(operation.date).getFullYear(), new Date(this.filterWeek).getFullYear()))
+        if (this.getWeek(new Date(operation.date)) == this.getWeek(new Date(this.filterWeek)) &&
+          (new Date(operation.date).getFullYear() == new Date(this.filterWeek).getFullYear())) {
+          if (!weekFound) {
+            startCounter = new Date(operation.date).getDate();
+            console.log(startCounter)
+          }
+          this.sellingBarChartData[new Date(operation.date).getDate() - startCounter] += (operation?.price && operation?.quantity) ? operation?.price * operation?.quantity : 0
+        }
+      }
+    }
+    */
+
+    if (this.selectedDate == "MONTHLY") {
+      let sellingOperations = this.sellingOperations?.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+      this.sellingBarChartData = [];
+      this.days = [];
+      for (let i = 0; i < this.lastDay(new Date(this.filterMonth).getFullYear(), new Date(this.filterMonth).getMonth()); i++) {
+        this.sellingBarChartData.push(0);
+        this.days.push(i + 1);
+      }
+      for (let operation of sellingOperations) {
+        if (new Date(operation.date).getMonth() == new Date(this.filterMonth).getMonth() &&
+          new Date(operation.date).getFullYear() == new Date(this.filterMonth).getFullYear()) {
+          if (operation.product?.category == this.toCategory("617b1efedf2a89293933c589")) {
+            totalTelephones += (operation?.price && operation?.quantity) ? operation?.price * operation?.quantity : 0
+          } else if (operation.product != undefined) {
+            totalAccessoirs += (operation?.price && operation?.quantity) ? operation?.price * operation?.quantity : 0
+          }
+        }
+      }
+
+    }
+
+    if (this.selectedDate == "ANUALLY") {
+      let sellingOperations = this.sellingOperations?.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+
+      for (let operation of sellingOperations) {
+        if (new Date(operation.date).getFullYear() == 2021) {
+          if (operation.product?.category == this.toCategory("617b1efedf2a89293933c589")) {
+            totalTelephones += (operation?.price && operation?.quantity) ? operation?.price * operation?.quantity : 0
+          } else if (operation.product != undefined) {
+            totalAccessoirs += (operation?.price && operation?.quantity) ? operation?.price * operation?.quantity : 0
+          }
+        }
+      }
+    }
+    this.userAppData = {
+      labels: [this.toCategory("617b1efedf2a89293933c589"), "Accessoirs"],
+      datasets: [
+        {
+          data: [
+            totalTelephones,
+            totalAccessoirs,
+          ],
+          backgroundColor: [
+            '#ff0000',
+            '#FFBB00',
+          ],
+        },
+      ],
+    };
+  }
+
+
+  setSellingBarChartData() {
+    if (this.selectedDate == "DAILY") {
+      let sellingOperations = this.sellingOperations?.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+      this.sellingBarChartData = [];
+      this.hours = [];
+      for (let i = 0; i < 24; i++) {
+        this.sellingBarChartData.push(0);
+
+        this.hours.push(i < 10 ? "0" + i : i);
+      }
+      for (let operation of sellingOperations) {
+        if (new Date(operation.date).getDate() == new Date(this.filterDay).getDate())
+          this.sellingBarChartData[new Date(operation.date).getHours()] += (operation?.price && operation?.quantity) ? operation?.price * operation?.quantity : 0
+      }
+      this.userUsageHoursData = {
+        labels: this.hours,
+        datasets: [
+          {
+            label: 'Chargé',
+            backgroundColor: 'red',
+            data: this.loadingBarChartData,
+          },
+          {
+            label: 'Vendu',
+            backgroundColor: '#42A5F5',
+            data: this.sellingBarChartData,
+          }
+        ],
+      };
+
+    }
+    /*
+    if (this.selectedDate == "WEEKLY") {
+      let sellingOperations = this.sellingOperations?.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+      this.sellingBarChartData = [];
+      this.daysOfWeek = [];
+
+      for (let i = 0; i < 7; i++) {
+        this.sellingBarChartData.push(0);
+        this.daysOfWeek.push(i + 1);
+      }
+
+      for (let operation of sellingOperations) {
+        let startCounter = 0;
+        let weekFound = false;
+        console.log(this.getWeek(new Date(operation.date)), this.getWeek(new Date(this.filterWeek)),
+          (new Date(operation.date).getFullYear(), new Date(this.filterWeek).getFullYear()))
+        if (this.getWeek(new Date(operation.date)) == this.getWeek(new Date(this.filterWeek)) &&
+          (new Date(operation.date).getFullYear() == new Date(this.filterWeek).getFullYear())) {
+          if (!weekFound) {
+            startCounter = new Date(operation.date).getDate();
+            console.log(startCounter)
+          }
+          this.sellingBarChartData[new Date(operation.date).getDate() - startCounter] += (operation?.price && operation?.quantity) ? operation?.price * operation?.quantity : 0
+        }
+      }
+
+      this.userUsageHoursData = {
+        labels: this.daysOfWeek,
+        datasets: [
+          {
+            label: 'Chargé',
+            backgroundColor: 'red',
+            data: this.loadingBarChartData,
+          },
+          {
+            label: 'Vendu',
+            backgroundColor: '#42A5F5',
+            data: this.sellingBarChartData,
+          }
+        ],
+      };
+
+    }
+    */
+
+    if (this.selectedDate == "MONTHLY") {
+      let sellingOperations = this.sellingOperations?.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+      this.sellingBarChartData = [];
+      this.days = [];
+      for (let i = 0; i < this.lastDay(new Date(this.filterMonth).getFullYear(), new Date(this.filterMonth).getMonth()); i++) {
+        this.sellingBarChartData.push(0);
+        this.days.push(i + 1);
+      }
+      for (let operation of sellingOperations) {
+        if (new Date(operation.date).getMonth() == new Date(this.filterMonth).getMonth() &&
+          new Date(operation.date).getFullYear() == new Date(this.filterMonth).getFullYear())
+          this.sellingBarChartData[new Date(operation.date).getDate() - 1] += (operation?.price && operation?.quantity) ? operation?.price * operation?.quantity : 0
+      }
+      this.userUsageHoursData = {
+        labels: this.days,
+        datasets: [
+          {
+            label: 'Chargé',
+            backgroundColor: 'red',
+            data: this.loadingBarChartData,
+          },
+          {
+            label: 'Vendu',
+            backgroundColor: '#42A5F5',
+            data: this.sellingBarChartData,
+          }
+        ],
+      };
+
+    }
+
+    if (this.selectedDate == "ANUALLY") {
+      let sellingOperations = this.sellingOperations?.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+      this.sellingBarChartData = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+      for (let operation of sellingOperations) {
+        this.sellingBarChartData[new Date(operation.date).getMonth()] += (operation?.price && operation?.quantity) ? operation?.price * operation?.quantity : 0
+      }
+      this.userUsageHoursData = {
+        labels: this.months,
+        datasets: [
+          {
+            label: 'Chargé',
+            backgroundColor: 'red',
+            data: this.loadingBarChartData,
+          },
+          {
+            label: 'Vendu',
+            backgroundColor: '#42A5F5',
+            data: this.sellingBarChartData,
+          }
+        ],
+      };
+    }
+    this.setLoadingBarChartData();
+
+  }
+
+  setLoadingBarChartData() {
+
+    if (this.selectedDate == "DAILY") {
+      let loadingOperations = this.loadingOperations?.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+      this.loadingBarChartData = [];
+      this.hours = [];
+      for (let i = 0; i < 24; i++) {
+        this.loadingBarChartData.push(0);
+        this.hours.push(i < 10 ? "0" + i : i);
+      }
+      for (let operation of loadingOperations) {
+        if (new Date(operation.date).getDate() == new Date(this.filterDay).getDate())
+          this.loadingBarChartData[new Date(operation.date).getHours()] += (operation?.product?.price && operation?.quantity) ? operation?.product?.price * operation?.quantity : 0
+      }
+      this.userUsageHoursData = {
+        labels: this.hours,
+        datasets: [
+          {
+            label: 'Chargé',
+            backgroundColor: 'red',
+            data: this.loadingBarChartData,
+          },
+          {
+            label: 'Vendu',
+            backgroundColor: '#42A5F5',
+            data: this.sellingBarChartData,
+          }
+        ],
+      };
+
+    }
+    /*
+    if (this.selectedDate == "WEEKLY") {
+      let loadingOperations = this.loadingOperations?.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+      this.loadingBarChartData = [];
+      this.daysOfWeek = [];
+
+      for (let i = 0; i < 7; i++) {
+        this.loadingBarChartData.push(0);
+        this.daysOfWeek.push(i + 1);
+      }
+
+      for (let operation of loadingOperations) {
+        let startCounter = 0;
+        let weekFound = false;
+        console.log(this.getWeek(new Date(operation.date)), this.getWeek(new Date(this.filterWeek)),
+          (new Date(operation.date).getFullYear(), new Date(this.filterWeek).getFullYear()))
+        if (this.getWeek(new Date(operation.date)) == this.getWeek(new Date(this.filterWeek)) &&
+          (new Date(operation.date).getFullYear() == new Date(this.filterWeek).getFullYear())) {
+          if (!weekFound) {
+            startCounter = new Date(operation.date).getDate();
+          }
+          this.loadingBarChartData[new Date(operation.date).getDate() - startCounter] += (operation?.product?.price && operation?.quantity) ? operation?.product?.price * operation?.quantity : 0
+        }
+      }
+
+      this.userUsageHoursData = {
+        labels: this.daysOfWeek,
+        datasets: [
+          {
+            label: 'Chargé',
+            backgroundColor: 'red',
+            data: this.loadingBarChartData,
+          },
+          {
+            label: 'Vendu',
+            backgroundColor: '#42A5F5',
+            data: this.sellingBarChartData,
+          }
+        ],
+      };
+
+    }
+    */
+
+    if (this.selectedDate == "MONTHLY") {
+      let loadingOperations = this.loadingOperations?.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+      this.loadingBarChartData = [];
+      this.days = [];
+      for (let i = 0; i < this.lastDay(new Date(this.filterMonth).getFullYear(), new Date(this.filterMonth).getMonth()); i++) {
+        this.loadingBarChartData.push(0);
+        this.days.push(i + 1);
+      }
+      for (let operation of loadingOperations) {
+        if (new Date(operation.date).getMonth() == new Date(this.filterMonth).getMonth() &&
+          new Date(operation.date).getFullYear() == new Date(this.filterMonth).getFullYear())
+          this.loadingBarChartData[new Date(operation.date).getDate() - 1] += (operation?.product?.price && operation?.quantity) ? operation?.product?.price * operation?.quantity : 0
+      }
+      this.userUsageHoursData = {
+        labels: this.days,
+        datasets: [
+          {
+            label: 'Chargé',
+            backgroundColor: 'red',
+            data: this.loadingBarChartData,
+          },
+          {
+            label: 'Vendu',
+            backgroundColor: '#42A5F5',
+            data: this.sellingBarChartData,
+          }
+        ],
+      };
+    }
+
+    if (this.selectedDate == "ANUALLY") {
+      let loadingOperations = this.loadingOperations?.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+      this.loadingBarChartData = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+      for (let operation of loadingOperations) {
+        this.loadingBarChartData[new Date(operation.date).getMonth()] += (operation?.product?.price && operation?.quantity) ? operation?.product?.price * operation?.quantity : 0
+      }
+      this.userUsageHoursData = {
+        labels: this.months,
+        datasets: [
+          {
+            label: 'Chargé',
+            backgroundColor: 'red',
+            data: this.loadingBarChartData,
+          },
+          {
+            label: 'Vendu',
+            backgroundColor: '#42A5F5',
+            data: this.sellingBarChartData,
+          }
+        ],
+      };
+    }
+    this.setPieChart();
+  }
+
+
+
+  /*
+  getWeek(dt) {
+    let dtInst;
+    var calc = function (o) {
+      if (o.dtmin.getDay() != 1) {
+        if (o.dtmin.getDay() <= 4 && o.dtmin.getDay() != 0) o.w += 1;
+        o.dtmin.setDate((o.dtmin.getDay() == 0) ? 2 : 1 + (7 - o.dtmin.getDay()) + 1);
+      }
+      o.w += Math.ceil((((o.dtmax.getTime() - o.dtmin.getTime()) / (24 * 60 * 60 * 1000)) + 1) / 7);
+    }, getNbDaysInAMonth = function (year, month) {
+      var nbdays = 31;
+      for (var i = 0; i <= 3; i++) {
+        nbdays = nbdays - i;
+        if ((dtInst = new Date(year, month - 1, nbdays)) && dtInst.getDate() == nbdays && (dtInst.getMonth() + 1) == month && dtInst.getFullYear() == year)
+          break;
+      }
+      return nbdays;
+    };
+    if (dt.getMonth() + 1 == 1 && dt.getDate() >= 1 && dt.getDate() <= 3 && (dt.getDay() >= 5 || dt.getDay() == 0)) {
+      var pyData = { "dtmin": new Date(dt.getFullYear() - 1, 0, 1, 0, 0, 0, 0), "dtmax": new Date(dt.getFullYear() - 1, 11, getNbDaysInAMonth(dt.getFullYear() - 1, 12), 0, 0, 0, 0), "w": 0 };
+      calc(pyData);
+      return pyData.w;
+    } else {
+      var ayData = { "dtmin": new Date(dt.getFullYear(), 0, 1, 0, 0, 0, 0), "dtmax": new Date(dt.getFullYear(), dt.getMonth(), dt.getDate(), 0, 0, 0, 0), "w": 0 },
+        nd12m = getNbDaysInAMonth(dt.getFullYear(), 12);
+      if (dt.getMonth() == 12 && dt.getDay() != 0 && dt.getDay() <= 3 && nd12m - dt.getDate() <= 3 - dt.getDay()) ayData.w = 1; else calc(ayData);
+      return ayData.w;
+    }
+  }
+  */
 
   getData() {
     this.getCategories();
@@ -89,8 +605,8 @@ export class DashboardComponent implements OnInit {
       this.statService.getPhonesValue().subscribe(data => {
         this.phonesValue = this.round(data.total, 1);
         this.accessoriesValue = this.round(this.totalValue - this.phonesValue, 1);
-        this.statService.getPhonesTradeValue().subscribe(data=>{
-            this.mobilesNetWorth = this.round(this.phonesValue - data.total, 1)
+        this.statService.getPhonesTradeValue().subscribe(data => {
+          this.mobilesNetWorth = this.round(this.phonesValue - data.total, 1)
         })
       })
     })
@@ -101,6 +617,7 @@ export class DashboardComponent implements OnInit {
   getStats() {
     this.statService.getStats().subscribe(data => {
       this.stats = data;
+
       this.getProducts();
     })
   }
@@ -112,6 +629,7 @@ export class DashboardComponent implements OnInit {
       }
       this.products = data;
       this.getOperations();
+
     })
   }
 
@@ -127,26 +645,72 @@ export class DashboardComponent implements OnInit {
     this.loadingOperations = [];
     this.returningOperations = [];
     for (let stat of this.stats) {
-      let product = this.getProduct(stat.productID);
-      let cell = {
-        product: product,
-        quantity: stat.quantity,
-        price: stat.price,
-        //gain: product?.price ? (stat.price - product.price) : null,
-        date: stat.date
+      if (this.selectedDate == "DAILY") {
+        if (new Date(stat.date).getDate() == new Date(this.filterDay).getDate()) {
+          let product = this.getProduct(stat.productID);
+          let cell = {
+            product: product,
+            quantity: stat.quantity,
+            price: stat.price,
+            //gain: product?.price ? (stat.price - product.price) : null,
+            date: stat.date
+          }
+
+          if (stat.type == "SOLD") {
+            this.sellingOperations.push(cell);
+          } else if (stat.type == "LOADED") {
+            this.loadingOperations.push(cell);
+          } else {
+            this.returningOperations.push(cell);
+          }
+        }
+      } else if (this.selectedDate == "MONTHLY") {
+        if (new Date(stat.date).getMonth() == new Date(this.filterMonth).getMonth() &&
+          new Date(stat.date).getFullYear() == new Date(this.filterMonth).getFullYear()) {
+          let product = this.getProduct(stat.productID);
+          let cell = {
+            product: product,
+            quantity: stat.quantity,
+            price: stat.price,
+            //gain: product?.price ? (stat.price - product.price) : null,
+            date: stat.date
+          }
+
+          if (stat.type == "SOLD") {
+            this.sellingOperations.push(cell);
+          } else if (stat.type == "LOADED") {
+            this.loadingOperations.push(cell);
+          } else {
+            this.returningOperations.push(cell);
+          }
+        }
+      } else if (this.selectedDate == "ANUALLY") {
+        if (new Date(stat.date).getFullYear() == 2021) {
+          let product = this.getProduct(stat.productID);
+          let cell = {
+            product: product,
+            quantity: stat.quantity,
+            price: stat.price,
+            //gain: product?.price ? (stat.price - product.price) : null,
+            date: stat.date
+          }
+
+          if (stat.type == "SOLD") {
+            this.sellingOperations.push(cell);
+          } else if (stat.type == "LOADED") {
+            this.loadingOperations.push(cell);
+          } else {
+            this.returningOperations.push(cell);
+          }
+        }
       }
-      if (stat.type == "SOLD") {
-        this.sellingOperations.push(cell);
-      } else if (stat.type == "LOADED") {
-        this.loadingOperations.push(cell);
-      } else {
-        this.returningOperations.push(cell);
-      }
+
 
     }
     this.loadingOperations = this.loadingOperations.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
     this.sellingOperations = this.sellingOperations.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
     this.loadingOperations = this.loadingOperations.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+    this.setSellingBarChartData();
   }
 
   getProduct(id) {
@@ -155,7 +719,7 @@ export class DashboardComponent implements OnInit {
 
   toCategory(id) {
     let result = "--";
-    this.categories.forEach(element => {
+    this.categories?.forEach(element => {
       if (element._id == id) {
         result = element.name
       }
@@ -165,51 +729,19 @@ export class DashboardComponent implements OnInit {
 
 
 
+
+
+
+
+
+
+
+  lastDay(y, m) {
+    return new Date(y, m + 1, 0).getDate();
+  }
+
   round(value, precision) {
     var multiplier = Math.pow(10, precision || 0);
     return Math.round(value * multiplier) / multiplier;
   }
-
-
-
-
-
-  // ****************************** CHARTS *************************************
-  public chartType: string = 'bar';
-
-  public chartDatasets: Array<any> = [
-    { data: [65, 59, 80, 81, 56, 55, 40], label: 'My First dataset' }
-  ];
-
-  public chartLabels: Array<any> = ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'];
-
-  public chartColors: Array<any> = [
-    {
-      backgroundColor: [
-        'rgba(255, 99, 132, 0.2)',
-        'rgba(54, 162, 235, 0.2)',
-        'rgba(255, 206, 86, 0.2)',
-        'rgba(75, 192, 192, 0.2)',
-        'rgba(153, 102, 255, 0.2)',
-        'rgba(255, 159, 64, 0.2)'
-      ],
-      borderColor: [
-        'rgba(255,99,132,1)',
-        'rgba(54, 162, 235, 1)',
-        'rgba(255, 206, 86, 1)',
-        'rgba(75, 192, 192, 1)',
-        'rgba(153, 102, 255, 1)',
-        'rgba(255, 159, 64, 1)'
-      ],
-      borderWidth: 2,
-    }
-  ];
-
-  public chartOptions: any = {
-    responsive: true
-  };
-
-
-  public chartClicked(e: any): void { }
-  public chartHovered(e: any): void { }
 }
