@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid screen">
     <div class="row title-row">
         <h1 class="title">Consulter les dépenses</h1>
     </div>
@@ -14,6 +14,10 @@
     <div class="col-12 col-md-12 col-lg-12" *ngIf="!spendings" style="text-align: center;padding-top: 50px;">
         <img src="assets/loading.gif">
       </div>
+      <div class="col-12 col-md-12 col-lg-12" *ngIf="spendings?.length==0">
+        <h1 class="message">Aucun produit trouvé</h1>
+      </div>
+
     <div class="table-responsive">
         <table class="table table-hover" *ngIf="spendings?.length > 0">
             <thead>
