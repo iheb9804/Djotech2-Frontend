@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ProviderService } from 'src/app/services/provider.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-update-provider',
@@ -16,12 +17,24 @@ export class UpdateProviderComponent implements OnInit {
   description;
   credit;
 
-  constructor(private providerService: ProviderService, private route: ActivatedRoute) { }
+  constructor(private providerService: ProviderService, private route: ActivatedRoute,
+    private router:Router) { }
 
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id');
     this.getProvider();
 
+  }
+
+  navigate(destination) {
+    let navigation = JSON.parse(localStorage.getItem("navigation"));
+    if (navigation != null && navigation != undefined) {
+      navigation.push(this.router.url.toString());
+    } else {
+      navigation = [this.router.url.toString()]
+    }
+    localStorage.setItem("navigation", JSON.stringify(navigation));
+    this.router.navigate(['/' + destination]);
   }
 
   getProvider() {
@@ -45,8 +58,13 @@ export class UpdateProviderComponent implements OnInit {
 
     this.providerService.updateProvider(provider).subscribe(
       data => {
-        console.log("dqddqdsqds");
-        console.log(data);
+        Swal.fire({
+          title: 'Fournisseur modifié',
+          icon: 'success',
+          showConfirmButton: false,
+          timer: 1500
+        });
+        this.navigate('manageProviders');
       }
     )
 

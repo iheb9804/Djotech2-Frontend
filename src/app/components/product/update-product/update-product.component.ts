@@ -196,7 +196,6 @@ export class UpdateProductComponent implements OnInit {
   }
 
   updateProduct(product) {
-    console.log("updated")
     this.productService.updateProduct(product).subscribe(data => {
       this.saveInProgress = false;
       Swal.fire({

@@ -100,7 +100,7 @@
     <div class="col-12 col-md-12 col-lg-12" *ngIf="filtredProducts?.length==0">
       <h1 class="message">Aucun produit trouvé</h1>
     </div>
-    <div class="col-12 col-md-12 col-lg-12" *ngIf="loading" style="text-align: center;padding-top: 100px;">
+    <div class="col-12 col-md-12 col-lg-12" *ngIf="loading" style="text-align: center;padding-top: 50px;">
       <img src="assets/loading.gif">
     </div>
 
@@ -147,7 +147,7 @@
           <div class="col-sm-6 col-lg-6 buttons-container">
             <button class="btn custom-btn-primary product-button" (click)="loadingModal(product._id,product.name)"
               routerLinkActive="router-link-active">Charger</button>
-            <button class="btn custom-btn-secondary product-button" (click)="sellingModal(product._id,product.name)"
+              <button class="btn custom-btn-secondary product-button" (click)="sellingModal(product._id,product.name)"
               routerLinkActive="router-link-active">Vendre</button>
           </div>
         </div>

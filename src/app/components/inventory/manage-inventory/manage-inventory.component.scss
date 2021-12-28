@@ -16,6 +16,10 @@
     box-shadow: 10px 10px 30px  2px gray;
 }
 
+.screen{
+    padding-top:200px;
+}
+
 .menu-item-icon{
     font-size: 100px;
     display: block;
@@ -41,3 +45,8 @@
 
 }
 
+@media (max-width: 667px) {
+    .screen{
+        padding-top:20px;
+    }
+}

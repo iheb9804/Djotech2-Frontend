@@ -40,6 +40,9 @@ import { LoanComponent } from './components/loan/loan.component';
 import { AddBorrowerComponent } from './components/loan/add-borrower/add-borrower.component';
 import { UpdateBorrowerComponent } from './components/loan/update-borrower/update-borrower.component';
 import { ChartModule } from 'primeng/chart';
+import { ManageSpendingsComponent } from './components/spendings/manage-spendings/manage-spendings.component';
+import { AddSpendingComponent } from './components/spendings/add-spending/add-spending.component';
+import { UpdateSpendingComponent } from './components/spendings/update-spending/update-spending.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -64,7 +67,10 @@ import { ChartModule } from 'primeng/chart';
     DashboardComponent,
     LoanComponent,
     AddBorrowerComponent,
-    UpdateBorrowerComponent
+    UpdateBorrowerComponent,
+    ManageSpendingsComponent,
+    AddSpendingComponent,
+    UpdateSpendingComponent
   ],
   imports: [
     BrowserModule,

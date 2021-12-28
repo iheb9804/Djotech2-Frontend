@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { CategoryService } from 'src/app/services/category.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-update-category',
@@ -21,7 +22,8 @@ export class UpdateCategoryComponent implements OnInit {
     brand: new FormControl('')
   })
 
-  constructor(private categoryService:CategoryService,private route:ActivatedRoute) { }
+  constructor(private categoryService:CategoryService,private route:ActivatedRoute,
+    private router:Router) { }
 
   ngOnInit(): void {
     this.valid=false;
@@ -39,6 +41,18 @@ export class UpdateCategoryComponent implements OnInit {
     console.log(item)
     this.category.brands=this.category.brands.filter(element=>element!=item);
   }
+
+  navigate(destination) {
+    let navigation = JSON.parse(localStorage.getItem("navigation"));
+    if (navigation != null && navigation != undefined) {
+      navigation.push(this.router.url.toString());
+    } else {
+      navigation = [this.router.url.toString()]
+    }
+    localStorage.setItem("navigation", JSON.stringify(navigation));
+    this.router.navigate(['/' + destination]);
+  }
+
   save(){
     this.valid=true;
     if (this.form.valid){
@@ -49,8 +63,13 @@ export class UpdateCategoryComponent implements OnInit {
         brands:this.category.brands
       }
       this.categoryService.updateCategory(category).subscribe(data=>{
-        console.log(data)
-      })
+        Swal.fire({
+          title: 'Catégorie modifiée',
+          icon: 'success',
+          showConfirmButton: false,
+          timer: 1500
+        });
+        this.navigate('manageCategories');      })
     }
   }
 

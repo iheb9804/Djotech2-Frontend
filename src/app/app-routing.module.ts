@@ -18,6 +18,9 @@ import { UpdateProductComponent } from './components/product/update-product/upda
 import { AddProviderComponent } from './components/provider/add-provider/add-provider.component';
 import { ManageProvidersComponent } from './components/provider/manage-providers/manage-providers.component';
 import { UpdateProviderComponent } from './components/provider/update-provider/update-provider.component';
+import { AddSpendingComponent } from './components/spendings/add-spending/add-spending.component';
+import { ManageSpendingsComponent } from './components/spendings/manage-spendings/manage-spendings.component';
+import { UpdateSpendingComponent } from './components/spendings/update-spending/update-spending.component';
 import { AuthGuardService } from './services/auth-guard.service';
 
 const routes: Routes = [
@@ -53,6 +56,12 @@ const routes: Routes = [
   { path: 'manageCategories/addCategory', component: AddCategoryComponent, canActivate: [AuthGuardService], data: { expectedRole: ['Owner', 'Admin'] } },
   { path: 'manageCategories/updateCategory/:id', component: UpdateCategoryComponent, canActivate: [AuthGuardService], data: { expectedRole: ['Owner', 'Admin'] } },
 
+
+   //  Manage Spendings
+   { path: 'manageSpendings', component: ManageSpendingsComponent, canActivate: [AuthGuardService], data: { expectedRole: ['Owner', 'Admin'] } },
+   { path: 'manageSpendings/addSpending', component: AddSpendingComponent, canActivate: [AuthGuardService], data: { expectedRole: ['Owner', 'Admin'] } },
+   { path: 'manageSpendings/updateSpending/:id', component: UpdateSpendingComponent, canActivate: [AuthGuardService], data: { expectedRole: ['Owner', 'Admin'] } },
+ 
 
   //  Dashboard
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuardService], data: { expectedRole: ['Owner', 'Admin'] } },

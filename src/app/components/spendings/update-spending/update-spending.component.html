@@ -1,0 +1,43 @@
+<div class="container-fluid edit-form" style="padding-top:200px">
+    <div class="row title-row">
+        <h1 class="title">Modifier une dépense</h1>
+    </div>
+    <form>
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8 menu-item-container">
+                <div class="section">
+
+                    <div class="form-group">
+                        <label for="exampleFormControlTextarea1">Commentaire</label>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" [(ngModel)]="comment"
+                            name="comment"></textarea>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1">Montant</label>
+                        <input type="number" class="form-control" id="exampleFormControlInput1" [(ngModel)]="amount"
+                            name="amount">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1">Date</label>
+                        <input type="date" class="form-control" id="exampleFormControlInput1" [(ngModel)]="date"
+                            name="date">
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+        <div class="row button-row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4 col-md-offset-4 button-bloc"><button
+                    class="btn custom-btn-secondary">Réinitialiser</button> <button class="btn custom-btn-primary"
+                    (click)="save()">Confirmer</button></div>
+        </div>
+    </form>
+
+</div>
