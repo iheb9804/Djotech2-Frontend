@@ -11,6 +11,9 @@
             </button>
         </div>
     </div>
+    <div class="col-12 col-md-12 col-lg-12" *ngIf="!borrowers" style="text-align: center;padding-top: 50px;">
+        <img src="assets/loading.gif">
+      </div>
     <div class="col-12 col-lg-12" *ngIf="borrowers?.length == 0">
         <h1 class="message">Aucun crédit trouvé</h1>
     </div>

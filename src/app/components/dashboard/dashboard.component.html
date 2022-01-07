@@ -212,20 +212,30 @@
             <input *ngIf="selectedDate=='MONTHLY'" class="form-control" type="month" id="month" name="month"
                 [(ngModel)]="filterMonth" (change)="loadCharts('MONTHLY')">
 
-
+            <select class="form-control" *ngIf="selectedDate=='ANUALLY'" [(ngModel)]="filterYear" (change)="loadCharts('ANUALLY')">
+                <option value="2021">2021</option>
+                <option value="2022">2022</option>
+            </select>
         </div>
     </div>
 
-    <div class="row  charts-row">
-        <div class="col-12 col-md-6 col-lg-6 date-container ">
+    <div class="row">
+        <div class="col-0 col-md-6 col-lg-2"></div>
+        <div class="col-12 col-md-6 col-lg-8 date-container ">
 
             <p-chart type="bar" [data]="userUsageHoursData" [options]="optionsBarChart"></p-chart>
 
         </div>
 
         <div class="col-12 col-md-6 col-lg-6 date-container ">
-
+            <h3>Total des ventes</h3>
             <p-chart type="pie" [data]="userAppData" [options]="options"></p-chart>
+
+        </div>
+
+        <div class="col-12 col-md-6 col-lg-6 date-container ">
+            <h3>Net des ventes</h3>
+            <p-chart type="pie" [data]="netData" [options]="options"></p-chart>
 
         </div>
     </div>
@@ -256,7 +266,7 @@
     <div class="col-12 col-md-12 col-lg-12" *ngIf="(selectedOperations=='SOLD'  && sellingOperations?.length == 0 ) ||
      (selectedOperations=='LOADED'  && loadingOperations?.length == 0 ) ||
      (selectedOperations=='RETURNED'  && returningOperations?.length == 0 )">
-        <h1 class="message">Aucune opération trouvé</h1>
+        <h1 class="message">Aucune opération trouvée</h1>
     </div>
 
     <div class="row selling-operations-row" *ngIf="selectedOperations=='SOLD'  && sellingOperations?.length != 0">

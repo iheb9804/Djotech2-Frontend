@@ -13,7 +13,10 @@
   <div class="row" style="text-align: center;">
     <div class="col-md-1"></div>
     <div class="col-md-10">
-    <table class="table table-hover">
+      <div class="col-12 col-md-12 col-lg-12" *ngIf="!categories" style="text-align: center;padding-top: 50px;">
+        <img src="assets/loading.gif">
+      </div>
+    <table class="table table-hover" *ngIf="categories">
         <thead>
           <tr>
             <th scope="col">Nom du catégorie</th>

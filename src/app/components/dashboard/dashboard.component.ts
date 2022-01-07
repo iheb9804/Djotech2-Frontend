@@ -54,11 +54,14 @@ export class DashboardComponent implements OnInit {
   selectedDate;
 
   filterMonth;
+  filterYear;
   filterWeek;
   filterDay;
 
 
   userUsageHoursData;
+  netData;
+
   months = GlobalVariable.MONTHES;
   days = [];
   daysOfWeek = [];
@@ -87,6 +90,7 @@ export class DashboardComponent implements OnInit {
     this.filterMonth = new Date().getFullYear() + "-" +
       ((new Date().getMonth() + 1) < 10 ? "0" + (new Date().getMonth() + 1) : (new Date().getMonth() + 1));
 
+      this.filterYear=2021;
     /*
     this.filterWeek = new Date().getFullYear() + "-W" +
       ((this.getWeek(new Date())) < 10 ? "0" + (this.getWeek(new Date())) : (this.getWeek(new Date())));
@@ -102,10 +106,12 @@ export class DashboardComponent implements OnInit {
 
 
 
-
-
+    let phoneLabel = undefined;
+     phoneLabel=this.toCategory("617b1efedf2a89293933c589");
+    console.log(phoneLabel)
     this.userAppData = {
-      labels: [this.toCategory("617b1efedf2a89293933c589"), "Accessoirs"],
+
+      labels: [phoneLabel, phoneLabel && phoneLabel!="--" ?"Accessoirs":"--"],
       datasets: [
         {
           data: [
@@ -183,7 +189,9 @@ export class DashboardComponent implements OnInit {
   }
 
   loadCharts(date) {
-
+    console.log(date);
+    console.log(this.filterYear);
+    console.log((new Date()).getFullYear());
     this.selectedDate = date;
     this.getOperations();
   }
@@ -191,6 +199,8 @@ export class DashboardComponent implements OnInit {
 
   setPieChart() {
     let totalTelephones = 0;
+    let netTelephones = 0;
+    let netAccessoirs = 0;
     let totalAccessoirs = 0;
 
 
@@ -200,8 +210,10 @@ export class DashboardComponent implements OnInit {
         if (new Date(operation.date).getDate() == new Date(this.filterDay).getDate()) {
           if (operation.product?.category == this.toCategory("617b1efedf2a89293933c589")) {
             totalTelephones += (operation?.price && operation?.quantity) ? operation?.price * operation?.quantity : 0
+            netTelephones += (operation?.price && operation?.quantity) ? (operation?.price - operation?.product?.price ) * operation?.quantity : 0
           } else if (operation.product != undefined) {
             totalAccessoirs += (operation?.price && operation?.quantity) ? operation?.price * operation?.quantity : 0
+            netAccessoirs += (operation?.price && operation?.quantity) ? (operation?.price - operation?.product?.price ) * operation?.quantity : 0
           }
         }
       }
@@ -246,11 +258,13 @@ export class DashboardComponent implements OnInit {
       for (let operation of sellingOperations) {
         if (new Date(operation.date).getMonth() == new Date(this.filterMonth).getMonth() &&
           new Date(operation.date).getFullYear() == new Date(this.filterMonth).getFullYear()) {
-          if (operation.product?.category == this.toCategory("617b1efedf2a89293933c589")) {
-            totalTelephones += (operation?.price && operation?.quantity) ? operation?.price * operation?.quantity : 0
-          } else if (operation.product != undefined) {
-            totalAccessoirs += (operation?.price && operation?.quantity) ? operation?.price * operation?.quantity : 0
-          }
+            if (operation.product?.category == this.toCategory("617b1efedf2a89293933c589")) {
+              totalTelephones += (operation?.price && operation?.quantity) ? operation?.price * operation?.quantity : 0
+              netTelephones += (operation?.price && operation?.quantity) ? (operation?.price - operation?.product?.price ) * operation?.quantity : 0
+            } else if (operation.product != undefined) {
+              totalAccessoirs += (operation?.price && operation?.quantity) ? operation?.price * operation?.quantity : 0
+              netAccessoirs += (operation?.price && operation?.quantity) ? (operation?.price - operation?.product?.price ) * operation?.quantity : 0
+            }
         }
       }
 
@@ -260,17 +274,23 @@ export class DashboardComponent implements OnInit {
       let sellingOperations = this.sellingOperations?.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
 
       for (let operation of sellingOperations) {
-        if (new Date(operation.date).getFullYear() == 2021) {
+        console.log(new Date(operation.date).getFullYear() == this.filterYear)
+        if (new Date(operation.date).getFullYear() == this.filterYear) {
           if (operation.product?.category == this.toCategory("617b1efedf2a89293933c589")) {
             totalTelephones += (operation?.price && operation?.quantity) ? operation?.price * operation?.quantity : 0
+            netTelephones += (operation?.price && operation?.quantity) ? (operation?.price - operation?.product?.price ) * operation?.quantity : 0
           } else if (operation.product != undefined) {
             totalAccessoirs += (operation?.price && operation?.quantity) ? operation?.price * operation?.quantity : 0
+            netAccessoirs += (operation?.price && operation?.quantity) ? (operation?.price - operation?.product?.price ) * operation?.quantity : 0
           }
         }
       }
     }
+    let phoneLabel = undefined;
+     phoneLabel=this.toCategory("617b1efedf2a89293933c589");
     this.userAppData = {
-      labels: [this.toCategory("617b1efedf2a89293933c589"), "Accessoirs"],
+
+      labels: [phoneLabel, phoneLabel && phoneLabel!="--" ?"Accessoirs":"--"],
       datasets: [
         {
           data: [
@@ -284,7 +304,27 @@ export class DashboardComponent implements OnInit {
         },
       ],
     };
+
+    this.netData = {
+
+      labels: [phoneLabel, phoneLabel && phoneLabel!="--" ?"Accessoirs":"--"],
+      datasets: [
+        {
+          data: [
+            netTelephones,
+            netAccessoirs,
+          ],
+          backgroundColor: [
+            '#ff0000',
+            '#FFBB00',
+          ],
+        },
+      ],
+    };
+  
   }
+
+  
 
 
   setSellingBarChartData() {
