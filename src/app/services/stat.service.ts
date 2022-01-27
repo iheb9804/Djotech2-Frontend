@@ -12,6 +12,10 @@ export class StatService {
 
   constructor(private http: HttpClient) { }
 
+  undoOperation(id): Observable<any> {
+    return this.http.delete<any>(this.baseUrl+id);
+  }
+
   getStats(): Observable<any> {
     return this.http.get<any>(this.baseUrl);
   }

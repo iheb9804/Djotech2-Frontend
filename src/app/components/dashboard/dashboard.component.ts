@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { faArchive, faCashRegister, faFileInvoiceDollar, faHandHoldingUsd, faHeadphones, faMobileAlt, faTags } from '@fortawesome/free-solid-svg-icons';
+import { faArchive, faCashRegister, faFileInvoiceDollar, faHandHoldingUsd, faHeadphones, faMobileAlt, faTags, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { CategoryService } from 'src/app/services/category.service';
 import { ProductService } from 'src/app/services/product.service';
 import { StatService } from 'src/app/services/stat.service';
 import { GlobalVariable } from 'src/app/shared/global';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-dashboard',
@@ -21,6 +22,7 @@ export class DashboardComponent implements OnInit {
   faMobileAlt = faMobileAlt;
   faHeadphones = faHeadphones;
   faTags = faTags;
+  faTrash = faTrash;
 
 
 
@@ -90,7 +92,7 @@ export class DashboardComponent implements OnInit {
     this.filterMonth = new Date().getFullYear() + "-" +
       ((new Date().getMonth() + 1) < 10 ? "0" + (new Date().getMonth() + 1) : (new Date().getMonth() + 1));
 
-      this.filterYear=2021;
+    this.filterYear = 2021;
     /*
     this.filterWeek = new Date().getFullYear() + "-W" +
       ((this.getWeek(new Date())) < 10 ? "0" + (this.getWeek(new Date())) : (this.getWeek(new Date())));
@@ -107,11 +109,11 @@ export class DashboardComponent implements OnInit {
 
 
     let phoneLabel = undefined;
-     phoneLabel=this.toCategory("617b1efedf2a89293933c589");
+    phoneLabel = this.toCategory("617b1efedf2a89293933c589");
     console.log(phoneLabel)
     this.userAppData = {
 
-      labels: [phoneLabel, phoneLabel && phoneLabel!="--" ?"Accessoirs":"--"],
+      labels: [phoneLabel, phoneLabel && phoneLabel != "--" ? "Accessoirs" : "--"],
       datasets: [
         {
           data: [
@@ -128,14 +130,14 @@ export class DashboardComponent implements OnInit {
     this.optionsBarChart = {
       scales: {
         yAxes: [{
-            display: true,
-            ticks: {
-                suggestedMin: 0,    // minimum will be 0, unless there is a lower value.
-                // OR //
-                beginAtZero: true   // minimum value will be 0.
-            }
+          display: true,
+          ticks: {
+            suggestedMin: 0,    // minimum will be 0, unless there is a lower value.
+            // OR //
+            beginAtZero: true   // minimum value will be 0.
+          }
         }]
-    },
+      },
       //display labels on data elements in graph
       plugins: {
 
@@ -161,7 +163,7 @@ export class DashboardComponent implements OnInit {
     };
 
     this.options = {
-      
+
       //display labels on data elements in graph
       plugins: {
 
@@ -205,15 +207,15 @@ export class DashboardComponent implements OnInit {
 
 
     if (this.selectedDate == "DAILY") {
-      let sellingOperations = this.sellingOperations?.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+      let sellingOperations = this.sellingOperations?.sort((b, a) => new Date(a.date).getTime() - new Date(b.date).getTime());
       for (let operation of sellingOperations) {
         if (new Date(operation.date).getDate() == new Date(this.filterDay).getDate()) {
           if (operation.product?.category == this.toCategory("617b1efedf2a89293933c589")) {
-            totalTelephones += (operation?.price && operation?.quantity) ? operation?.price * operation?.quantity : 0
-            netTelephones += (operation?.price && operation?.quantity) ? (operation?.price - operation?.product?.price ) * operation?.quantity : 0
+            totalTelephones += (operation?.price && operation?.quantity && operation?.product?.price) ? operation?.price * operation?.quantity : 0
+            netTelephones += (operation?.price && operation?.quantity && operation?.product?.price) ? (operation?.price - operation?.product?.price) * operation?.quantity : 0
           } else if (operation.product != undefined) {
-            totalAccessoirs += (operation?.price && operation?.quantity) ? operation?.price * operation?.quantity : 0
-            netAccessoirs += (operation?.price && operation?.quantity) ? (operation?.price - operation?.product?.price ) * operation?.quantity : 0
+            totalAccessoirs += (operation?.price && operation?.quantity && operation?.product?.price) ? operation?.price * operation?.quantity : 0
+            netAccessoirs += (operation?.price && operation?.quantity && operation?.product?.price) ? (operation?.price - operation?.product?.price) * operation?.quantity : 0
           }
         }
       }
@@ -221,7 +223,7 @@ export class DashboardComponent implements OnInit {
 
     /*
     if (this.selectedDate == "WEEKLY") {
-      let sellingOperations = this.sellingOperations?.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+      let sellingOperations = this.sellingOperations?.sort((b, a) => new Date(a.date).getTime() - new Date(b.date).getTime());
       this.sellingBarChartData = [];
       this.daysOfWeek = [];
 
@@ -241,14 +243,14 @@ export class DashboardComponent implements OnInit {
             startCounter = new Date(operation.date).getDate();
             console.log(startCounter)
           }
-          this.sellingBarChartData[new Date(operation.date).getDate() - startCounter] += (operation?.price && operation?.quantity) ? operation?.price * operation?.quantity : 0
+          this.sellingBarChartData[new Date(operation.date).getDate() - startCounter] += (operation?.price && operation?.quantity && operation?.product?.price) ? operation?.price * operation?.quantity : 0
         }
       }
     }
     */
 
     if (this.selectedDate == "MONTHLY") {
-      let sellingOperations = this.sellingOperations?.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+      let sellingOperations = this.sellingOperations?.sort((b, a) => new Date(a.date).getTime() - new Date(b.date).getTime());
       this.sellingBarChartData = [];
       this.days = [];
       for (let i = 0; i < this.lastDay(new Date(this.filterMonth).getFullYear(), new Date(this.filterMonth).getMonth()); i++) {
@@ -258,39 +260,39 @@ export class DashboardComponent implements OnInit {
       for (let operation of sellingOperations) {
         if (new Date(operation.date).getMonth() == new Date(this.filterMonth).getMonth() &&
           new Date(operation.date).getFullYear() == new Date(this.filterMonth).getFullYear()) {
-            if (operation.product?.category == this.toCategory("617b1efedf2a89293933c589")) {
-              totalTelephones += (operation?.price && operation?.quantity) ? operation?.price * operation?.quantity : 0
-              netTelephones += (operation?.price && operation?.quantity) ? (operation?.price - operation?.product?.price ) * operation?.quantity : 0
-            } else if (operation.product != undefined) {
-              totalAccessoirs += (operation?.price && operation?.quantity) ? operation?.price * operation?.quantity : 0
-              netAccessoirs += (operation?.price && operation?.quantity) ? (operation?.price - operation?.product?.price ) * operation?.quantity : 0
-            }
+          if (operation.product?.category == this.toCategory("617b1efedf2a89293933c589")) {
+            totalTelephones += (operation?.price && operation?.quantity && operation?.product?.price) ? operation?.price * operation?.quantity : 0
+            netTelephones += (operation?.price && operation?.quantity && operation?.product?.price) ? (operation?.price - operation?.product?.price) * operation?.quantity : 0
+          } else if (operation.product != undefined) {
+            totalAccessoirs += (operation?.price && operation?.quantity && operation?.product?.price) ? operation?.price * operation?.quantity : 0
+            netAccessoirs += (operation?.price && operation?.quantity && operation?.product?.price) ? (operation?.price - operation?.product?.price) * operation?.quantity : 0
+          }
         }
       }
 
     }
 
-    if (this.selectedDate == "ANUALLY") {
-      let sellingOperations = this.sellingOperations?.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+    if (this.selectedDate == "ANNUALLY") {
+      let sellingOperations = this.sellingOperations?.sort((b, a) => new Date(a.date).getTime() - new Date(b.date).getTime());
 
       for (let operation of sellingOperations) {
         console.log(new Date(operation.date).getFullYear() == this.filterYear)
         if (new Date(operation.date).getFullYear() == this.filterYear) {
           if (operation.product?.category == this.toCategory("617b1efedf2a89293933c589")) {
-            totalTelephones += (operation?.price && operation?.quantity) ? operation?.price * operation?.quantity : 0
-            netTelephones += (operation?.price && operation?.quantity) ? (operation?.price - operation?.product?.price ) * operation?.quantity : 0
+            totalTelephones += (operation?.price && operation?.quantity && operation?.product?.price) ? operation?.price * operation?.quantity : 0
+            netTelephones += (operation?.price && operation?.quantity && operation?.product?.price) ? (operation?.price - operation?.product?.price) * operation?.quantity : 0
           } else if (operation.product != undefined) {
-            totalAccessoirs += (operation?.price && operation?.quantity) ? operation?.price * operation?.quantity : 0
-            netAccessoirs += (operation?.price && operation?.quantity) ? (operation?.price - operation?.product?.price ) * operation?.quantity : 0
+            totalAccessoirs += (operation?.price && operation?.quantity && operation?.product?.price) ? operation?.price * operation?.quantity : 0
+            netAccessoirs += (operation?.price && operation?.quantity && operation?.product?.price) ? (operation?.price - operation?.product?.price) * operation?.quantity : 0
           }
         }
       }
     }
     let phoneLabel = undefined;
-     phoneLabel=this.toCategory("617b1efedf2a89293933c589");
+    phoneLabel = this.toCategory("617b1efedf2a89293933c589");
     this.userAppData = {
 
-      labels: [phoneLabel, phoneLabel && phoneLabel!="--" ?"Accessoirs":"--"],
+      labels: [phoneLabel, phoneLabel && phoneLabel != "--" ? "Accessoirs" : "--"],
       datasets: [
         {
           data: [
@@ -307,7 +309,7 @@ export class DashboardComponent implements OnInit {
 
     this.netData = {
 
-      labels: [phoneLabel, phoneLabel && phoneLabel!="--" ?"Accessoirs":"--"],
+      labels: [phoneLabel, phoneLabel && phoneLabel != "--" ? "Accessoirs" : "--"],
       datasets: [
         {
           data: [
@@ -321,15 +323,15 @@ export class DashboardComponent implements OnInit {
         },
       ],
     };
-  
+
   }
 
-  
+
 
 
   setSellingBarChartData() {
     if (this.selectedDate == "DAILY") {
-      let sellingOperations = this.sellingOperations?.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+      let sellingOperations = this.sellingOperations?.sort((b, a) => new Date(a.date).getTime() - new Date(b.date).getTime());
       this.sellingBarChartData = [];
       this.hours = [];
       for (let i = 0; i < 24; i++) {
@@ -338,8 +340,13 @@ export class DashboardComponent implements OnInit {
         this.hours.push(i < 10 ? "0" + i : i);
       }
       for (let operation of sellingOperations) {
-        if (new Date(operation.date).getDate() == new Date(this.filterDay).getDate())
-          this.sellingBarChartData[new Date(operation.date).getHours()] += (operation?.price && operation?.quantity) ? operation?.price * operation?.quantity : 0
+        let operationDate = new Date(operation.date);
+        let filterDayDate = new Date(this.filterDay);
+        if (operationDate.getFullYear() == filterDayDate.getFullYear() &&
+          operationDate.getMonth() == filterDayDate.getMonth() &&
+          operationDate.getDate() == filterDayDate.getDate()
+        )
+          this.sellingBarChartData[new Date(operation.date).getHours()] += (operation?.price && operation?.quantity && operation?.product?.price) ? operation?.price * operation?.quantity : 0
       }
       this.userUsageHoursData = {
         labels: this.hours,
@@ -360,7 +367,7 @@ export class DashboardComponent implements OnInit {
     }
     /*
     if (this.selectedDate == "WEEKLY") {
-      let sellingOperations = this.sellingOperations?.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+      let sellingOperations = this.sellingOperations?.sort((b, a) => new Date(a.date).getTime() - new Date(b.date).getTime());
       this.sellingBarChartData = [];
       this.daysOfWeek = [];
 
@@ -380,7 +387,7 @@ export class DashboardComponent implements OnInit {
             startCounter = new Date(operation.date).getDate();
             console.log(startCounter)
           }
-          this.sellingBarChartData[new Date(operation.date).getDate() - startCounter] += (operation?.price && operation?.quantity) ? operation?.price * operation?.quantity : 0
+          this.sellingBarChartData[new Date(operation.date).getDate() - startCounter] += (operation?.price && operation?.quantity && operation?.product?.price) ? operation?.price * operation?.quantity : 0
         }
       }
 
@@ -404,7 +411,7 @@ export class DashboardComponent implements OnInit {
     */
 
     if (this.selectedDate == "MONTHLY") {
-      let sellingOperations = this.sellingOperations?.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+      let sellingOperations = this.sellingOperations?.sort((b, a) => new Date(a.date).getTime() - new Date(b.date).getTime());
       this.sellingBarChartData = [];
       this.days = [];
       for (let i = 0; i < this.lastDay(new Date(this.filterMonth).getFullYear(), new Date(this.filterMonth).getMonth()); i++) {
@@ -414,7 +421,7 @@ export class DashboardComponent implements OnInit {
       for (let operation of sellingOperations) {
         if (new Date(operation.date).getMonth() == new Date(this.filterMonth).getMonth() &&
           new Date(operation.date).getFullYear() == new Date(this.filterMonth).getFullYear())
-          this.sellingBarChartData[new Date(operation.date).getDate() - 1] += (operation?.price && operation?.quantity) ? operation?.price * operation?.quantity : 0
+          this.sellingBarChartData[new Date(operation.date).getDate() - 1] += (operation?.price && operation?.quantity && operation?.product?.price) ? operation?.price * operation?.quantity : 0
       }
       this.userUsageHoursData = {
         labels: this.days,
@@ -434,11 +441,13 @@ export class DashboardComponent implements OnInit {
 
     }
 
-    if (this.selectedDate == "ANUALLY") {
-      let sellingOperations = this.sellingOperations?.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+    if (this.selectedDate == "ANNUALLY") {
+      let sellingOperations = this.sellingOperations?.sort((b, a) => new Date(a.date).getTime() - new Date(b.date).getTime());
+
       this.sellingBarChartData = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
       for (let operation of sellingOperations) {
-        this.sellingBarChartData[new Date(operation.date).getMonth()] += (operation?.price && operation?.quantity) ? operation?.price * operation?.quantity : 0
+        console.log(operation);
+        this.sellingBarChartData[new Date(operation.date).getMonth()] += (operation?.price && operation?.quantity && operation?.product?.price) ? operation?.price * operation?.quantity : 0
       }
       this.userUsageHoursData = {
         labels: this.months,
@@ -463,7 +472,7 @@ export class DashboardComponent implements OnInit {
   setLoadingBarChartData() {
 
     if (this.selectedDate == "DAILY") {
-      let loadingOperations = this.loadingOperations?.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+      let loadingOperations = this.loadingOperations?.sort((b, a) => new Date(a.date).getTime() - new Date(b.date).getTime());
       this.loadingBarChartData = [];
       this.hours = [];
       for (let i = 0; i < 24; i++) {
@@ -471,7 +480,12 @@ export class DashboardComponent implements OnInit {
         this.hours.push(i < 10 ? "0" + i : i);
       }
       for (let operation of loadingOperations) {
-        if (new Date(operation.date).getDate() == new Date(this.filterDay).getDate())
+        let operationDate = new Date(operation.date);
+        let filterDayDate = new Date(this.filterDay);
+        if (operationDate.getFullYear() == filterDayDate.getFullYear() &&
+          operationDate.getMonth() == filterDayDate.getMonth() &&
+          operationDate.getDate() == filterDayDate.getDate()
+        )
           this.loadingBarChartData[new Date(operation.date).getHours()] += (operation?.product?.price && operation?.quantity) ? operation?.product?.price * operation?.quantity : 0
       }
       this.userUsageHoursData = {
@@ -493,7 +507,7 @@ export class DashboardComponent implements OnInit {
     }
     /*
     if (this.selectedDate == "WEEKLY") {
-      let loadingOperations = this.loadingOperations?.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+      let loadingOperations = this.loadingOperations?.sort((b, a) => new Date(a.date).getTime() - new Date(b.date).getTime());
       this.loadingBarChartData = [];
       this.daysOfWeek = [];
 
@@ -536,7 +550,7 @@ export class DashboardComponent implements OnInit {
     */
 
     if (this.selectedDate == "MONTHLY") {
-      let loadingOperations = this.loadingOperations?.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+      let loadingOperations = this.loadingOperations?.sort((b, a) => new Date(a.date).getTime() - new Date(b.date).getTime());
       this.loadingBarChartData = [];
       this.days = [];
       for (let i = 0; i < this.lastDay(new Date(this.filterMonth).getFullYear(), new Date(this.filterMonth).getMonth()); i++) {
@@ -565,8 +579,8 @@ export class DashboardComponent implements OnInit {
       };
     }
 
-    if (this.selectedDate == "ANUALLY") {
-      let loadingOperations = this.loadingOperations?.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+    if (this.selectedDate == "ANNUALLY") {
+      let loadingOperations = this.loadingOperations?.sort((b, a) => new Date(a.date).getTime() - new Date(b.date).getTime());
       this.loadingBarChartData = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
       for (let operation of loadingOperations) {
         this.loadingBarChartData[new Date(operation.date).getMonth()] += (operation?.product?.price && operation?.quantity) ? operation?.product?.price * operation?.quantity : 0
@@ -654,6 +668,42 @@ export class DashboardComponent implements OnInit {
 
   }
 
+  undoOperation(element,type) {
+    Swal.fire({
+      title: 'Supprimer l\'opération ?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Annuler',
+      confirmButtonText: 'Supprimer'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.statService.undoOperation(element.id).subscribe(
+          data => {
+            console.log(element);
+            let quantity = element.product.quantity + (type == "SOLD" ? element.quantity : -element.quantity);
+            let product = {
+              _id: element.product._id,
+              quantity: quantity
+            }
+            this.productService.updateProduct(product).subscribe(
+              data => {
+                Swal.fire({
+                  icon: 'success',
+                  title: 'Operation supprimée',
+                  showConfirmButton: false,
+                  timer: 1500
+                })
+                this.getStats();
+              }
+            )
+          }
+        )       
+      }
+    })    
+  }
+
   getStats() {
     this.statService.getStats().subscribe(data => {
       this.stats = data;
@@ -686,9 +736,15 @@ export class DashboardComponent implements OnInit {
     this.returningOperations = [];
     for (let stat of this.stats) {
       if (this.selectedDate == "DAILY") {
-        if (new Date(stat.date).getDate() == new Date(this.filterDay).getDate()) {
+        let operationDate = new Date(stat.date);
+        let filterDayDate = new Date(this.filterDay);
+        if (operationDate.getFullYear() == filterDayDate.getFullYear() &&
+          operationDate.getMonth() == filterDayDate.getMonth() &&
+          operationDate.getDate() == filterDayDate.getDate()
+        ) {
           let product = this.getProduct(stat.productID);
           let cell = {
+            id: stat._id,
             product: product,
             quantity: stat.quantity,
             price: stat.price,
@@ -709,6 +765,7 @@ export class DashboardComponent implements OnInit {
           new Date(stat.date).getFullYear() == new Date(this.filterMonth).getFullYear()) {
           let product = this.getProduct(stat.productID);
           let cell = {
+            id: stat._id,
             product: product,
             quantity: stat.quantity,
             price: stat.price,
@@ -724,10 +781,11 @@ export class DashboardComponent implements OnInit {
             this.returningOperations.push(cell);
           }
         }
-      } else if (this.selectedDate == "ANUALLY") {
-        if (new Date(stat.date).getFullYear() == 2021) {
+      } else if (this.selectedDate == "ANNUALLY") {
+        if (new Date(stat.date).getFullYear() == this.filterYear) {
           let product = this.getProduct(stat.productID);
           let cell = {
+            id: stat._id,
             product: product,
             quantity: stat.quantity,
             price: stat.price,

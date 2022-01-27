@@ -56,6 +56,7 @@ export class UpdateBorrowerComponent implements OnInit {
       comment: this.comment,
       credit: this.credit
     }
+    console.log(provider)
 
     this.loanService.updateBorrower(provider).subscribe(
       data => {
