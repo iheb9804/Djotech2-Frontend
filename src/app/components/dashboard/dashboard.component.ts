@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { faArchive, faCashRegister, faFileInvoiceDollar, faHandHoldingUsd, faHeadphones, faMobileAlt, faTags, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import { AuthService } from 'src/app/services/auth.service';
 import { CategoryService } from 'src/app/services/category.service';
 import { ProductService } from 'src/app/services/product.service';
 import { StatService } from 'src/app/services/stat.service';
@@ -75,14 +76,30 @@ export class DashboardComponent implements OnInit {
   options;
   optionsBarChart;
 
+  dashboardToBeDisplayed;
+  password;
+  passwordAvailable;
+  confirmPassword;
+  passwordsMatch=true;
+  user;
+
   constructor(private statService: StatService,
     private productService: ProductService,
-    private categoryService: CategoryService) { }
+    private categoryService: CategoryService,
+    private authService:AuthService
+    ) { }
 
 
 
   ngOnInit(): void {
+    this.user = this.authService.getConnectedUser();
+    this.authService.checkPasswordAvailability({login:this.user.login}).subscribe(
+      data=>{
+        this.passwordAvailable=data.success;
 
+      }
+    )
+    this.dashboardToBeDisplayed=false;
     this.getData();
 
     this.filterDay = new Date().getFullYear() + "-" +
@@ -841,5 +858,68 @@ export class DashboardComponent implements OnInit {
   round(value, precision) {
     var multiplier = Math.pow(10, precision || 0);
     return Math.round(value * multiplier) / multiplier;
+  }
+
+
+
+  //================ Password ===================
+
+  savePassword(){
+    if (this.password=="" || this.password==null || this.password==undefined){
+      Swal.fire({
+        icon: 'error',
+        title: 'Le mot de passe ne doit pas être vide',
+        showConfirmButton: false,
+        timer: 2500
+      })
+    }else if (this.password==this.confirmPassword){
+      this.authService.savePassword({login:this.user.login,password:this.password}).subscribe(
+        data=>{
+          this.dashboardToBeDisplayed=true;
+          Swal.fire({
+            icon: 'success',
+            title: 'Mot de passe ajouté',
+            showConfirmButton: false,
+            timer: 1500
+          })
+        }
+      )
+    }else{
+      Swal.fire({
+        icon: 'error',
+        title: 'Les 2 mots de passes sont différents',
+        showConfirmButton: false,
+        timer: 2500
+      })
+    }
+    
+  }
+
+  checkPassword(){
+    this.authService.checkPassword({login:this.user.login,password:this.password}).subscribe(
+      data=>{
+        this.dashboardToBeDisplayed=data.success;
+        if (data.success==false){
+          Swal.fire({
+            icon: 'error',
+            title: 'Mot de passe incorrect',
+            showConfirmButton: false,
+            timer: 1500
+          })
+        }else{
+          Swal.fire({
+            icon: 'success',
+            title: 'Mot de passe correcte, Bienvenue !',
+            showConfirmButton: false,
+            timer: 1500
+          })
+        }
+      }
+    )
+  }
+
+  reset(){
+    this.password="";
+    this.confirmPassword="";
   }
 }

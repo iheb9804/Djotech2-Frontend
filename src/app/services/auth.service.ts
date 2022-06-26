@@ -78,5 +78,17 @@ export class AuthService {
     return localStorage.getItem('id_token');
   }
 
+  savePassword(body:any) : Observable<any>{
+    return this.http.post<any>(this.BASE_PATH+'/users/savePassword',body);
+  }
+
+  checkPassword(body:any) : Observable<any>{
+    return this.http.post<any>(this.BASE_PATH+'/users/checkPassword',body);
+  }
+
+  checkPasswordAvailability(body:any) : Observable<any>{
+    return this.http.post<any>(this.BASE_PATH+'/users/checkPasswordAvailability',body);
+  }
+
 
 }
