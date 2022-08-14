@@ -14,6 +14,7 @@ import { EMPTY } from 'rxjs';
 import Swal from 'sweetalert2';
 import { SPINNER } from 'ngx-loading-x';
 import { CompressorService } from 'src/app/services/compressor.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-update-product',
@@ -21,6 +22,7 @@ import { CompressorService } from 'src/app/services/compressor.service';
   styleUrls: ['./update-product.component.scss']
 })
 export class UpdateProductComponent implements OnInit {
+
 
   public uploader: FileUploader;
   URL = GlobalVariable.BASE_PATH + '/file-upload';
@@ -33,6 +35,13 @@ export class UpdateProductComponent implements OnInit {
   faTimes = faTimes
   faTrash = faTrash
 
+
+  user;
+  password;
+  screenToBeDisplayed = false;
+  passwordAvailable;
+  confirmPassword;
+  passwordsMatch = true;
 
   name;
   price;
@@ -82,9 +91,17 @@ export class UpdateProductComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private afStorage: AngularFireStorage,
-    private compressor:CompressorService) { }
+    private compressor: CompressorService,
+    private authService: AuthService) { }
 
   ngOnInit(): void {
+    this.user = this.authService.getConnectedUser();
+    this.authService.checkPasswordAvailability({ login: this.user.login }).subscribe(
+      data => {
+        this.passwordAvailable = data.success;
+
+      }
+    )
     this.saveInProgress = false;
     this.id = this.route.snapshot.paramMap.get('id');
     this.getData();
@@ -110,9 +127,7 @@ export class UpdateProductComponent implements OnInit {
           this.categories = data;
           this.productService.getProduct(this.id).subscribe(data => {
             this.product = data;
-            console.log(this.product.category);
             this.product.category = this.categories.filter(item => item._id == this.product.category)[0];
-            console.log(this.product);
           })
         })
       })
@@ -128,6 +143,66 @@ export class UpdateProductComponent implements OnInit {
   onFileChanged(event) {
     console.log(JSON.stringify(event));
     this.selectedFile = event.target.files[0]
+  }
+
+  checkPassword() {
+    if (this.password != "" && this.password != null)
+      this.authService.checkPassword({ login: this.user.login, password: this.password }).subscribe(
+        data => {
+          this.screenToBeDisplayed = data.success;
+          if (data.success == false) {
+            Swal.fire({
+              icon: 'error',
+              title: 'Mot de passe incorrect',
+              showConfirmButton: false,
+              timer: 1500
+            })
+          } else {
+            Swal.fire({
+              icon: 'success',
+              title: 'Mot de passe correcte, Bienvenue !',
+              showConfirmButton: false,
+              timer: 1500
+            })
+          }
+        }
+      )
+  }
+
+  savePassword() {
+    if (this.password == "" || this.password == null || this.password == undefined) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Le mot de passe ne doit pas être vide',
+        showConfirmButton: false,
+        timer: 2500
+      })
+    } else if (this.password == this.confirmPassword) {
+      this.authService.savePassword({ login: this.user.login, password: this.password }).subscribe(
+        data => {
+          this.screenToBeDisplayed = true;
+          Swal.fire({
+            icon: 'success',
+            title: 'Mot de passe ajouté',
+            showConfirmButton: false,
+            timer: 1500
+          })
+        }
+      )
+    } else {
+      Swal.fire({
+        icon: 'error',
+        title: 'Les 2 mots de passes sont différents',
+        showConfirmButton: false,
+        timer: 2500
+      })
+    }
+
+  }
+
+  resetPassword() {
+    this.password = "";
+    this.confirmPassword = "";
   }
 
   save() {
@@ -253,10 +328,10 @@ export class UpdateProductComponent implements OnInit {
   }
 
   recursiveCompress = (image: File, index, array) => {
-    return this.compressor.compress(image).pipe (
+    return this.compressor.compress(image).pipe(
       map(response => {
 
-      //Code block after completing each compression
+        //Code block after completing each compression
         console.log('compressed ' + index + image.name);
         this.compressedImages.push(response);
         return {
@@ -268,25 +343,25 @@ export class UpdateProductComponent implements OnInit {
     );
   }
 
-//process files for upload
-  public process (event) {
-  this.data = event.target.files;
-  this.compressedImages=[];
-  console.log('input: '  + this.data);
-  const compress = this.recursiveCompress( this.data[0], 0, this.data ).pipe(
-    expand(res => {
-      return res.index > res.array.length - 1
-        ? EMPTY
-        : this.recursiveCompress( this.data[res.index], res.index, this.data );
-    }),
-  );
-  compress.subscribe(res => {
-    if (res.index > res.array.length - 1) {
+  //process files for upload
+  public process(event) {
+    this.data = event.target.files;
+    this.compressedImages = [];
+    console.log('input: ' + this.data);
+    const compress = this.recursiveCompress(this.data[0], 0, this.data).pipe(
+      expand(res => {
+        return res.index > res.array.length - 1
+          ? EMPTY
+          : this.recursiveCompress(this.data[res.index], res.index, this.data);
+      }),
+    );
+    compress.subscribe(res => {
+      if (res.index > res.array.length - 1) {
 
 
-    //Code block after completing all compression
-      console.log('Compression successful ' + this.compressedImages);
-    }
-  });
-}
+        //Code block after completing all compression
+        console.log('Compression successful ' + this.compressedImages);
+      }
+    });
+  }
 }

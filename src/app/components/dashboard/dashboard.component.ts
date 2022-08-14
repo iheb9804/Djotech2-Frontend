@@ -80,26 +80,26 @@ export class DashboardComponent implements OnInit {
   password;
   passwordAvailable;
   confirmPassword;
-  passwordsMatch=true;
+  passwordsMatch = true;
   user;
 
   constructor(private statService: StatService,
     private productService: ProductService,
     private categoryService: CategoryService,
-    private authService:AuthService
-    ) { }
+    private authService: AuthService
+  ) { }
 
 
 
   ngOnInit(): void {
     this.user = this.authService.getConnectedUser();
-    this.authService.checkPasswordAvailability({login:this.user.login}).subscribe(
-      data=>{
-        this.passwordAvailable=data.success;
+    this.authService.checkPasswordAvailability({ login: this.user.login }).subscribe(
+      data => {
+        this.passwordAvailable = data.success;
 
       }
     )
-    this.dashboardToBeDisplayed=false;
+    this.dashboardToBeDisplayed = false;
     this.getData();
 
     this.filterDay = new Date().getFullYear() + "-" +
@@ -685,7 +685,7 @@ export class DashboardComponent implements OnInit {
 
   }
 
-  undoOperation(element,type) {
+  undoOperation(element, type) {
     Swal.fire({
       title: 'Supprimer l\'opération ?',
       icon: 'warning',
@@ -716,9 +716,9 @@ export class DashboardComponent implements OnInit {
               }
             )
           }
-        )       
+        )
       }
-    })    
+    })
   }
 
   getStats() {
@@ -864,18 +864,18 @@ export class DashboardComponent implements OnInit {
 
   //================ Password ===================
 
-  savePassword(){
-    if (this.password=="" || this.password==null || this.password==undefined){
+  savePassword() {
+    if (this.password == "" || this.password == null || this.password == undefined) {
       Swal.fire({
         icon: 'error',
         title: 'Le mot de passe ne doit pas être vide',
         showConfirmButton: false,
         timer: 2500
       })
-    }else if (this.password==this.confirmPassword){
-      this.authService.savePassword({login:this.user.login,password:this.password}).subscribe(
-        data=>{
-          this.dashboardToBeDisplayed=true;
+    } else if (this.password == this.confirmPassword) {
+      this.authService.savePassword({ login: this.user.login, password: this.password }).subscribe(
+        data => {
+          this.dashboardToBeDisplayed = true;
           Swal.fire({
             icon: 'success',
             title: 'Mot de passe ajouté',
@@ -884,7 +884,7 @@ export class DashboardComponent implements OnInit {
           })
         }
       )
-    }else{
+    } else {
       Swal.fire({
         icon: 'error',
         title: 'Les 2 mots de passes sont différents',
@@ -892,34 +892,35 @@ export class DashboardComponent implements OnInit {
         timer: 2500
       })
     }
-    
+
   }
 
-  checkPassword(){
-    this.authService.checkPassword({login:this.user.login,password:this.password}).subscribe(
-      data=>{
-        this.dashboardToBeDisplayed=data.success;
-        if (data.success==false){
-          Swal.fire({
-            icon: 'error',
-            title: 'Mot de passe incorrect',
-            showConfirmButton: false,
-            timer: 1500
-          })
-        }else{
-          Swal.fire({
-            icon: 'success',
-            title: 'Mot de passe correcte, Bienvenue !',
-            showConfirmButton: false,
-            timer: 1500
-          })
+  checkPassword() {
+    if (this.password != "" && this.password != null)
+      this.authService.checkPassword({ login: this.user.login, password: this.password }).subscribe(
+        data => {
+          this.dashboardToBeDisplayed = data.success;
+          if (data.success == false) {
+            Swal.fire({
+              icon: 'error',
+              title: 'Mot de passe incorrect',
+              showConfirmButton: false,
+              timer: 1500
+            })
+          } else {
+            Swal.fire({
+              icon: 'success',
+              title: 'Mot de passe correcte, Bienvenue !',
+              showConfirmButton: false,
+              timer: 1500
+            })
+          }
         }
-      }
-    )
+      )
   }
 
-  reset(){
-    this.password="";
-    this.confirmPassword="";
+  reset() {
+    this.password = "";
+    this.confirmPassword = "";
   }
 }
