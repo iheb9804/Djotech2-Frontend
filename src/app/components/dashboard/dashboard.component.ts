@@ -24,7 +24,7 @@ export class DashboardComponent implements OnInit {
   faHeadphones = faHeadphones;
   faTags = faTags;
   faTrash = faTrash;
-
+  years = []
 
 
   //Pagination 
@@ -46,6 +46,8 @@ export class DashboardComponent implements OnInit {
   totalValue;
   phonesValue;
   accessoriesValue;
+  netAccessories;
+  phonesTradeValue;
   netWorth;
   mobilesNetWorth;
   loan;
@@ -92,6 +94,9 @@ export class DashboardComponent implements OnInit {
 
 
   ngOnInit(): void {
+    for (let i = 2021; i <= new Date().getFullYear(); i++) {
+      this.years.push(i)
+    }
     this.user = this.authService.getConnectedUser();
     this.authService.checkPasswordAvailability({ login: this.user.login }).subscribe(
       data => {
@@ -675,10 +680,16 @@ export class DashboardComponent implements OnInit {
       })
       this.statService.getPhonesValue().subscribe(data => {
         this.phonesValue = this.round(data.total, 1);
-        this.accessoriesValue = this.round(this.totalValue - this.phonesValue, 1);
         this.statService.getPhonesTradeValue().subscribe(data => {
+          this.phonesTradeValue = data.total
+          this.accessoriesValue = this.round(this.totalValue - this.phonesValue, 1);
+
           this.mobilesNetWorth = this.round(this.phonesValue - data.total, 1)
+          this.netAccessories = this.round(this.netWorth - this.mobilesNetWorth, 1);
+
+          console.log(this.stockInTrade, this.phonesTradeValue)
         })
+
       })
     })
 

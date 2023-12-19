@@ -125,6 +125,7 @@ export class ManageProductsComponent implements OnInit {
   }
   search() {
     this.filtredProducts = this.products;
+    this.page = 1
     console.log("Searchable : ",this.searchable);
     if (this.searchable != undefined && this.searchable != null)
       this.filtredProducts = this.filtredProducts.filter(item => ((item.name?.toUpperCase()?.indexOf(this.searchable?.toUpperCase()) != -1) ||
@@ -163,6 +164,7 @@ export class ManageProductsComponent implements OnInit {
   }
 
   searchWithFilters() {
+    this.page = 1
     this.filtredProducts = this.products;
     if (this.color != undefined && this.color != null)
       this.filtredProducts = this.filtredProducts.filter(item => item.color == this.color.name);

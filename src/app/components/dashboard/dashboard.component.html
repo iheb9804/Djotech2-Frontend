@@ -22,7 +22,8 @@
                                     <input type="password" class="form-control" id="confirmPassword"
                                         [(ngModel)]="confirmPassword" name="confirmPassword">
                                 </div>
-                                <span *ngIf="!passwordsMatch" class="error">Les deux mots de passes sont différents</span>
+                                <span *ngIf="!passwordsMatch" class="error">Les deux mots de passes sont
+                                    différents</span>
 
                             </div>
                         </div>
@@ -187,15 +188,15 @@
                         <fa-icon class="icon" [icon]="faHeadphones"></fa-icon>
                     </div>
                     <div class="col-8 col-md-9 col-lg-9 widget-title">
-                        <span class="subtitle">Valeur des accessoires</span>
+                        <span class="subtitle">Net des accessoires</span>
                     </div>
                 </div>
                 <div class="row widget-content">
                     <div class="col-12 col-md-12 col-lg-12">
                         <img src="assets/loading.gif" class="loading"
-                            *ngIf="accessoriesValue==null || accessoriesValue == undefined">
+                            *ngIf="netAccessories==null || netAccessories == undefined">
                         <span class="widget-value"
-                            *ngIf="accessoriesValue!=null && accessoriesValue != undefined">{{accessoriesValue + "
+                            *ngIf="netAccessories!=null && netAccessories != undefined">{{netAccessories + "
                             DT"}}</span>
                     </div>
                 </div>
@@ -224,16 +225,19 @@
             <div class="widget">
                 <div class="row widget-header">
                     <div class="col-4 col-md-3 col-lg-3 widget-icon">
-                        <fa-icon class="icon" [icon]="faHandHoldingUsd"></fa-icon>
+                        <fa-icon class="icon" [icon]="faHeadphones"></fa-icon>
                     </div>
                     <div class="col-8 col-md-9 col-lg-9 widget-title">
-                        <span class="subtitle">Dette</span>
+                        <span class="subtitle">Valeur des accessoires</span>
                     </div>
                 </div>
                 <div class="row widget-content">
                     <div class="col-12 col-md-12 col-lg-12">
-                        <img src="assets/loading.gif" class="loading" *ngIf="debt==null || debt == undefined">
-                        <span class="widget-value" *ngIf="debt!=null && debt != undefined">{{debt + " DT"}}</span>
+                        <img src="assets/loading.gif" class="loading"
+                            *ngIf="accessoriesValue==null || accessoriesValue == undefined">
+                        <span class="widget-value"
+                            *ngIf="accessoriesValue!=null && accessoriesValue != undefined">{{accessoriesValue + "
+                            DT"}}</span>
                     </div>
                 </div>
             </div>
@@ -281,8 +285,7 @@
 
             <select class="form-control" *ngIf="selectedDate=='ANNUALLY'" [(ngModel)]="filterYear"
                 (change)="loadCharts('ANNUALLY')">
-                <option value="2021">2021</option>
-                <option value="2022">2022</option>
+                <option *ngFor="let year of years" [value]="year">{{year}}</option>
             </select>
         </div>
     </div>

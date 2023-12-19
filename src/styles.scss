@@ -298,3 +298,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
       padding-top:20px;
   }
 }
+
+@media (max-width: 1700px) {
+  .widget-value{
+      font-size:2.5em !important;
+  }
+}
