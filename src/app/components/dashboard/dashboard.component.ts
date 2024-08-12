@@ -131,7 +131,7 @@ export class DashboardComponent implements OnInit {
 
 
     let phoneLabel = undefined;
-    phoneLabel = this.toCategory("66b90f6795feacc33260bee1");
+    phoneLabel = this.toCategory("66b5eb99e806fb161d7e8405");
     console.log(phoneLabel)
     this.userAppData = {
 
@@ -232,7 +232,7 @@ export class DashboardComponent implements OnInit {
       let sellingOperations = this.sellingOperations?.sort((b, a) => new Date(a.date).getTime() - new Date(b.date).getTime());
       for (let operation of sellingOperations) {
         if (new Date(operation.date).getDate() == new Date(this.filterDay).getDate()) {
-          if (operation.product?.category == this.toCategory("66b90f6795feacc33260bee1")) {
+          if (operation.product?.category == this.toCategory("66b5eb99e806fb161d7e8405")) {
             totalTelephones += (operation?.price && operation?.quantity && operation?.product?.price) ? operation?.price * operation?.quantity : 0
             netTelephones += (operation?.price && operation?.quantity && operation?.product?.price) ? (operation?.price - operation?.product?.price) * operation?.quantity : 0
           } else if (operation.product != undefined) {
@@ -282,7 +282,7 @@ export class DashboardComponent implements OnInit {
       for (let operation of sellingOperations) {
         if (new Date(operation.date).getMonth() == new Date(this.filterMonth).getMonth() &&
           new Date(operation.date).getFullYear() == new Date(this.filterMonth).getFullYear()) {
-          if (operation.product?.category == this.toCategory("66b90f6795feacc33260bee1")) {
+          if (operation.product?.category == this.toCategory("66b5eb99e806fb161d7e8405")) {
             totalTelephones += (operation?.price && operation?.quantity && operation?.product?.price) ? operation?.price * operation?.quantity : 0
             netTelephones += (operation?.price && operation?.quantity && operation?.product?.price) ? (operation?.price - operation?.product?.price) * operation?.quantity : 0
           } else if (operation.product != undefined) {
@@ -300,7 +300,7 @@ export class DashboardComponent implements OnInit {
       for (let operation of sellingOperations) {
         console.log(new Date(operation.date).getFullYear() == this.filterYear)
         if (new Date(operation.date).getFullYear() == this.filterYear) {
-          if (operation.product?.category == this.toCategory("66b90f6795feacc33260bee1")) {
+          if (operation.product?.category == this.toCategory("66b5eb99e806fb161d7e8405")) {
             totalTelephones += (operation?.price && operation?.quantity && operation?.product?.price) ? operation?.price * operation?.quantity : 0
             netTelephones += (operation?.price && operation?.quantity && operation?.product?.price) ? (operation?.price - operation?.product?.price) * operation?.quantity : 0
           } else if (operation.product != undefined) {
@@ -311,7 +311,7 @@ export class DashboardComponent implements OnInit {
       }
     }
     let phoneLabel = undefined;
-    phoneLabel = this.toCategory("66b90f6795feacc33260bee1");
+    phoneLabel = this.toCategory("66b5eb99e806fb161d7e8405");
     this.userAppData = {
 
       labels: [phoneLabel, phoneLabel && phoneLabel != "--" ? "Accessoirs" : "--"],
